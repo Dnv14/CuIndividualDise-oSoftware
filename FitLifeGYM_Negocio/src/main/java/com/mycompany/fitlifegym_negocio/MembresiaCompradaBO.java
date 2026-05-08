@@ -8,7 +8,7 @@ import Adapter.DtosAEntidadesAdapter;
 import com.mycompany.fitlifegym_dtos.NuevaMembresiaCompradaDTO;
 import com.mycompany.fitlifegym_persistencia.IMembresiaCompradaDAO;
 import com.mycompany.fitlifegym_persistencia.PersistenciaException;
-import com.mycompany.fitlifegym_persistencia.entidades.MembresiaComprada;
+import Entidades.MembresiaComprada;
 import java.util.List;
 
 /**

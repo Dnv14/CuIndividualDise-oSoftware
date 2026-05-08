@@ -1,0 +1,14 @@
+com\mycompany\fitlifegym_persistencia\ClientesListDAO.class
+com\mycompany\fitlifegym_persistencia\IClientesDAO.class
+com\mycompany\fitlifegym_persistencia\IMembresiaCompradaDAO.class
+com\mycompany\fitlifegym_persistencia\IMembresiaDAO.class
+com\mycompany\fitlifegym_persistencia\MembresiaCompradaListDAO.class
+com\mycompany\fitlifegym_persistencia\entidades\MembresiaComprada.class
+com\mycompany\fitlifegym_persistencia\entidades\TipoMembresia.class
+com\mycompany\fitlifegym_persistencia\MembresiaListDAO.class
+Rutina.class
+com\mycompany\fitlifegym_persistencia\entidades\Cliente.class
+com\mycompany\fitlifegym_persistencia\entidades\Membresia.class
+com\mycompany\fitlifegym_persistencia\PersistenciaException.class
+com\mycompany\fitlifegym_persistencia\entidades\Tarjeta.class
+com\mycompany\fitlifegym_persistencia\entidades\Estado.class

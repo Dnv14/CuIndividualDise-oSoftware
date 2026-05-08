@@ -1,5 +1,5 @@
 
-package com.mycompany.fitlifegym_persistencia.entidades;
+package Entidades;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * @author Julian
  */
 public class MembresiaComprada {
-    private Long idMembresiaComprada;
+    private String idMembresiaComprada;
     private Membresia membresia;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
@@ -17,7 +17,7 @@ public class MembresiaComprada {
 
     public MembresiaComprada() {}
 
-    public MembresiaComprada(Long idMembresiaComprada, Membresia membresia, LocalDate fechaInicio, LocalDate fechaFin, Double precioPagado, Estado estado) {
+    public MembresiaComprada(String idMembresiaComprada, Membresia membresia, LocalDate fechaInicio, LocalDate fechaFin, Double precioPagado, Estado estado) {
         this.idMembresiaComprada = idMembresiaComprada;
         this.membresia = membresia;
         this.fechaInicio = fechaInicio;
@@ -34,11 +34,11 @@ public class MembresiaComprada {
         this.estado = estado;
     }
 
-    public Long getIdMembresiaComprada() {
+    public String getIdMembresiaComprada() {
         return idMembresiaComprada;
     }
 
-    public void setIdMembresiaComprada(Long idMembresiaComprada) {
+    public void setIdMembresiaComprada(String idMembresiaComprada) {
         this.idMembresiaComprada = idMembresiaComprada;
     }
 

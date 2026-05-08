@@ -12,7 +12,7 @@ import com.mycompany.fitlifegym_negocio.ILoginBO;
 import com.mycompany.fitlifegym_negocio.IMembresiaBO;
 import com.mycompany.fitlifegym_negocio.IRenovarMembresiaBO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
-import com.mycompany.fitlifegym_persistencia.entidades.Membresia;
+import Entidades.Membresia;
 import java.util.List;
 
 /**
@@ -71,11 +71,7 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
         if (dto.getIdCliente() == null) {
             throw new NegocioException("El ID del cliente no puede ser nulo.");
         }
-
-        if (dto.getIdCliente() <= 0) {
-            throw new NegocioException("El ID del cliente debe ser mayor a 0.");
-        }
-
+        
         if (dto.getTipoMembresia() == null) {
             throw new NegocioException("Se debe de elegir un tipo de membresia.");
         }

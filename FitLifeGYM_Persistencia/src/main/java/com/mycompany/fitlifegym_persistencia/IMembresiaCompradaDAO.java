@@ -1,7 +1,7 @@
 
 package com.mycompany.fitlifegym_persistencia;
 
-import com.mycompany.fitlifegym_persistencia.entidades.MembresiaComprada;
+import Entidades.MembresiaComprada;
 import java.util.List;
 
 /**

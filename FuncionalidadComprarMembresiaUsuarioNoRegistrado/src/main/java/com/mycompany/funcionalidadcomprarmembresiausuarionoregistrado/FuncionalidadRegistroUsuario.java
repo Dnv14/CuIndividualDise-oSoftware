@@ -7,7 +7,7 @@ package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
 import com.mycompany.fitlifegym_negocio.IClientesBO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
-import com.mycompany.fitlifegym_persistencia.entidades.Cliente;
+import Entidades.Cliente;
 import java.util.List;
 
 /**

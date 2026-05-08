@@ -8,7 +8,7 @@ import Adapter.DtosAEntidadesAdapter;
 import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
 import com.mycompany.fitlifegym_persistencia.IClientesDAO;
 import com.mycompany.fitlifegym_persistencia.PersistenciaException;
-import com.mycompany.fitlifegym_persistencia.entidades.Cliente;
+import Entidades.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public Cliente buscarClientePorId(Long id) throws NegocioException{
+    public Cliente buscarClientePorId(String id) throws NegocioException{
 
         if(id == null){
             throw new NegocioException("Se debe de colocar un ID.");

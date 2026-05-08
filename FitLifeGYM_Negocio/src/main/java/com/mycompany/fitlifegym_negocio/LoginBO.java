@@ -11,9 +11,9 @@ import com.mycompany.fitlifegym_dtos.LoginDTO;
 import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
 import com.mycompany.fitlifegym_persistencia.IClientesDAO;
 import com.mycompany.fitlifegym_persistencia.PersistenciaException;
-import com.mycompany.fitlifegym_persistencia.entidades.Cliente;
-import com.mycompany.fitlifegym_persistencia.entidades.MembresiaComprada;
-import com.mycompany.fitlifegym_persistencia.entidades.TipoMembresia;
+import Entidades.Cliente;
+import Entidades.MembresiaComprada;
+import Entidades.TipoMembresia;
 
 /**
  *

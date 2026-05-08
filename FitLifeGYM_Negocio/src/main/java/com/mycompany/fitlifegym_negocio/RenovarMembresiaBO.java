@@ -5,7 +5,7 @@ import Adapter.DtosAEntidadesAdapter;
 import com.mycompany.fitlifegym_dtos.RenovarMembresiaDTO;
 import com.mycompany.fitlifegym_persistencia.IClientesDAO;
 import com.mycompany.fitlifegym_persistencia.PersistenciaException;
-import com.mycompany.fitlifegym_persistencia.entidades.TipoMembresia;
+import Entidades.TipoMembresia;
 
 /**
  *

@@ -8,8 +8,8 @@ import com.mycompany.fitlifegym_dtos.ClienteLogueadoDTO;
 import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
 import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
-import com.mycompany.fitlifegym_persistencia.entidades.Membresia;
-import com.mycompany.fitlifegym_persistencia.entidades.TipoMembresia;
+import Entidades.Membresia;
+import Entidades.TipoMembresia;
 import java.util.List;
 import javax.swing.JOptionPane;
 

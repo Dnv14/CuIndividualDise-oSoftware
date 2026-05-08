@@ -11,14 +11,14 @@ import java.time.LocalDate;
  * @author Diego
  */
 public class NuevaMembresiaCompradaDTO {
-    private Long idMembresiaComprada;
+    private String idMembresiaComprada;
     private NuevaMembresiaDTO membresia;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private Double precioPagado;
     private EstadoDTO estado;
 
-    public NuevaMembresiaCompradaDTO(Long idMembresiaComprada, NuevaMembresiaDTO membresia, LocalDate fechaInicio, LocalDate fechaFin, Double precioPagado, EstadoDTO estado) {
+    public NuevaMembresiaCompradaDTO(String idMembresiaComprada, NuevaMembresiaDTO membresia, LocalDate fechaInicio, LocalDate fechaFin, Double precioPagado, EstadoDTO estado) {
         this.idMembresiaComprada = idMembresiaComprada;
         this.membresia = membresia;
         this.fechaInicio = fechaInicio;
@@ -35,11 +35,11 @@ public class NuevaMembresiaCompradaDTO {
         this.estado = estado;
     }
 
-    public Long getIdMembresiaComprada() {
+    public String getIdMembresiaComprada() {
         return idMembresiaComprada;
     }
 
-    public void setIdMembresiaComprada(Long idMembresiaComprada) {
+    public void setIdMembresiaComprada(String idMembresiaComprada) {
         this.idMembresiaComprada = idMembresiaComprada;
     }
 

@@ -9,11 +9,11 @@ import com.mycompany.fitlifegym_dtos.NuevaMembresiaCompradaDTO;
 import com.mycompany.fitlifegym_dtos.NuevaMembresiaDTO;
 import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
 import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
-import com.mycompany.fitlifegym_persistencia.entidades.Cliente;
-import com.mycompany.fitlifegym_persistencia.entidades.Estado;
-import com.mycompany.fitlifegym_persistencia.entidades.Membresia;
-import com.mycompany.fitlifegym_persistencia.entidades.MembresiaComprada;
-import com.mycompany.fitlifegym_persistencia.entidades.TipoMembresia;
+import Entidades.Cliente;
+import Entidades.Estado;
+import Entidades.Membresia;
+import Entidades.MembresiaComprada;
+import Entidades.TipoMembresia;
 
 /**
  *

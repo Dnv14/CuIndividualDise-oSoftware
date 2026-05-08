@@ -1,4 +1,4 @@
-package com.mycompany.fitlifegym_persistencia.entidades;
+package Entidades;
 
 /**
  *

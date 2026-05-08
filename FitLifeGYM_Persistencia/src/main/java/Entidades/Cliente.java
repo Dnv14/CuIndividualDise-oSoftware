@@ -1,4 +1,4 @@
-package com.mycompany.fitlifegym_persistencia.entidades;
+package Entidades;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,7 @@ import java.time.LocalDate;
  */
 public class Cliente {
 
-    private Long idCliente;
+    private String idCliente;
     private String nombre;
     private String apellidos;
     private String correo;
@@ -22,7 +22,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long idCliente, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin, MembresiaComprada membresíaComprada) {
+    public Cliente(String idCliente, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin, MembresiaComprada membresíaComprada) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -34,7 +34,7 @@ public class Cliente {
         this.membresíaComprada = membresíaComprada;
     }
 
-    public Cliente(Long idCliente, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin) {
+    public Cliente(Long String, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -56,7 +56,7 @@ public class Cliente {
         this.membresíaComprada = membresíaComprada;
     }
     
-    public Cliente(Long idCliente, String nombre, String apellidos, String correo, String telefono, String pin, String contrasenia, MembresiaComprada membresiaComprada) {
+    public Cliente(String idCliente, String nombre, String apellidos, String correo, String telefono, String pin, String contrasenia, MembresiaComprada membresiaComprada) {
     this.idCliente = idCliente;
     this.nombre = nombre;
     this.apellidos = apellidos;
@@ -67,11 +67,11 @@ public class Cliente {
     this.membresíaComprada = membresiaComprada;
 }
 
-    public Long getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 

@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 public class NuevoClienteDTO {
 
-    private Long idCliente;
+    private String idCliente;
     private String nombre;
     private String apellidos;
     private String correo;
@@ -25,7 +25,7 @@ public class NuevoClienteDTO {
     public NuevoClienteDTO() {
     }
 
-    public NuevoClienteDTO(Long idCliente, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
+    public NuevoClienteDTO(String idCliente, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -58,11 +58,11 @@ public class NuevoClienteDTO {
         this.membresíaComprada = membresíaComprada;
     }
 
-    public Long getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(Long idCliente) {
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 
