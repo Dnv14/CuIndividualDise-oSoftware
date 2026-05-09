@@ -4,10 +4,10 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.ClienteLogueadoDTO;
-import com.mycompany.fitlifegym_dtos.EstadoDTO;
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
-import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
+import DTOS.ClienteLogueadoDTO;
+import DTOsENUMs.EstadoDTO;
+import DTOS.NuevoClienteDTO;
+import DTOsENUMs.TipoMembresiaDTO;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,11 +20,13 @@ import javax.swing.JOptionPane;
 //o algo asi
 public class BienvenidaFORM extends javax.swing.JFrame {
 
-    private ControlForms control;
-    private ClienteLogueadoDTO cliente;
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
+    private NuevoClienteDTO cliente;
 
-    public BienvenidaFORM(ControlForms control, ClienteLogueadoDTO cliente) {
-        this.control = control;
+    public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlForms controlForms, NuevoClienteDTO cliente) {
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = controlForms;
         this.cliente = cliente;
 
         this.setTitle("Bienvenida");
@@ -32,15 +34,15 @@ public class BienvenidaFORM extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         configiracionPorMembresia();
         mostrarDatosCliente();
-
     }
 
     private void mostrarDatosCliente() {
         if (cliente != null) {
-            String nombre = cliente.getNombreCompleto();
+            String nombre = cliente.getNombre();
 
-            if (cliente.getMembresiaActiva() != null) {
-                String plan = cliente.getMembresiaActiva().name();
+            if (cliente.getMembresíaComprada() != null && cliente.getMembresíaComprada().getMembresia() != null && cliente.getMembresíaComprada().getMembresia().getTipoMembresia() != null) {
+
+                String plan = cliente.getMembresíaComprada().getMembresia().getTipoMembresia().name();
                 lblTitulo.setText("Bienvenido: " + nombre + " | Plan: " + plan);
             } else {
                 lblTitulo.setText("Bienvenido: " + nombre + " | Sin membresía");
@@ -48,6 +50,8 @@ public class BienvenidaFORM extends javax.swing.JFrame {
         } else {
             lblTitulo.setText("Bienvenido");
         }
+        
+        LblEstadoMembresia.setText("ESTADO: " + String.valueOf(cliente.getMembresíaComprada().getEstado()));
     }
 
     @SuppressWarnings("unchecked")
@@ -66,6 +70,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
         btnBeneficios = new javax.swing.JButton();
         lblTitulo1 = new javax.swing.JLabel();
         btnQuejaSugerencia = new javax.swing.JButton();
+        LblEstadoMembresia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +141,11 @@ public class BienvenidaFORM extends javax.swing.JFrame {
         btnQuejaSugerencia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnQuejaSugerencia.addActionListener(this::btnQuejaSugerenciaActionPerformed);
 
+        LblEstadoMembresia.setBackground(new java.awt.Color(255, 255, 255));
+        LblEstadoMembresia.setFont(new java.awt.Font("Arial", 3, 36)); // NOI18N
+        LblEstadoMembresia.setForeground(new java.awt.Color(255, 255, 255));
+        LblEstadoMembresia.setText("ESTADO:");
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -149,13 +159,13 @@ public class BienvenidaFORM extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTitulo1))
                     .addGroup(jPanelLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(LblEstadoMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanelLayout.createSequentialGroup()
@@ -189,8 +199,10 @@ public class BienvenidaFORM extends javax.swing.JFrame {
                     .addComponent(btnAmbienteMusical, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnQuejaSugerencia, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(btnBeneficios, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBeneficios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LblEstadoMembresia, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -226,12 +238,14 @@ public class BienvenidaFORM extends javax.swing.JFrame {
 
     private void btnBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeneficiosActionPerformed
 
-        ClienteLogueadoDTO cliente = control.getClienteActual();
-        
-        if (cliente.getEstadoMembresia() == EstadoDTO.ACTIVO) {
-            JOptionPane.showMessageDialog(this, "Ya tienes una membresía activa.");
+        NuevoClienteDTO cliente = controlForms.getClienteActual();
+
+        if (cliente.getMembresíaComprada() == null || cliente.getMembresíaComprada().getEstado() == EstadoDTO.INACTIVO) {
+            controlNavegacion.navegarBenificios(cliente);
         } else {
-            control.navegarBenificios(new NuevoClienteDTO());
+            String planActual = cliente.getMembresíaComprada().getMembresia().getTipoMembresia().name();
+            JOptionPane.showMessageDialog(this, 
+                    "Actualmente tienes el Plan " + planActual + " activo\n" + "Tu membresía vence el: " + cliente.getMembresíaComprada().getFechaFin(), "Membresía Activa", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnBeneficiosActionPerformed
 
@@ -240,11 +254,11 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuejaSugerenciaActionPerformed
 
     private void configiracionPorMembresia() {
-        if (cliente == null || cliente.getMembresiaActiva() == null) {
+        if (cliente == null || cliente.getMembresíaComprada().getMembresia().getTipoMembresia() == null) {
             return;
         }
 
-        TipoMembresiaDTO tipo = cliente.getMembresiaActiva();
+        TipoMembresiaDTO tipo = cliente.getMembresíaComprada().getMembresia().getTipoMembresia();
 
         btnCursos.setEnabled(false);
         btnNutricion.setEnabled(false);
@@ -255,15 +269,18 @@ public class BienvenidaFORM extends javax.swing.JFrame {
             case ORO:
                 btnCursos.setEnabled(true);
                 btnProgreso.setEnabled(true);
+                break;
             case PLATA:
                 btnNutricion.setEnabled(true);
                 btnAmbienteMusical.setEnabled(true);
+                break;
             case BRONCE:
                 break;
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LblEstadoMembresia;
     private javax.swing.JButton btnAmbienteMusical;
     private javax.swing.JButton btnBeneficios;
     private javax.swing.JButton btnCursos;

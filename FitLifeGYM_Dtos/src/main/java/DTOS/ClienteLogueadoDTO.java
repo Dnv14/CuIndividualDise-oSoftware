@@ -1,0 +1,51 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package DTOS;
+
+import DTOsENUMs.TipoMembresiaDTO;
+import DTOsENUMs.EstadoDTO;
+
+/**
+ *
+ * @author PC GAMER MASTER RACE
+ */
+public class ClienteLogueadoDTO {
+
+//    private final String idCliente;
+//
+//    private final String nombreCompleto;
+//
+//    private final TipoMembresiaDTO membresiaActiva;
+//
+//    private final EstadoDTO estadoMembresia;
+//
+//    public ClienteLogueadoDTO(String idCliente, String nombreCompleto, TipoMembresiaDTO membresiaActiva, EstadoDTO estadoMembresia) {
+//        this.idCliente = idCliente;
+//        this.nombreCompleto = nombreCompleto;
+//        this.membresiaActiva = membresiaActiva;
+//        this.estadoMembresia = estadoMembresia;
+//    }
+//
+//    
+//
+//    public String getIdCliente() {
+//        return idCliente;
+//    }
+//
+//    public String getNombreCompleto() {
+//        return nombreCompleto;
+//    }
+//
+//    public TipoMembresiaDTO getMembresiaActiva() {
+//        return membresiaActiva;
+//    }
+//
+//    public EstadoDTO getEstadoMembresia() {
+//        return estadoMembresia;
+//    }
+
+    
+
+}

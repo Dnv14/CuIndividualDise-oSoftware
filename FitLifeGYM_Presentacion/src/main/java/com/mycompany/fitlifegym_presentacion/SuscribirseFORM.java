@@ -4,8 +4,8 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
-import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
+import DTOS.NuevoClienteDTO;
+import DTOsENUMs.TipoMembresiaDTO;
 
 /**
  *
@@ -13,12 +13,14 @@ import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
  */
 public class SuscribirseFORM extends javax.swing.JFrame {
     
-    private ControlForms control;
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
     private TipoMembresiaDTO membresia;
     private NuevoClienteDTO cliente;
    
-    public SuscribirseFORM(ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
-        this.control = control;
+    public SuscribirseFORM(ControlNavegacion controlNavegacion ,ControlForms controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = controlForms;
         this.membresia = membresia;
         this.cliente = cliente;
         initComponents();
@@ -198,19 +200,19 @@ public class SuscribirseFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProgresoActionPerformed
 
     private void btnTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferenciaActionPerformed
-        control.navegarTransferenciaMetodo(membresia, this.cliente);
+        controlNavegacion.navegarTransferenciaMetodo(membresia, this.cliente);
     }//GEN-LAST:event_btnTransferenciaActionPerformed
 
     private void btnPaypalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaypalActionPerformed
-        control.navegarIniciarSesionPaypal(membresia, this.cliente);
+        controlNavegacion.navegarIniciarSesionPaypal(membresia, this.cliente);
     }//GEN-LAST:event_btnPaypalActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
-        control.navegarTarjetaMetodo(membresia, this.cliente);
+        controlNavegacion.navegarTarjetaMetodo(membresia, this.cliente);
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
-       control.navegarBenificios(this.cliente);   
+       controlNavegacion.navegarBenificios(this.cliente);   
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
     

@@ -5,9 +5,9 @@
 package com.mycompany.fitlifegym_negocio;
 
 import Adapter.DtosAEntidadesAdapter;
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
-import com.mycompany.fitlifegym_persistencia.IClientesDAO;
-import com.mycompany.fitlifegym_persistencia.PersistenciaException;
+import DTOS.NuevoClienteDTO;
+import PersistenciaConsola.IClientesDAO;
+import PersistenciaConsola.PersistenciaException;
 import Entidades.Cliente;
 import java.util.ArrayList;
 import java.util.List;

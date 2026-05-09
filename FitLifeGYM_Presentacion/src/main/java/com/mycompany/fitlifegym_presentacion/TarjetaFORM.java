@@ -4,9 +4,9 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.ClienteLogueadoDTO;
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
-import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
+import DTOS.ClienteLogueadoDTO;
+import DTOS.NuevoClienteDTO;
+import DTOsENUMs.TipoMembresiaDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import javax.swing.JOptionPane;
 
@@ -16,13 +16,15 @@ import javax.swing.JOptionPane;
  */
 public class TarjetaFORM extends javax.swing.JDialog {
 
-    private ControlForms control;
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
     private TipoMembresiaDTO membresia;
     private NuevoClienteDTO cliente;
 
-    public TarjetaFORM(java.awt.Frame parent, boolean modal, ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+    public TarjetaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion ,ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         super(parent, modal);
-        this.control = control;
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = control;
         this.membresia = membresia;
         this.cliente = cliente; 
         initComponents();
@@ -292,16 +294,16 @@ public class TarjetaFORM extends javax.swing.JDialog {
         
         try {
             // Asignar la membresia al cliente (en memoria por lo pronto)
-            control.asignarMembresiaCliente(this.cliente, this.membresia);
+            controlForms.asignarMembresiaCliente(this.cliente, this.membresia);
 
             // Procesar pago registra cliente + membresía en BD
-            control.procesarPagoTarjeta(this.cliente, numero, ccv, fecha, nombreTitular);
+            controlForms.procesarPagoTarjeta(this.cliente, numero, ccv, fecha, nombreTitular);
 
             JOptionPane.showMessageDialog(this, "El pago se ha realizado correctamente.", "Pago Correctamente", JOptionPane.INFORMATION_MESSAGE);
 
             //Solo navegar si todo salio bien
             this.dispose();
-            control.navegarMenuPrincipal();
+            controlNavegacion.navegarBienvenida(cliente);
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

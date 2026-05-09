@@ -4,7 +4,7 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.ClienteLogueadoDTO;
+import DTOS.NuevoClienteDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,12 +16,14 @@ import javax.swing.JOptionPane;
 public class IniciarSesionFORM extends javax.swing.JDialog {
 
     private static final Logger LOGGER = Logger.getLogger(IniciarSesionFORM.class.getName());
-    
-    private ControlForms control;
 
-    public IniciarSesionFORM(java.awt.Frame parent, boolean modal, ControlForms control) {
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
+
+    public IniciarSesionFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms controlForms) {
         super(parent, modal);
-        this.control = control;
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = controlForms;
         this.setResizable(false);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -189,15 +191,14 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         String contrasenia = new String(jPasswordField1.getPassword()).trim();
 
         try {
-            ClienteLogueadoDTO cliente = control.iniciarSesion(pin, contrasenia);
+            NuevoClienteDTO cliente = controlForms.iniciarSesion(pin, contrasenia);
             dispose();
-            control.navegarBienvenida(cliente);
+            controlNavegacion.navegarBienvenida(cliente);
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;

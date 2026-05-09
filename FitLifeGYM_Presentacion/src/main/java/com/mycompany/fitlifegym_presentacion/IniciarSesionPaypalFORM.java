@@ -4,9 +4,9 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.ClienteLogueadoDTO;
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
-import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
+import DTOS.ClienteLogueadoDTO;
+import DTOS.NuevoClienteDTO;
+import DTOsENUMs.TipoMembresiaDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import javax.swing.JOptionPane;
 
@@ -16,13 +16,15 @@ import javax.swing.JOptionPane;
  */
 public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
 
-    private ControlForms control;
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
     private NuevoClienteDTO cliente;
     private TipoMembresiaDTO membresia;
-       
-    public IniciarSesionPaypalFORM(java.awt.Frame parent, boolean modal, ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+
+    public IniciarSesionPaypalFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         super(parent, modal);
-        this.control = control;
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = controlForms;
         this.membresia = membresia;
         this.cliente = cliente;
         initComponents();
@@ -130,7 +132,11 @@ public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
             }
         });
 
-        txtContrasenia.setText("jPasswordField1");
+        txtContrasenia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseniaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -217,32 +223,36 @@ public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTransferenciaRealizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferenciaRealizadaActionPerformed
-       String correo = txtCorreoPaypal.getText();
-       String contrasenia = txtContrasenia.getText();
+        String correo = txtCorreoPaypal.getText();
+        String contrasenia = txtContrasenia.getText();
 
         try {
             // Asignar la membresia al cliente en memoria
-            control.asignarMembresiaCliente(this.cliente, this.membresia);
+            controlForms.asignarMembresiaCliente(this.cliente, this.membresia);
 
             // Procesar el pago registra en "BD"
-            control.procesarPagoPaypal(cliente, correo, contrasenia);
+            controlForms.procesarPagoPaypal(cliente, correo, contrasenia);
 
             JOptionPane.showMessageDialog(this, "Pago con PayPal exitoso. Membresía activada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             this.dispose();
-            control.navegarMenuPrincipal();
+            controlNavegacion.navegarBienvenida(cliente);
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_btnTransferenciaRealizadaActionPerformed
 
     private void txtCorreoPaypalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoPaypalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCorreoPaypalActionPerformed
 
-   
+    private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseniaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseniaActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTransferenciaRealizada;
     private javax.swing.Box.Filler filler1;

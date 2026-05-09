@@ -4,7 +4,7 @@
  */
 package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
+import DTOS.NuevoClienteDTO;
 import com.mycompany.fitlifegym_negocio.IClientesBO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import Entidades.Cliente;
@@ -23,10 +23,12 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
     }
 
     @Override
-    public void RegistrarUsuario(NuevoClienteDTO clienteDTO) throws NegocioException {
+    public NuevoClienteDTO RegistrarUsuario(NuevoClienteDTO clienteDTO) throws NegocioException {
         validarDatosUsuario(clienteDTO);
         try {
-            clientesBO.registrarCliente(clienteDTO);
+            Cliente clienteEntidad = clientesBO.registrarCliente(clienteDTO);
+            clienteDTO.setId(clienteEntidad.getId());
+            return clienteDTO;
         } catch (NegocioException ex) {
             throw new NegocioException("Error al registrar el cliente.", ex);
         }

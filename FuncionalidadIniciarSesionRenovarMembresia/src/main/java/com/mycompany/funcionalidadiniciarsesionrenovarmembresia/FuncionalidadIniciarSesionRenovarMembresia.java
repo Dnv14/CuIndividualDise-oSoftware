@@ -4,10 +4,10 @@
  */
 package com.mycompany.funcionalidadiniciarsesionrenovarmembresia;
 
-import com.mycompany.fitlifegym_dtos.ClienteLogueadoDTO;
-import com.mycompany.fitlifegym_dtos.LoginDTO;
-import com.mycompany.fitlifegym_dtos.RenovarMembresiaDTO;
-import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
+import DTOS.LoginDTO;
+import DTOS.NuevoClienteDTO;
+import DTOS.RenovarMembresiaDTO;
+import DTOsENUMs.TipoMembresiaDTO;
 import com.mycompany.fitlifegym_negocio.ILoginBO;
 import com.mycompany.fitlifegym_negocio.IMembresiaBO;
 import com.mycompany.fitlifegym_negocio.IRenovarMembresiaBO;
@@ -31,7 +31,7 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
     }
 
     @Override
-    public ClienteLogueadoDTO iniciarSesion(LoginDTO login) throws NegocioException {
+    public NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioException {
         if (login == null) {
             throw new NegocioException("Los datos de inicio de sesion no pueden ser nulos.");
         }

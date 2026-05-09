@@ -6,97 +6,30 @@ import java.time.LocalDate;
  *
  * @author Julian
  */
-public class Cliente {
+public class Cliente extends Usuario {
 
-    private String idCliente;
-    private String nombre;
-    private String apellidos;
-    private String correo;
     private String telefono;
-    private String contrasenia;
     private LocalDate fechaNacimiento;
     private String pin;
     private MembresiaComprada membresíaComprada;
-    
 
     public Cliente() {
     }
 
-    public Cliente(String idCliente, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin, MembresiaComprada membresíaComprada) {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.correo = correo;
+    public Cliente(String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin, MembresiaComprada membresíaComprada) {
+        super(nombre, apellidos, correo, contrasenia);
         this.telefono = telefono;
-        this.contrasenia = contrasenia;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
         this.membresíaComprada = membresíaComprada;
     }
 
-    public Cliente(Long String, String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin) {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.correo = correo;
+    public Cliente(String id, String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin,MembresiaComprada membresíaComprada) {
+        super(id, nombre, apellidos, correo, contrasenia); 
         this.telefono = telefono;
-        this.contrasenia = contrasenia;
-        this.fechaNacimiento = fechaNacimiento;
-        this.pin = pin;
-    }
-
-    public Cliente(String nombre, String apellidos, String correo, String telefono, String contrasenia, LocalDate fechaNacimiento, String pin, MembresiaComprada membresíaComprada) {
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.contrasenia = contrasenia;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
         this.membresíaComprada = membresíaComprada;
-    }
-    
-    public Cliente(String idCliente, String nombre, String apellidos, String correo, String telefono, String pin, String contrasenia, MembresiaComprada membresiaComprada) {
-    this.idCliente = idCliente;
-    this.nombre = nombre;
-    this.apellidos = apellidos;
-    this.correo = correo;
-    this.telefono = telefono;
-    this.pin = pin;
-    this.contrasenia = contrasenia;
-    this.membresíaComprada = membresiaComprada;
-}
-
-    public String getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public String getTelefono() {
@@ -105,14 +38,6 @@ public class Cliente {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
     public LocalDate getFechaNacimiento() {
@@ -139,7 +64,4 @@ public class Cliente {
         this.membresíaComprada = membresíaComprada;
     }
 
-    
-
-    
 }

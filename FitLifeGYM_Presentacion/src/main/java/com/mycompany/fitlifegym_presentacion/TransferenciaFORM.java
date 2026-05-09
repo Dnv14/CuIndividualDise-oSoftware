@@ -4,9 +4,9 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.ClienteLogueadoDTO;
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
-import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
+import DTOS.ClienteLogueadoDTO;
+import DTOS.NuevoClienteDTO;
+import DTOsENUMs.TipoMembresiaDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import Entidades.Membresia;
 import Entidades.TipoMembresia;
@@ -19,13 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class TransferenciaFORM extends javax.swing.JDialog {
 
-    private ControlForms control;
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
     private NuevoClienteDTO cliente;
     private TipoMembresiaDTO membresia;
-    
-    public TransferenciaFORM(java.awt.Frame parent, boolean modal, ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+
+    public TransferenciaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         super(parent, modal);
-        this.control = control;
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = controlForms;
         this.membresia = membresia;
         this.cliente = cliente;
         this.setLocationRelativeTo(null);
@@ -35,15 +37,14 @@ public class TransferenciaFORM extends javax.swing.JDialog {
 
     private void cargarMonto() {
         try {
-            Membresia m = control.buscarMembresiaPorTipo(this.membresia);
+            Membresia m = controlForms.buscarMembresiaPorTipo(this.membresia);
             textMonto.setText("Monto: $" + m.getPrecio());
         } catch (NegocioException ex) {
             textMonto.setText("Monto: error al cargar");
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,15 +214,15 @@ public class TransferenciaFORM extends javax.swing.JDialog {
     private void btnTransferenciaRealizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferenciaRealizadaActionPerformed
         try {
             // Asignar la membresia al cliente en memoria
-            control.asignarMembresiaCliente(this.cliente, this.membresia);
+            controlForms.asignarMembresiaCliente(this.cliente, this.membresia);
 
             // Procesar el "pago" por transferencia reutilizamos el mismo registro
-            control.procesarPagoTransferencia(cliente);
+            controlForms.procesarPagoTransferencia(cliente);
 
             JOptionPane.showMessageDialog(this, "¡Transferencia recibida! Membresía activada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             this.dispose();
-            control.navegarMenuPrincipal();
+            controlNavegacion.navegarBienvenida(cliente);
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

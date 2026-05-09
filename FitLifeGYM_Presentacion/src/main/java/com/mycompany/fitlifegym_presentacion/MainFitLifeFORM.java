@@ -10,10 +10,13 @@ package com.mycompany.fitlifegym_presentacion;
  */
 public class MainFitLifeFORM extends javax.swing.JFrame {
 
-    private ControlForms control;
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
             
-    public MainFitLifeFORM(ControlForms control) {
-        this.control = control;
+    public MainFitLifeFORM(ControlNavegacion controlNavegacion,ControlForms controlForms) {
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = controlForms;
+        
         this.setTitle("Main Fit Life");
         initComponents();
         this.setLocationRelativeTo(null);
@@ -164,11 +167,11 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-       control.navegarRegistrarse();
+       controlNavegacion.navegarRegistrarse();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        control.navegarIniciarSesion();
+        controlNavegacion.navegarIniciarSesion();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     

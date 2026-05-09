@@ -4,7 +4,7 @@
  */
 package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
+import DTOS.NuevoClienteDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import Entidades.Cliente;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface IFuncionalidadRegistrarUsuario {
 
-    public abstract void RegistrarUsuario(NuevoClienteDTO clienteDTO) throws NegocioException;
+    public abstract NuevoClienteDTO RegistrarUsuario(NuevoClienteDTO clienteDTO) throws NegocioException;
     
     public abstract List<Cliente> obtenerTodas() throws NegocioException;
     

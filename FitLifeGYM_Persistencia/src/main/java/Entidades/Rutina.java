@@ -17,7 +17,7 @@ public class Rutina {
     private String id;
     private String diaSemana;
     private Date fechaAsignada;
-    private String estadoRutina;
+    private EstadoRutina estadoRutina;
     private String idCliente;
     private List<DetallesRutina> detallesRutina;
 

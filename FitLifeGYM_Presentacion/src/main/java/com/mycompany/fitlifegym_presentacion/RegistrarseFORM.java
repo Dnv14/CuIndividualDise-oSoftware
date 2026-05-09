@@ -4,7 +4,7 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
+import DTOS.NuevoClienteDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -16,14 +16,16 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarseFORM extends javax.swing.JDialog {
 
-    private ControlForms control;
+    private ControlForms controlForms;
+    private ControlNavegacion controlNavegacion;
 
     /**
      * Creates new form RegistrarseFORM
      */
-    public RegistrarseFORM(java.awt.Frame parent, boolean modal, ControlForms control) {
+    public RegistrarseFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms controlForms) {
         super(parent, modal);
-        this.control = control;
+        this.controlForms = controlForms;
+        this.controlNavegacion = controlNavegacion;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         initComponents();
@@ -284,6 +286,7 @@ public class RegistrarseFORM extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+
         String nombre = txtNombreCompleto.getText();
         String apellidos = txtApellidos.getText();
         String correo = txtCorreoElectronico.getText();
@@ -294,24 +297,24 @@ public class RegistrarseFORM extends javax.swing.JDialog {
 
         try {
             LocalDate fechaNacimiento = LocalDate.parse(fechaString);
-
-            NuevoClienteDTO clienteRegistrar = new NuevoClienteDTO(nombre, apellidos, correo, telefono, contrasenia, fechaNacimiento, pin);
-            control.registrarCliente(clienteRegistrar);
             
+            NuevoClienteDTO clienteRegistrar = new NuevoClienteDTO(nombre, apellidos, correo, contrasenia, telefono, fechaNacimiento, pin, null);
+            controlForms.registrarCliente(clienteRegistrar);
+
             JOptionPane.showMessageDialog(this, "Datos personales guardados");
-           
-            control.navegarBenificios(clienteRegistrar);
-             
+            
+
+            controlNavegacion.navegarBenificios(clienteRegistrar);
 
         } catch (DateTimeParseException ex) {
             JOptionPane.showMessageDialog(this, "La fecha debe tener el formato AAAA-MM-DD ");
-        }catch (NegocioException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        control.navegarIniciarSesion();
+        controlNavegacion.navegarIniciarSesion();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void txtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosActionPerformed

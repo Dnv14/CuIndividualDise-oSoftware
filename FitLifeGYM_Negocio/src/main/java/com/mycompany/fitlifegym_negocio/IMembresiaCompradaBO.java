@@ -4,7 +4,7 @@
  */
 package com.mycompany.fitlifegym_negocio;
 
-import com.mycompany.fitlifegym_dtos.NuevaMembresiaCompradaDTO;
+import DTOS.NuevaMembresiaCompradaDTO;
 import Entidades.MembresiaComprada;
 import java.util.List;
 

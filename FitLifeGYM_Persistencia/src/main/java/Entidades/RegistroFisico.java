@@ -13,7 +13,7 @@ import java.util.List;
 public class RegistroFisico {
     private String id;
     private String idCliente;
-    private String nivelCondicion;
+    private NivelCondicion nivelCondicion;
     private List<Lesiones> lesiones;
     private List<Enfermedades> enfermedades;
 }

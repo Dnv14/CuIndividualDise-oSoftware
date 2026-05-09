@@ -4,8 +4,8 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.fitlifegym_dtos.NuevoClienteDTO;
-import com.mycompany.fitlifegym_dtos.TipoMembresiaDTO;
+import DTOS.NuevoClienteDTO;
+import DTOsENUMs.TipoMembresiaDTO;
 import com.mycompany.fitlifegym_negocio.NegocioException;
 import Entidades.Membresia;
 import Entidades.TipoMembresia;
@@ -19,13 +19,16 @@ import javax.swing.JOptionPane;
  */
 public class BeneficiosFORM extends javax.swing.JFrame {
 
-    private ControlForms control;
-    private NuevoClienteDTO cliente; 
+    private ControlNavegacion controlNavegacion;
+    private ControlForms controlForms;
+    private NuevoClienteDTO cliente;
     private List<Membresia> membresiasDisponibles;
 
-    public BeneficiosFORM(ControlForms control, NuevoClienteDTO cliente) {
-        this.control = control;
-        this.cliente = cliente; 
+    public BeneficiosFORM(ControlNavegacion controlNavegacion, ControlForms controlForms, NuevoClienteDTO cliente) {
+        this.controlNavegacion = controlNavegacion;
+        this.controlForms = controlForms;
+        this.cliente = cliente;
+
         this.setTitle("Beneficios");
         initComponents();
         ComboBoxMembresia.setFocusable(false);
@@ -273,8 +276,8 @@ public class BeneficiosFORM extends javax.swing.JFrame {
 
     private void btnSuscribirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuscribirseActionPerformed
         String membresiaSeleccionado = (String) ComboBoxMembresia.getSelectedItem();
-        TipoMembresiaDTO membresia = control.seleccionarMembresia(membresiaSeleccionado);
-        control.navegarMetodosPago(membresia, this.cliente);
+        TipoMembresiaDTO membresia = controlForms.seleccionarMembresia(membresiaSeleccionado);
+        controlNavegacion.navegarMetodosPago(membresia, this.cliente);
     }//GEN-LAST:event_btnSuscribirseActionPerformed
 
     private void actualizarBeneficios() {
@@ -282,6 +285,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
         if (membresia == null) {
             return;
         }
+        String membresiaMayus = membresia.toUpperCase();
 
         checkBoxInstalaciones.setSelected(true);
         checkBoxNutricion.setSelected(false);
@@ -289,21 +293,23 @@ public class BeneficiosFORM extends javax.swing.JFrame {
         checkBoxFisico.setSelected(false);
         checkBoxCursos.setSelected(false);
 
-        switch (membresia) {
+        switch (membresiaMayus) {
             case "ORO":
                 checkBoxCursos.setSelected(true);
                 checkBoxFisico.setSelected(true);
+                break;
 
             case "PLATA":
                 checkBoxNutricion.setSelected(true);
                 checkBoxMusica.setSelected(true);
-
                 break;
+                
             case "BRONCE":
                 break;
         }
 
-        Membresia seleccionada = buscarMembresiaPorNombre(membresia);
+        Membresia seleccionada = buscarMembresiaPorNombre(membresiaMayus
+        );
         if (seleccionada != null && seleccionada.getPrecio() != null) {
             btnPrecio.setText("$" + seleccionada.getPrecio());
         }
@@ -311,7 +317,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
 
     private void cargarMembresias() {
         try {
-            membresiasDisponibles = control.consultarMembresias();
+            membresiasDisponibles = controlForms.consultarMembresias();
             String[] nombres = new String[membresiasDisponibles.size()];
 
             for (int i = 0; i < membresiasDisponibles.size(); i++) {
@@ -326,8 +332,8 @@ public class BeneficiosFORM extends javax.swing.JFrame {
 
     private Membresia buscarMembresiaPorNombre(String nombre) {
         try {
-            TipoMembresiaDTO tipo = control.seleccionarMembresia(nombre);
-            return control.buscarMembresiaPorTipo(tipo);
+            TipoMembresiaDTO tipo = controlForms.seleccionarMembresia(nombre);
+            return controlForms.buscarMembresiaPorTipo(tipo);
         } catch (NegocioException ex) {
             return null;
         }
