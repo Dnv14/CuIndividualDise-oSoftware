@@ -25,6 +25,7 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.setResizable(false);
+        this.setTitle("Iniciar Sesión");
         initComponents();
         this.setLocationRelativeTo(null);
     }

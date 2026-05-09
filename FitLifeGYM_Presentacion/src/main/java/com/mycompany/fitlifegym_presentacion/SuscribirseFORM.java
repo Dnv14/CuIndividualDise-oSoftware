@@ -23,6 +23,7 @@ public class SuscribirseFORM extends javax.swing.JFrame {
         this.controlForms = controlForms;
         this.membresia = membresia;
         this.cliente = cliente;
+        this.setTitle("Metodos de Pago Disponibles");
         initComponents();
         this.setLocationRelativeTo(null);
     }

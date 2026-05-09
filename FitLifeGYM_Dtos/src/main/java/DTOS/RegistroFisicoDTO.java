@@ -2,28 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entidades;
+package DTOS;
 
+import DTOsENUMs.NivelCondicionDTO;
 import java.util.List;
-import org.bson.BsonType;
-import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.codecs.pojo.annotations.BsonRepresentation;
 
 /**
  *
- * @author MrGam
+ * @author Diego
  */
-public class RegistroFisico {
-    
-    @BsonId
-    @BsonRepresentation(BsonType.OBJECT_ID)
+public class RegistroFisicoDTO {
+
     private String id;
     private String idCliente;
-    private NivelCondicion nivelCondicion;
-    private List<Lesiones> lesiones;
-    private List<Enfermedades> enfermedades;
+    private NivelCondicionDTO nivelCondicion;
+    private List<LesionesDTO> lesiones;
+    private List<EnfermedadesDTO> enfermedades;
 
-    public RegistroFisico(String id, String idCliente, NivelCondicion nivelCondicion, List<Lesiones> lesiones, List<Enfermedades> enfermedades) {
+    public RegistroFisicoDTO(String id, String idCliente, NivelCondicionDTO nivelCondicion, List<LesionesDTO> lesiones, List<EnfermedadesDTO> enfermedades) {
         this.id = id;
         this.idCliente = idCliente;
         this.nivelCondicion = nivelCondicion;
@@ -31,7 +27,7 @@ public class RegistroFisico {
         this.enfermedades = enfermedades;
     }
 
-    public RegistroFisico(String idCliente, NivelCondicion nivelCondicion, List<Lesiones> lesiones, List<Enfermedades> enfermedades) {
+    public RegistroFisicoDTO(String idCliente, NivelCondicionDTO nivelCondicion, List<LesionesDTO> lesiones, List<EnfermedadesDTO> enfermedades) {
         this.idCliente = idCliente;
         this.nivelCondicion = nivelCondicion;
         this.lesiones = lesiones;
@@ -54,29 +50,27 @@ public class RegistroFisico {
         this.idCliente = idCliente;
     }
 
-    public NivelCondicion getNivelCondicion() {
+    public NivelCondicionDTO getNivelCondicion() {
         return nivelCondicion;
     }
 
-    public void setNivelCondicion(NivelCondicion nivelCondicion) {
+    public void setNivelCondicion(NivelCondicionDTO nivelCondicion) {
         this.nivelCondicion = nivelCondicion;
     }
 
-    public List<Lesiones> getLesiones() {
+    public List<LesionesDTO> getLesiones() {
         return lesiones;
     }
 
-    public void setLesiones(List<Lesiones> lesiones) {
+    public void setLesiones(List<LesionesDTO> lesiones) {
         this.lesiones = lesiones;
     }
 
-    public List<Enfermedades> getEnfermedades() {
+    public List<EnfermedadesDTO> getEnfermedades() {
         return enfermedades;
     }
 
-    public void setEnfermedades(List<Enfermedades> enfermedades) {
+    public void setEnfermedades(List<EnfermedadesDTO> enfermedades) {
         this.enfermedades = enfermedades;
     }
-    
-    
 }

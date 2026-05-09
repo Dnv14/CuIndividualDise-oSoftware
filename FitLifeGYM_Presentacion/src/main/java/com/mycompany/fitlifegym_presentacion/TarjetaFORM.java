@@ -27,6 +27,7 @@ public class TarjetaFORM extends javax.swing.JDialog {
         this.controlForms = control;
         this.membresia = membresia;
         this.cliente = cliente; 
+        this.setTitle("Pago Con Tarjeta");
         initComponents();
         setearEditablesFalsos();
         this.setLocationRelativeTo(null);
@@ -59,6 +60,7 @@ public class TarjetaFORM extends javax.swing.JDialog {
         txtNumeroTarjeta = new javax.swing.JTextField();
         txtCVV = new javax.swing.JTextField();
         btnPagarAhora = new javax.swing.JButton();
+        btnVolverAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -161,6 +163,17 @@ public class TarjetaFORM extends javax.swing.JDialog {
             }
         });
 
+        btnVolverAtras.setBackground(new java.awt.Color(255, 0, 51));
+        btnVolverAtras.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnVolverAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverAtras.setText(">");
+        btnVolverAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnVolverAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -206,14 +219,17 @@ public class TarjetaFORM extends javax.swing.JDialog {
                 .addComponent(btnPagarAhora, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolverAtras)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(287, 287, 287))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolverAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -311,6 +327,10 @@ public class TarjetaFORM extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnPagarAhoraActionPerformed
 
+    private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
+        controlNavegacion.navegarMetodosPago(membresia, cliente);
+    }//GEN-LAST:event_btnVolverAtrasActionPerformed
+
     public void setearEditablesFalsos() {
         textCVVFALSE.setEditable(false);
         txtvencimientoFALSE.setEditable(false);
@@ -320,6 +340,7 @@ public class TarjetaFORM extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPagarAhora;
+    private javax.swing.JButton btnVolverAtras;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

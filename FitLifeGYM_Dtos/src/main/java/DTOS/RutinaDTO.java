@@ -1,34 +1,29 @@
-package Entidades;
-
-import java.util.Date;
-import java.util.List;
-import org.bson.BsonType;
-import org.bson.codecs.pojo.annotations.BsonId;
-import org.bson.codecs.pojo.annotations.BsonRepresentation;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package DTOS;
+
+import DTOsENUMs.EstadoRutinaDTO;
+import java.util.Date;
+import java.util.List;
+
 /**
  *
- * @author MrGam
+ * @author Diego
  */
-public class Rutina {
-
-    @BsonId
-    @BsonRepresentation(BsonType.OBJECT_ID)
+public class RutinaDTO {
     private String id;
     private String idCliente;
     private String diaSemana;
     private Date fechaAsignada;
-    private EstadoRutina estadoRutina;
-    private List<DetallesRutina> detallesRutina;
+    private EstadoRutinaDTO estadoRutina;
+    private List<DetallesRutinaDTO> detallesRutina;
 
-    public Rutina() {
+    public RutinaDTO() {
     }
 
-    public Rutina(String id, String idCliente, String diaSemana, Date fechaAsignada, EstadoRutina estadoRutina, List<DetallesRutina> detallesRutina) {
+    public RutinaDTO(String id, String idCliente, String diaSemana, Date fechaAsignada, EstadoRutinaDTO estadoRutina, List<DetallesRutinaDTO> detallesRutina) {
         this.id = id;
         this.idCliente = idCliente;
         this.diaSemana = diaSemana;
@@ -37,7 +32,7 @@ public class Rutina {
         this.detallesRutina = detallesRutina;
     }
 
-    public Rutina(String idCliente, String diaSemana, Date fechaAsignada, EstadoRutina estadoRutina, List<DetallesRutina> detallesRutina) {
+    public RutinaDTO(String idCliente, String diaSemana, Date fechaAsignada, EstadoRutinaDTO estadoRutina, List<DetallesRutinaDTO> detallesRutina) {
         this.idCliente = idCliente;
         this.diaSemana = diaSemana;
         this.fechaAsignada = fechaAsignada;
@@ -71,11 +66,11 @@ public class Rutina {
         this.fechaAsignada = fechaAsignada;
     }
 
-    public EstadoRutina getEstadoRutina() {
+    public EstadoRutinaDTO getEstadoRutina() {
         return estadoRutina;
     }
 
-    public void setEstadoRutina(EstadoRutina estadoRutina) {
+    public void setEstadoRutina(EstadoRutinaDTO estadoRutina) {
         this.estadoRutina = estadoRutina;
     }
 
@@ -87,12 +82,14 @@ public class Rutina {
         this.idCliente = idCliente;
     }
 
-    public List<DetallesRutina> getDetallesRutina() {
+    public List<DetallesRutinaDTO> getDetallesRutina() {
         return detallesRutina;
     }
 
-    public void setDetallesRutina(List<DetallesRutina> detallesRutina) {
+    public void setDetallesRutina(List<DetallesRutinaDTO> detallesRutina) {
         this.detallesRutina = detallesRutina;
     }
 
 }
+
+

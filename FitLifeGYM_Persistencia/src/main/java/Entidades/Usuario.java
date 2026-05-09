@@ -4,12 +4,18 @@
  */
 package Entidades;
 
+import org.bson.BsonType;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonRepresentation;
+
 /**
  *
  * @author Diego
  */
 public class Usuario {
 
+    @BsonId
+    @BsonRepresentation(BsonType.OBJECT_ID)
     private String id;
     private String nombre;
     private String apellidos;

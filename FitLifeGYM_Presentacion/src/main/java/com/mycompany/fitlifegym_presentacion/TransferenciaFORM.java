@@ -31,6 +31,7 @@ public class TransferenciaFORM extends javax.swing.JDialog {
         this.membresia = membresia;
         this.cliente = cliente;
         this.setLocationRelativeTo(null);
+        this.setTitle("Pago Con Transferencia");
         initComponents();
         cargarMonto();
     }
@@ -67,6 +68,7 @@ public class TransferenciaFORM extends javax.swing.JDialog {
         btnTransferenciaRealizada = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
         textMonto = new javax.swing.JTextArea();
+        btnVolverAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -139,6 +141,17 @@ public class TransferenciaFORM extends javax.swing.JDialog {
         textMonto.setText("Monto: $");
         jScrollPane10.setViewportView(textMonto);
 
+        btnVolverAtras.setBackground(new java.awt.Color(255, 0, 51));
+        btnVolverAtras.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnVolverAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverAtras.setText(">");
+        btnVolverAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnVolverAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -164,7 +177,8 @@ public class TransferenciaFORM extends javax.swing.JDialog {
                                 .addGap(6, 6, 6)
                                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
+                        .addComponent(btnVolverAtras)
+                        .addGap(88, 88, 88)
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
@@ -175,7 +189,9 @@ public class TransferenciaFORM extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolverAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,9 +245,14 @@ public class TransferenciaFORM extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnTransferenciaRealizadaActionPerformed
 
+    private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
+        controlNavegacion.navegarMetodosPago(membresia, cliente);
+    }//GEN-LAST:event_btnVolverAtrasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTransferenciaRealizada;
+    private javax.swing.JButton btnVolverAtras;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane10;

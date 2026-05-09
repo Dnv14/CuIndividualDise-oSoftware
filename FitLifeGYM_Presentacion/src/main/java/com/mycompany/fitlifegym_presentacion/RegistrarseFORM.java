@@ -28,6 +28,7 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         this.controlNavegacion = controlNavegacion;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setTitle("Registrarse");
         initComponents();
     }
 
@@ -123,16 +124,22 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         lblTitulo1.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo1.setText("Creación de la Cuenta");
 
+        txtApellidos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtApellidos.addActionListener(this::txtApellidosActionPerformed);
 
+        txtTelefono.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTelefono.addActionListener(this::txtTelefonoActionPerformed);
 
+        txtNombreCompleto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNombreCompleto.addActionListener(this::txtNombreCompletoActionPerformed);
 
+        txtFechaNacimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtFechaNacimiento.addActionListener(this::txtFechaNacimientoActionPerformed);
 
+        txtPIN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPIN.addActionListener(this::txtPINActionPerformed);
 
+        txtContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtContrasenia.addActionListener(this::txtContraseniaActionPerformed);
 
         btnVolverAtras.setBackground(new java.awt.Color(255, 0, 51));
@@ -147,6 +154,7 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         lblApellidos.setForeground(new java.awt.Color(255, 255, 255));
         lblApellidos.setText("Apellidos");
 
+        txtCorreoElectronico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCorreoElectronico.addActionListener(this::txtCorreoElectronicoActionPerformed);
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);

@@ -2,12 +2,17 @@
 package Entidades;
 
 import java.time.LocalDate;
+import org.bson.BsonType;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonRepresentation;
 
 /**
  *
  * @author Julian
  */
 public class Membresia {
+    @BsonId
+    @BsonRepresentation(BsonType.OBJECT_ID)
     private String idMembresia;
     private TipoMembresia tipoMembresia;
     private Double precio;

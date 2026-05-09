@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entidades;
+package DTOS;
 
 /**
  *
- * @author MrGam
+ * @author Diego
  */
-public class DetallesRutina {
+public class DetallesRutinaDTO {
+
     private String id;
     private String idEjercicio;
     private String nombreEjercicio;
@@ -16,10 +17,10 @@ public class DetallesRutina {
     private Integer repeticionesRecomendadas;
     private Integer seriesRecomendadas;
 
-    public DetallesRutina() {
+    public DetallesRutinaDTO() {
     }
 
-    public DetallesRutina(String id, String idEjercicio, String nombreEjercicio, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+    public DetallesRutinaDTO(String id, String idEjercicio, String nombreEjercicio, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
         this.id = id;
         this.idEjercicio = idEjercicio;
         this.nombreEjercicio = nombreEjercicio;
@@ -28,15 +29,13 @@ public class DetallesRutina {
         this.seriesRecomendadas = seriesRecomendadas;
     }
 
-    public DetallesRutina(String idEjercicio, String nombreEjercicio, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+    public DetallesRutinaDTO(String idEjercicio, String nombreEjercicio, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
         this.idEjercicio = idEjercicio;
         this.nombreEjercicio = nombreEjercicio;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
     }
-    
-    
 
     public String getId() {
         return id;
@@ -85,5 +84,6 @@ public class DetallesRutina {
     public void setSeriesRecomendadas(Integer seriesRecomendadas) {
         this.seriesRecomendadas = seriesRecomendadas;
     }
-    
+
 }
+
