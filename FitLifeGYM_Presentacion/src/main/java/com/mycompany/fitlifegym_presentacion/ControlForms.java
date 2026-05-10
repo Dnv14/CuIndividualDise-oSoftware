@@ -5,7 +5,6 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.AdministradorDTO;
-import DTOS.ClienteLogueadoDTO;
 import DTOsENUMs.EstadoDTO;
 import DTOS.LoginDTO;
 import DTOS.NuevaMembresiaCompradaDTO;
@@ -13,29 +12,27 @@ import DTOS.NuevaMembresiaDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RenovarMembresiaDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import com.mycompany.fitlifegym_negocio.ClientesBO;
-import com.mycompany.fitlifegym_negocio.IClientesBO;
-import com.mycompany.fitlifegym_negocio.ILoginBO;
-import com.mycompany.fitlifegym_negocio.IMembresiaBO;
-import com.mycompany.fitlifegym_negocio.IRenovarMembresiaBO;
-import com.mycompany.fitlifegym_negocio.LoginBO;
-import com.mycompany.fitlifegym_negocio.MembresiaBO;
-import com.mycompany.fitlifegym_negocio.NegocioException;
-import com.mycompany.fitlifegym_negocio.RenovarMembresiaBO;
-import PersistenciaConsola.ClientesListDAO;
-import Interfaces.IClientesDAO;
-import Interfaces.IMembresiaDAO;
-import PersistenciaConsola.MembresiaListDAO;
+import BOs.ClientesBO;
+import Interfaces.IClientesBO;
+import Interfaces.ILoginBO;
+import Interfaces.IMembresiaBO;
+import Interfaces.IRenovarMembresiaBO;
+import BOs.LoginBO;
+import BOs.MembresiaBO;
+import BOs.NegocioException;
+import BOs.RenovarMembresiaBO;
 import Entidades.Cliente;
 import Entidades.Membresia;
+import FabricaDAOS.FabricaDAOS;
+import FabricaDAOS.IFabricaDAOS;
+import Fachada.IPersistenciaFachada;
+import Fachada.PersistenciaFachada;
 import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.FuncionalidadRegistroUsuario;
 import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.IFuncionalidadRegistrarUsuario;
 import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.FuncionalidadIniciarSesionRenovarMembresia;
 import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.IFuncionalidadIniciarSesionRenovarMembresia;
 import java.time.LocalDate;
 import java.util.List;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 /**
  *
@@ -50,13 +47,14 @@ public class ControlForms {
     private IFuncionalidadIniciarSesionRenovarMembresia funcionalidad;
 
     public ControlForms() {
-        IClientesDAO dao = (IClientesDAO) new ClientesListDAO();
-        IClientesBO negocio = new ClientesBO(dao);
-        IMembresiaDAO membresiaDAO = new MembresiaListDAO();
-        IMembresiaBO membresiaBO = new MembresiaBO(membresiaDAO);
-        ILoginBO loginBO = new LoginBO(dao);
-        IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO(dao);
-        this.funcionalidadCU = new FuncionalidadRegistroUsuario(negocio);
+        IFabricaDAOS fabrica = new FabricaDAOS();
+        IPersistenciaFachada persistenciaFachada = new PersistenciaFachada(fabrica);
+        IClientesBO clientesBO = new ClientesBO(persistenciaFachada);
+        IMembresiaBO membresiaBO = new MembresiaBO(persistenciaFachada);
+        ILoginBO loginBO = new LoginBO(persistenciaFachada);
+        IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO(persistenciaFachada);
+
+        this.funcionalidadCU = new FuncionalidadRegistroUsuario(clientesBO);
         this.funcionalidad = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO);
     }
 

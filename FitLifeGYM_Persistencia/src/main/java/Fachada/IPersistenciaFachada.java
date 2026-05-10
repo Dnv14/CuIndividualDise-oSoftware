@@ -39,9 +39,9 @@ public interface IPersistenciaFachada {
     public abstract List<MembresiaComprada> obtenerTodasMembresiasCompradas() throws PersistenciaException;
 
     //membresia
-    public abstract Membresia guardarMembresiaCatalogo(Membresia membresia) throws PersistenciaException;
+    public abstract Membresia guardarMembresia(Membresia membresia) throws PersistenciaException;
 
-    public abstract List<Membresia> obtenerMembresiasCatalogo() throws PersistenciaException;
+    public abstract List<Membresia> obtenerMembresias() throws PersistenciaException;
 
     public abstract Membresia obtenerMembresiaPorId(String id) throws PersistenciaException;
 

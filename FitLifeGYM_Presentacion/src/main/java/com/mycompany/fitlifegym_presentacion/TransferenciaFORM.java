@@ -7,7 +7,7 @@ package com.mycompany.fitlifegym_presentacion;
 import DTOS.ClienteLogueadoDTO;
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import com.mycompany.fitlifegym_negocio.NegocioException;
+import BOs.NegocioException;
 import Entidades.Membresia;
 import Entidades.TipoMembresia;
 import java.util.List;

@@ -9,7 +9,7 @@ import DTOS.LoginDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RenovarMembresiaDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import com.mycompany.fitlifegym_negocio.NegocioException;
+import BOs.NegocioException;
 import Entidades.Membresia;
 import java.util.List;
 

@@ -8,10 +8,10 @@ import DTOS.LoginDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RenovarMembresiaDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import com.mycompany.fitlifegym_negocio.ILoginBO;
-import com.mycompany.fitlifegym_negocio.IMembresiaBO;
-import com.mycompany.fitlifegym_negocio.IRenovarMembresiaBO;
-import com.mycompany.fitlifegym_negocio.NegocioException;
+import Interfaces.ILoginBO;
+import Interfaces.IMembresiaBO;
+import Interfaces.IRenovarMembresiaBO;
+import BOs.NegocioException;
 import Entidades.Membresia;
 import java.util.List;
 

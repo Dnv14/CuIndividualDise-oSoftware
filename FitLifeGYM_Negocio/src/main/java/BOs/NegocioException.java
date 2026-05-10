@@ -1,5 +1,5 @@
 
-package com.mycompany.fitlifegym_negocio;
+package BOs;
 
 /**
  *

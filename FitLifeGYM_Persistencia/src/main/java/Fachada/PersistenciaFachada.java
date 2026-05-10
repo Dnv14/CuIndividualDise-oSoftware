@@ -90,12 +90,12 @@ public class PersistenciaFachada implements IPersistenciaFachada {
 
     //membresia
     @Override
-    public Membresia guardarMembresiaCatalogo(Membresia membresia) throws PersistenciaException {
+    public Membresia guardarMembresia(Membresia membresia) throws PersistenciaException {
         return membresiaDAO.guardar(membresia);
     }
 
     @Override
-    public List<Membresia> obtenerMembresiasCatalogo() throws PersistenciaException {
+    public List<Membresia> obtenerMembresias() throws PersistenciaException {
         return membresiaDAO.obtenerTodas();
     }
 

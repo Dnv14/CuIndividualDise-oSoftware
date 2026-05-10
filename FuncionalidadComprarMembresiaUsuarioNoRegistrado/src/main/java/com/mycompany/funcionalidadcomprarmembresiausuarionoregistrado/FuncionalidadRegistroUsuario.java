@@ -5,8 +5,8 @@
 package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 
 import DTOS.NuevoClienteDTO;
-import com.mycompany.fitlifegym_negocio.IClientesBO;
-import com.mycompany.fitlifegym_negocio.NegocioException;
+import Interfaces.IClientesBO;
+import BOs.NegocioException;
 import Entidades.Cliente;
 import java.util.List;
 

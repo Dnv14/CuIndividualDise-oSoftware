@@ -2,13 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.fitlifegym_negocio;
+package BOs;
 
+import Interfaces.IMembresiaCompradaBO;
 import Adapter.DtosAEntidadesAdapter;
 import DTOS.NuevaMembresiaCompradaDTO;
 import Interfaces.IMembresiaCompradaDAO;
 import Excepciones.PersistenciaException;
 import Entidades.MembresiaComprada;
+import Fachada.IPersistenciaFachada;
 import java.util.List;
 
 /**
@@ -18,12 +20,10 @@ import java.util.List;
 public class MembresiaCompradaBO implements IMembresiaCompradaBO {
 
 
-    private IMembresiaCompradaDAO membresiaComprada;
+    private IPersistenciaFachada persistenciaFachada;
 
-    private IMembresiaCompradaDAO membresiaCompradaDAO;
-
-    public MembresiaCompradaBO(IMembresiaCompradaDAO membresiaCompradaDAO) {
-        this.membresiaCompradaDAO = membresiaCompradaDAO;
+    public MembresiaCompradaBO(IPersistenciaFachada fachadaPersistencia) {
+        this.persistenciaFachada = fachadaPersistencia;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class MembresiaCompradaBO implements IMembresiaCompradaBO {
         MembresiaComprada mebresiaComprada = DtosAEntidadesAdapter.adaptarMembresiaCompradaDTO(membresiaCompradaDTO);
 
         try {
-            return membresiaComprada.guardar(mebresiaComprada);
+            return persistenciaFachada.guardarMembresiaComprada(mebresiaComprada);
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al guardar la membresia comprada.",ex);
         }
@@ -63,7 +63,7 @@ public class MembresiaCompradaBO implements IMembresiaCompradaBO {
     @Override
     public List<MembresiaComprada> obtenerTodas() throws NegocioException {
         try {
-            return membresiaComprada.obtenerTodas();
+            return persistenciaFachada.obtenerTodasMembresiasCompradas();
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al obtener todas las membresias compradas.",ex);
         }

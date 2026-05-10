@@ -5,7 +5,7 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
-import com.mycompany.fitlifegym_negocio.NegocioException;
+import BOs.NegocioException;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
