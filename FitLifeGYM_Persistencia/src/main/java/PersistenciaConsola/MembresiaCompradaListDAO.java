@@ -1,5 +1,6 @@
 package PersistenciaConsola;
 
+import Interfaces.IMembresiaCompradaDAO;
 import Entidades.MembresiaComprada;
 import java.util.ArrayList;
 import java.util.List;

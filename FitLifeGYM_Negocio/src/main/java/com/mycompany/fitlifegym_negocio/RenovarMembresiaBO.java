@@ -4,8 +4,8 @@ package com.mycompany.fitlifegym_negocio;
 import Adapter.DtosAEntidadesAdapter;
 import Adapter.EntidadesADTOsAdapter;
 import DTOS.RenovarMembresiaDTO;
-import PersistenciaConsola.IClientesDAO;
-import PersistenciaConsola.PersistenciaException;
+import Interfaces.IClientesDAO;
+import Excepciones.PersistenciaException;
 import Entidades.TipoMembresia;
 
 /**

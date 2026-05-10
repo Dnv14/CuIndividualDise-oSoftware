@@ -18,5 +18,5 @@ public interface IMembresiaBO {
 
     public abstract List<Membresia> obtenerTodas() throws NegocioException;
 
-    public abstract Membresia obtenerPorId(Long id)throws NegocioException;
+    public abstract Membresia obtenerPorId(String id)throws NegocioException;
 }

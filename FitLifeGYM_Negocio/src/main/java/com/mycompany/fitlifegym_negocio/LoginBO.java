@@ -12,8 +12,8 @@ import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevaMembresiaDTO;
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import PersistenciaConsola.IClientesDAO;
-import PersistenciaConsola.PersistenciaException;
+import Interfaces.IClientesDAO;
+import Excepciones.PersistenciaException;
 import Entidades.Cliente;
 import Entidades.TipoMembresia;
 

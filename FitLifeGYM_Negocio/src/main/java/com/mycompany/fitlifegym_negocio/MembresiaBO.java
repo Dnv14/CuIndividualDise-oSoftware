@@ -6,8 +6,8 @@ package com.mycompany.fitlifegym_negocio;
 
 import Adapter.DtosAEntidadesAdapter;
 import DTOS.NuevaMembresiaDTO;
-import PersistenciaConsola.IMembresiaDAO;
-import PersistenciaConsola.PersistenciaException;
+import Interfaces.IMembresiaDAO;
+import Excepciones.PersistenciaException;
 import Entidades.Membresia;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class MembresiaBO implements IMembresiaBO {
     }
 
     @Override
-    public Membresia obtenerPorId(Long id) throws NegocioException{
+    public Membresia obtenerPorId(String id) throws NegocioException{
 
         if(id == null){
             throw new NegocioException("El ID no puede ser nulo.");

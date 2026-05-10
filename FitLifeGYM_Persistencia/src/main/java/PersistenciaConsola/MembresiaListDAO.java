@@ -1,5 +1,6 @@
 package PersistenciaConsola;
 
+import Interfaces.IMembresiaDAO;
 import Entidades.Membresia;
 import Entidades.TipoMembresia;
 import java.time.LocalDate;
@@ -35,7 +36,7 @@ public class MembresiaListDAO implements IMembresiaDAO {
     }
 
     @Override
-    public Membresia obtenerPorId(Long id) {
+    public Membresia obtenerPorId(String id) {
         return this.membresias.stream()
                 .filter(m -> m.getIdMembresia().equals(id))
                 .findFirst()

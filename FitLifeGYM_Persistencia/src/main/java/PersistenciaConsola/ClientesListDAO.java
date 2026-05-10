@@ -1,5 +1,7 @@
 package PersistenciaConsola;
 
+import Excepciones.PersistenciaException;
+import Interfaces.IClientesDAO;
 import Entidades.Cliente;
 import Entidades.Estado;
 import Entidades.Membresia;

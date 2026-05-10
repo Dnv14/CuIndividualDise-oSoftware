@@ -6,8 +6,8 @@ package com.mycompany.fitlifegym_negocio;
 
 import Adapter.DtosAEntidadesAdapter;
 import DTOS.NuevaMembresiaCompradaDTO;
-import PersistenciaConsola.IMembresiaCompradaDAO;
-import PersistenciaConsola.PersistenciaException;
+import Interfaces.IMembresiaCompradaDAO;
+import Excepciones.PersistenciaException;
 import Entidades.MembresiaComprada;
 import java.util.List;
 
