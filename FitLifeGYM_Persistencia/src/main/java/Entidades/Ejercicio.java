@@ -26,6 +26,9 @@ public class Ejercicio {
         this.nombre = nombre;
     }
 
+    public Ejercicio(String nombre) {
+        this.nombre = nombre;
+    }
     public String getId() {
         return id;
     }

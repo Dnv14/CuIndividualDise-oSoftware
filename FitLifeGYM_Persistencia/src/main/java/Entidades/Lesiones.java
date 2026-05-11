@@ -26,6 +26,10 @@ public class Lesiones {
         this.nombre = nombre;
     }
 
+    public Lesiones(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getId() {
         return id;
     }

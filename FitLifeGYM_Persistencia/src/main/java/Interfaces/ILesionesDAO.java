@@ -14,4 +14,6 @@ import java.util.List;
 public interface ILesionesDAO {
 
     public abstract List<Lesiones> consultarTodos();
+    
+    public abstract List<Lesiones> cargarLesiones();
 }

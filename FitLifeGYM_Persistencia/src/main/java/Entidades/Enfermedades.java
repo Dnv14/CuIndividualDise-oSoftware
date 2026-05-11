@@ -27,6 +27,10 @@ public class Enfermedades {
         this.nombre = nombre;
     }
 
+    public Enfermedades(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getId() {
         return id;
     }

@@ -48,11 +48,17 @@ public interface IPersistenciaFachada {
     //enfermedades
     public abstract List<Enfermedades> consultarEnfermedades();
 
+    public abstract List<Enfermedades> cargarEnfermedades();
+
     //Lesiones
     public abstract List<Lesiones> consultarLesiones();
 
+    public abstract List<Lesiones> cargarLesiones();
+
     //ejercicios
     public abstract List<Ejercicio> consultarEjercicios();
+
+    public abstract List<Ejercicio> cargarEjercicios();
 
     //rutinas
     public abstract Rutina guardarRutina(Rutina rutina);

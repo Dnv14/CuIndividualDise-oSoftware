@@ -6,17 +6,53 @@ package PersistenciaMongo;
 
 import Entidades.Lesiones;
 import Interfaces.ILesionesDAO;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author Diego
  */
-public class LesionesDAOMongo implements ILesionesDAO{
+public class LesionesDAOMongo implements ILesionesDAO {
+
+    private static final String NOMBRE_COLECCION = "lesiones";
 
     @Override
     public List<Lesiones> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Lesiones> listaLesiones = new LinkedList<>();
+
+        try (MongoClient cliente = CreadorConexiones.crearConexion()) {
+            MongoDatabase db = CreadorConexiones.obtenerCodecs(cliente);
+
+            MongoCollection<Lesiones> coleccionLesiones = db.getCollection(NOMBRE_COLECCION, Lesiones.class);
+            coleccionLesiones.find().into(listaLesiones);
+            return listaLesiones;
+        }
     }
-    
+
+    @Override
+    public List<Lesiones> cargarLesiones() {
+        List<Lesiones> listaLesiones = new LinkedList<>();
+        List<Lesiones> listaActual = consultarTodos();
+
+        try (MongoClient cliente = CreadorConexiones.crearConexion()) {
+            MongoDatabase db = CreadorConexiones.obtenerCodecs(cliente);
+            MongoCollection<Lesiones> coleccionLesiones = db.getCollection(NOMBRE_COLECCION, Lesiones.class);
+            
+            if( listaActual == null || listaActual.size() == 0){
+                listaLesiones.add(new Lesiones("Hernia Discal"));
+                listaLesiones.add(new Lesiones("Desgarre en Manguito Rotador"));
+                listaLesiones.add(new Lesiones("Esguince de Tobillo"));
+                listaLesiones.add(new Lesiones("Artrosis de Rodilla"));
+                listaLesiones.add(new Lesiones("Rotura de Algún Ligamento"));
+                coleccionLesiones.insertMany(listaLesiones);
+                return listaLesiones;
+            }
+           return listaActual;
+        }
+    }
+
 }

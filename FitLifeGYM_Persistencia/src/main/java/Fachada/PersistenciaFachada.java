@@ -110,6 +110,11 @@ public class PersistenciaFachada implements IPersistenciaFachada {
         return enfermedadesDAO.consultarTodos();
     }
 
+    @Override
+    public List<Enfermedades> cargarEnfermedades() {
+        return enfermedadesDAO.cargarEnfermedades();
+    }
+
     //Lesiones
     @Override
     public List<Lesiones> consultarLesiones() {
@@ -117,8 +122,19 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     }
 
     @Override
+    public List<Lesiones> cargarLesiones() {
+        return lesionesDAO.cargarLesiones();
+    }
+
+    //ejercicios
+    @Override
     public List<Ejercicio> consultarEjercicios() {
         return ejerciciosDAO.consultarTodos();
+    }
+
+    @Override
+    public List<Ejercicio> cargarEjercicios() {
+        return ejerciciosDAO.cargarEjercicios();
     }
 
     //Rutina

@@ -15,4 +15,6 @@ import java.util.List;
 public interface IEjerciciosDAO {
 
     public List<Ejercicio> consultarTodos();
+    
+    public List<Ejercicio> cargarEjercicios();
 }
