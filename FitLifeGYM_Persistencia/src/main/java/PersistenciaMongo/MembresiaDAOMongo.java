@@ -5,29 +5,46 @@
 package PersistenciaMongo;
 
 import Entidades.Membresia;
+import Entidades.TipoMembresia;
 import Excepciones.PersistenciaException;
 import Interfaces.IMembresiaDAO;
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author Diego
  */
-public class MembresiaDAOMongo implements IMembresiaDAO{
+public class MembresiaDAOMongo implements IMembresiaDAO {
+
+    private static final String NOMBRE_COLECCION = "membresias";
 
     @Override
-    public Membresia guardar(Membresia membresia) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Membresia> obtenerYCargarMembresias() throws PersistenciaException {
+        List<Membresia> listaMembresias = new LinkedList<>();
+
+        try (MongoClient cliente = CreadorConexiones.crearConexion()) {
+            MongoDatabase db = CreadorConexiones.obtenerCodecs(cliente);
+            MongoCollection<Membresia> coleccionMembresias = db.getCollection(NOMBRE_COLECCION, Membresia.class);
+
+            if (coleccionMembresias.countDocuments() == 0) {
+                listaMembresias.add(new Membresia(TipoMembresia.BRONCE, 300.0));
+                listaMembresias.add(new Membresia(TipoMembresia.PLATA, 500.0));
+                listaMembresias.add(new Membresia(TipoMembresia.ORO, 750.0));
+
+                coleccionMembresias.insertMany(listaMembresias);
+                return listaMembresias;
+            }
+            coleccionMembresias.find().into(listaMembresias);
+
+            return listaMembresias;
+        } catch (MongoException ex) {
+            throw new PersistenciaException("Error al consultar las membresias");
+        }
     }
 
-    @Override
-    public List<Membresia> obtenerTodas() throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Membresia obtenerPorId(String id) throws PersistenciaException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

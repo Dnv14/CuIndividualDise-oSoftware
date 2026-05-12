@@ -31,7 +31,10 @@ public interface IPersistenciaFachada {
 
     public abstract Cliente buscarPorPin(String pin) throws PersistenciaException;
 
-    public abstract void actualizarMembresia(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException;
+    public abstract void renovarMembresiaCliente(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException;
+
+    //prueba
+    public abstract MembresiaComprada guardarMembresiaCompradaCliente(String idCliente, MembresiaComprada compra) throws PersistenciaException;
 
     //membresia comprada
     public abstract MembresiaComprada guardarMembresiaComprada(MembresiaComprada compra) throws PersistenciaException;
@@ -39,38 +42,28 @@ public interface IPersistenciaFachada {
     public abstract List<MembresiaComprada> obtenerTodasMembresiasCompradas() throws PersistenciaException;
 
     //membresia
-    public abstract Membresia guardarMembresia(Membresia membresia) throws PersistenciaException;
-
-    public abstract List<Membresia> obtenerMembresias() throws PersistenciaException;
-
-    public abstract Membresia obtenerMembresiaPorId(String id) throws PersistenciaException;
+    public abstract List<Membresia> obtenerYCargarMembresias() throws PersistenciaException;
 
     //enfermedades
-    public abstract List<Enfermedades> consultarEnfermedades();
-
-    public abstract List<Enfermedades> cargarEnfermedades();
+    public abstract List<Enfermedades> consultarEnfermedades() throws PersistenciaException;
 
     //Lesiones
-    public abstract List<Lesiones> consultarLesiones();
-
-    public abstract List<Lesiones> cargarLesiones();
+    public abstract List<Lesiones> consultarLesiones() throws PersistenciaException;
 
     //ejercicios
-    public abstract List<Ejercicio> consultarEjercicios();
-
-    public abstract List<Ejercicio> cargarEjercicios();
+    public abstract List<Ejercicio> consultarEjercicios() throws PersistenciaException;
 
     //rutinas
-    public abstract Rutina guardarRutina(Rutina rutina);
+    public abstract Rutina guardarRutina(Rutina rutina) throws PersistenciaException;
 
-    public abstract void eliminarRutina(String idCliente);
+    public abstract void eliminarRutina(String idCliente) throws PersistenciaException;
 
-    public abstract Rutina editarRutina(Rutina rutina);
+    public abstract Rutina editarRutina(Rutina rutina) throws PersistenciaException;
 
-    public abstract Rutina consultarRutina(String idCliente);
+    public abstract Rutina consultarRutina(String idCliente) throws PersistenciaException;
 
     //registro fisico 
-    public abstract RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico);
+    public abstract RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico) throws PersistenciaException;
 
-    public abstract RegistroFisico consultarRegistroFisico(String idCliente);
+    public abstract RegistroFisico consultarRegistroFisico(String idCliente) throws PersistenciaException;
 }

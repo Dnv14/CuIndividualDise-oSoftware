@@ -73,9 +73,17 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     }
 
     @Override
-    public void actualizarMembresia(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException {
+    public void renovarMembresiaCliente(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException {
         clientesDAO.actualizarMembresia(idCliente, nuevaMembresia);
     }
+    
+    //prueba
+    @Override
+    public MembresiaComprada guardarMembresiaCompradaCliente(String idCliente, MembresiaComprada compra) throws PersistenciaException {
+        return clientesDAO.guardarMembresiaCompradaCliente(idCliente, compra);
+    }
+    
+    
 
     //membresia comprada
     @Override
@@ -90,83 +98,60 @@ public class PersistenciaFachada implements IPersistenciaFachada {
 
     //membresia
     @Override
-    public Membresia guardarMembresia(Membresia membresia) throws PersistenciaException {
-        return membresiaDAO.guardar(membresia);
-    }
-
-    @Override
-    public List<Membresia> obtenerMembresias() throws PersistenciaException {
-        return membresiaDAO.obtenerTodas();
-    }
-
-    @Override
-    public Membresia obtenerMembresiaPorId(String id) throws PersistenciaException {
-        return membresiaDAO.obtenerPorId(id);
+    public List<Membresia> obtenerYCargarMembresias() throws PersistenciaException {
+        return membresiaDAO.obtenerYCargarMembresias();
     }
 
     //enfermedades
     @Override
-    public List<Enfermedades> consultarEnfermedades() {
+    public List<Enfermedades> consultarEnfermedades() throws PersistenciaException {
         return enfermedadesDAO.consultarTodos();
-    }
-
-    @Override
-    public List<Enfermedades> cargarEnfermedades() {
-        return enfermedadesDAO.cargarEnfermedades();
     }
 
     //Lesiones
     @Override
-    public List<Lesiones> consultarLesiones() {
+    public List<Lesiones> consultarLesiones() throws PersistenciaException {
         return lesionesDAO.consultarTodos();
-    }
-
-    @Override
-    public List<Lesiones> cargarLesiones() {
-        return lesionesDAO.cargarLesiones();
     }
 
     //ejercicios
     @Override
-    public List<Ejercicio> consultarEjercicios() {
+    public List<Ejercicio> consultarEjercicios() throws PersistenciaException {
         return ejerciciosDAO.consultarTodos();
-    }
-
-    @Override
-    public List<Ejercicio> cargarEjercicios() {
-        return ejerciciosDAO.cargarEjercicios();
     }
 
     //Rutina
     @Override
-    public Rutina guardarRutina(Rutina rutina) {
+    public Rutina guardarRutina(Rutina rutina) throws PersistenciaException {
         return rutinasDAO.guardarRutina(rutina);
     }
 
     @Override
-    public void eliminarRutina(String idCliente) {
+    public void eliminarRutina(String idCliente) throws PersistenciaException {
         rutinasDAO.eliminarRutina(idCliente);
     }
 
     @Override
-    public Rutina editarRutina(Rutina rutina) {
+    public Rutina editarRutina(Rutina rutina) throws PersistenciaException {
         return rutinasDAO.editarRutina(rutina);
     }
 
     @Override
-    public Rutina consultarRutina(String idCliente) {
+    public Rutina consultarRutina(String idCliente) throws PersistenciaException {
         return rutinasDAO.consultarRutina(idCliente);
     }
 
     //registro fisico
     @Override
-    public RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico) {
+    public RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico) throws PersistenciaException {
         return registroFisicoDAO.guardarRegistroFisico(registroFisico);
     }
 
     @Override
-    public RegistroFisico consultarRegistroFisico(String idCliente) {
+    public RegistroFisico consultarRegistroFisico(String idCliente) throws PersistenciaException {
         return registroFisicoDAO.consultarRegistroFisico(idCliente);
     }
+
+    
 
 }

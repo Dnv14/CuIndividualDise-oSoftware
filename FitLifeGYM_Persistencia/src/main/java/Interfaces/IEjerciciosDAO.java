@@ -5,6 +5,7 @@
 package Interfaces;
 
 import Entidades.Ejercicio;
+import Excepciones.PersistenciaException;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface IEjerciciosDAO {
 
-    public List<Ejercicio> consultarTodos();
+    public List<Ejercicio> consultarTodos()throws PersistenciaException;
     
-    public List<Ejercicio> cargarEjercicios();
+   
 }

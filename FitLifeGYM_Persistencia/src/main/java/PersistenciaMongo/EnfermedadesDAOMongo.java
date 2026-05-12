@@ -5,7 +5,9 @@
 package PersistenciaMongo;
 
 import Entidades.Enfermedades;
+import Excepciones.PersistenciaException;
 import Interfaces.IEnfermedadesDAO;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -21,40 +23,27 @@ public class EnfermedadesDAOMongo implements IEnfermedadesDAO {
     private static final String NOMBRE_COLECCION = "enfermedades";
 
     @Override
-    public List<Enfermedades> consultarTodos() {
+    public List<Enfermedades> consultarTodos() throws PersistenciaException {
         List<Enfermedades> listaEnfermedades = new LinkedList<>();
 
         try (MongoClient cliente = CreadorConexiones.crearConexion()) {
             MongoDatabase db = CreadorConexiones.obtenerCodecs(cliente);
-
-            MongoCollection<Enfermedades> coleccionEnfermedades = db.getCollection(NOMBRE_COLECCION, Enfermedades.class);
-            coleccionEnfermedades.find().into(listaEnfermedades);
-            return listaEnfermedades;
-        }
-    }
-
-    @Override
-    public List<Enfermedades> cargarEnfermedades() {
-        List<Enfermedades> listaEnfermedades = new LinkedList<>();
-        List<Enfermedades> listaActual = consultarTodos();
-
-        try (MongoClient cliente = CreadorConexiones.crearConexion()) {
-            MongoDatabase db = CreadorConexiones.obtenerCodecs(cliente);
-
             MongoCollection<Enfermedades> coleccionEnfermedades = db.getCollection(NOMBRE_COLECCION, Enfermedades.class);
 
-            if (listaActual.size() == 0 || listaActual == null) {
+            if (coleccionEnfermedades.countDocuments() == 0) {
                 listaEnfermedades.add(new Enfermedades("Hipertensión"));
                 listaEnfermedades.add(new Enfermedades("Diabetes"));
                 listaEnfermedades.add(new Enfermedades("Asma"));
                 listaEnfermedades.add(new Enfermedades("Taquicardia"));
                 listaEnfermedades.add(new Enfermedades("Hipotiroidismo"));
-                
                 coleccionEnfermedades.insertMany(listaEnfermedades);
-                return listaEnfermedades;
             }
-
-            return listaActual;
+            
+            coleccionEnfermedades.find().into(listaEnfermedades);
+            return listaEnfermedades;
+            
+        } catch (MongoException ex) {
+            throw new PersistenciaException("Error al consultar las enfermedades");
         }
     }
 

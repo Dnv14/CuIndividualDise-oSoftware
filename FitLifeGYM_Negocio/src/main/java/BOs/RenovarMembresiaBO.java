@@ -25,7 +25,7 @@ public class RenovarMembresiaBO implements IRenovarMembresiaBO {
     public void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioException {
         TipoMembresia tipo = DtosAEntidadesAdapter.adaptarTipoMembresia(dto.getTipoMembresia());
         try {
-            persistenciaFachada.actualizarMembresia(dto.getIdCliente(), tipo);
+            persistenciaFachada.renovarMembresiaCliente(dto.getIdCliente(), tipo);
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al renovar la membresia.", ex);
         }

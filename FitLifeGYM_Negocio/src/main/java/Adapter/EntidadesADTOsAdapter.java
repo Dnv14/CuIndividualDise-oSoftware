@@ -52,7 +52,7 @@ public class EntidadesADTOsAdapter {
             return null;
         }
 
-        NuevaMembresiaCompradaDTO membresiaDTO = adaptarMembresiaCompradaADTO(cliente.getMembresíaComprada());
+        NuevaMembresiaCompradaDTO membresiaDTO = adaptarMembresiaCompradaADTO(cliente.getMembresiaComprada());
 
         return new NuevoClienteDTO(
                 cliente.getId(),

@@ -14,8 +14,10 @@ import java.util.List;
  * @author Diego
  */
 public interface IMembresiaCompradaBO {
-
-    public abstract MembresiaComprada guardar(NuevaMembresiaCompradaDTO compra) throws NegocioException;
+//no se usa 
+    //nose porque 
+    
+    public abstract MembresiaComprada RegistrarMembresia(String idCliente ,NuevaMembresiaCompradaDTO compra) throws NegocioException;
 
     public abstract List<MembresiaComprada> obtenerTodas() throws NegocioException;
 }

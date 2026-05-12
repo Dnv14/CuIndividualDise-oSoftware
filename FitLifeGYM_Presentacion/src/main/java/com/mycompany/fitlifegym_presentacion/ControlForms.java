@@ -43,8 +43,8 @@ public class ControlForms {
     private NuevoClienteDTO clienteRegistro;
     private NuevoClienteDTO clienteActual;
     private AdministradorDTO administradorActual;
-    private IFuncionalidadRegistrarUsuario funcionalidadCU;
-    private IFuncionalidadIniciarSesionRenovarMembresia funcionalidad;
+    private IFuncionalidadRegistrarUsuario funcionalidadRegistrarUsuario;
+    private IFuncionalidadIniciarSesionRenovarMembresia funcionalidadRenovarUsuario;
 
     public ControlForms() {
         IFabricaDAOS fabrica = new FabricaDAOS();
@@ -54,8 +54,8 @@ public class ControlForms {
         ILoginBO loginBO = new LoginBO(persistenciaFachada);
         IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO(persistenciaFachada);
 
-        this.funcionalidadCU = new FuncionalidadRegistroUsuario(clientesBO);
-        this.funcionalidad = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO);
+        this.funcionalidadRegistrarUsuario = new FuncionalidadRegistroUsuario(clientesBO);
+        this.funcionalidadRenovarUsuario = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO);
     }
 
     //control
@@ -76,7 +76,7 @@ public class ControlForms {
     }
 
     public void asignarMembresiaCliente(NuevoClienteDTO cliente, TipoMembresiaDTO membresia) throws NegocioException {
-        Membresia membresiaBD = funcionalidad.buscarMembresiaPorTipo(membresia);
+        Membresia membresiaBD = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(membresia);
         double precio = membresiaBD.getPrecio();
         LocalDate hoy = LocalDate.now();
 
@@ -92,12 +92,12 @@ public class ControlForms {
     }
 
     public void registrarCliente(NuevoClienteDTO clienteDTO) throws NegocioException { //debiar de llamarse Validar datos cliente
-        funcionalidadCU.validarDatosUsuario(clienteDTO);
+        funcionalidadRegistrarUsuario.validarDatosUsuario(clienteDTO);
         this.clienteRegistro = clienteDTO;
     }
 
     public void procesarPagoTarjeta(NuevoClienteDTO cliente, String numeroTarjeta, String cvv, String fechaVencimiento, String nombreTitular) throws NegocioException {
-        funcionalidadCU.validarTarjeta(cvv, numeroTarjeta, fechaVencimiento, nombreTitular);
+        funcionalidadRegistrarUsuario.validarTarjeta(cvv, numeroTarjeta, fechaVencimiento, nombreTitular);
 
         if (this.clienteActual != null) {
             TipoMembresiaDTO tipo = cliente.getMembresíaComprada().getMembresia().getTipoMembresia();
@@ -105,13 +105,13 @@ public class ControlForms {
         } else if (this.clienteRegistro != null) {
 
             this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadCU.RegistrarUsuario(this.clienteRegistro);
+            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarUsuario(this.clienteRegistro);
             this.clienteRegistro = null;
         }
     }
 
     public void procesarPagoPaypal(NuevoClienteDTO cliente, String correo, String contrasenia) throws NegocioException {
-        funcionalidadCU.validarPaypal(correo, contrasenia);
+        funcionalidadRegistrarUsuario.validarPaypal(correo, contrasenia);
 
         // Si hay cliente logueado es pos es renovacion
         if (this.clienteActual != null) {
@@ -120,7 +120,7 @@ public class ControlForms {
         } else if (this.clienteRegistro != null) {
 
             this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadCU.RegistrarUsuario(this.clienteRegistro);
+            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarUsuario(this.clienteRegistro);
             this.clienteRegistro = null;
         }
 
@@ -133,7 +133,7 @@ public class ControlForms {
         } else if (this.clienteRegistro != null) {
 
             this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadCU.RegistrarUsuario(this.clienteRegistro);
+            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarUsuario(this.clienteRegistro);
             this.clienteRegistro = null;
         }
 
@@ -144,24 +144,24 @@ public class ControlForms {
     }
 
     public List<Cliente> consultarClientes() throws NegocioException {
-        return funcionalidadCU.obtenerTodas();
+        return funcionalidadRegistrarUsuario.obtenerTodas();
     }
 
     //Modificado
     public NuevoClienteDTO iniciarSesion(String pin, String contrasenia) throws NegocioException {
         LoginDTO loginDTO = new LoginDTO(pin, contrasenia);
-        this.clienteActual = funcionalidad.iniciarSesion(loginDTO);
+        this.clienteActual = funcionalidadRenovarUsuario.iniciarSesion(loginDTO);
         return this.clienteActual;
     }
 
     //Nuevo Para consultar las Membresias
     public List<Membresia> consultarMembresias() throws NegocioException {
-        return funcionalidad.consultarMembresias();
+        return funcionalidadRenovarUsuario.consultarMembresias();
     }
 
     // Para Consultar Los Tipos de Membresia
     public Membresia buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException {
-        return funcionalidad.buscarMembresiaPorTipo(tipo);
+        return funcionalidadRenovarUsuario.buscarMembresiaPorTipo(tipo);
     }
 
     //Nuevo(lo agregrege para la renovacion)
@@ -170,7 +170,7 @@ public class ControlForms {
             throw new NegocioException("No se encontró un ID de cliente ");
         }
 
-        Membresia infoPlan = funcionalidad.buscarMembresiaPorTipo(tipoDTO);
+        Membresia infoPlan = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(tipoDTO);
 
         NuevaMembresiaDTO planDTO = new NuevaMembresiaDTO(tipoDTO, infoPlan.getPrecio(), LocalDate.now().plusMonths(1));
         NuevaMembresiaCompradaDTO nuevaCompra = new NuevaMembresiaCompradaDTO(
@@ -184,7 +184,7 @@ public class ControlForms {
         this.clienteActual.setMembresíaComprada(nuevaCompra);
 
         RenovarMembresiaDTO renovarDTO = new RenovarMembresiaDTO(clienteActual.getId(), tipoDTO);
-        funcionalidad.renovarMembresia(renovarDTO);
+        funcionalidadRenovarUsuario.renovarMembresia(renovarDTO);
     }
 
 }

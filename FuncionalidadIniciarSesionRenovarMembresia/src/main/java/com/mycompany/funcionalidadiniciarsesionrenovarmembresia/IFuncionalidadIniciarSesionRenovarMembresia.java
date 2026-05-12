@@ -18,9 +18,13 @@ import java.util.List;
  * @author PC GAMER MASTER RACE
  */
 public interface IFuncionalidadIniciarSesionRenovarMembresia {
+
     public abstract NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioException;
+
     public abstract List<Membresia> consultarMembresias() throws NegocioException;
+
     public abstract void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioException;
+
     public abstract Membresia buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException;
-    
+
 }

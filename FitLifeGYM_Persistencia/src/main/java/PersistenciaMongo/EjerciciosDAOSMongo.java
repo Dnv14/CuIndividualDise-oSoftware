@@ -5,7 +5,9 @@
 package PersistenciaMongo;
 
 import Entidades.Ejercicio;
+import Excepciones.PersistenciaException;
 import Interfaces.IEjerciciosDAO;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -21,7 +23,7 @@ public class EjerciciosDAOSMongo implements IEjerciciosDAO {
     private static final String NOMBRE_COLECCION = "ejercicios";
 
     @Override
-    public List<Ejercicio> consultarTodos() {
+    public List<Ejercicio> consultarTodos() throws PersistenciaException {
         List<Ejercicio> listaEjercicios = new LinkedList<>();
 
         try (MongoClient cliente = CreadorConexiones.crearConexion()) {
@@ -29,41 +31,27 @@ public class EjerciciosDAOSMongo implements IEjerciciosDAO {
 
             MongoCollection<Ejercicio> coleccionEjercicios = db.getCollection(NOMBRE_COLECCION, Ejercicio.class);
 
+            if (coleccionEjercicios.countDocuments() == 0) {
+                listaEjercicios.add(new Ejercicio("Press de Banca"));
+                listaEjercicios.add(new Ejercicio("Press Militar"));
+                listaEjercicios.add(new Ejercicio("Sentadilla"));
+                listaEjercicios.add(new Ejercicio("Peso Muerto"));
+                listaEjercicios.add(new Ejercicio("Curl de Bicep"));
+                listaEjercicios.add(new Ejercicio("Curl Martillo"));
+                listaEjercicios.add(new Ejercicio("Extensión de Cuadriceps"));
+                listaEjercicios.add(new Ejercicio("Extensión de Femoral"));
+                listaEjercicios.add(new Ejercicio("Press Inclinado"));
+                listaEjercicios.add(new Ejercicio("Dominadas"));
+                coleccionEjercicios.insertMany(listaEjercicios);
+            }
             coleccionEjercicios.find().into(listaEjercicios);
 
 //            for(Ejercicio e :coleccionEjercicios.find()){
 //                listaEjercicios.add(e);
 //            }
             return listaEjercicios;
+        } catch (MongoException ex) {
+            throw new PersistenciaException("Error al consultar los ejercicios");
         }
-    }
-
-    @Override
-    public List<Ejercicio> cargarEjercicios() {
-        List<Ejercicio> ejercicios = new LinkedList<>();
-        List<Ejercicio> listaActual = consultarTodos();
-
-        try (MongoClient cliente = CreadorConexiones.crearConexion()) {
-            MongoDatabase db = CreadorConexiones.obtenerCodecs(cliente);
-            MongoCollection<Ejercicio> coleccionEjercicios = db.getCollection(NOMBRE_COLECCION, Ejercicio.class);
-
-            if (listaActual == null || listaActual.size() == 0) {
-                ejercicios.add(new Ejercicio("Press de Banca"));
-                ejercicios.add(new Ejercicio("Press Militar"));
-                ejercicios.add(new Ejercicio("Sentadilla"));
-                ejercicios.add(new Ejercicio("Peso Muerto"));
-                ejercicios.add(new Ejercicio("Curl de Bicep"));
-                ejercicios.add(new Ejercicio("Curl Martillo"));
-                ejercicios.add(new Ejercicio("Extensión de Cuadriceps"));
-                ejercicios.add(new Ejercicio("Extensión de Femoral"));
-                ejercicios.add(new Ejercicio("Press Inclinado"));
-                ejercicios.add(new Ejercicio("Dominadas"));
-
-                coleccionEjercicios.insertMany(ejercicios);
-                return ejercicios;
-            }
-
-        }
-        return listaActual;
     }
 }

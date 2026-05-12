@@ -1,6 +1,7 @@
 package Interfaces;
 
 import Entidades.Cliente;
+import Entidades.MembresiaComprada;
 import Entidades.TipoMembresia;
 import Excepciones.PersistenciaException;
 import java.util.List;
@@ -20,5 +21,10 @@ public interface IClientesDAO {
     public abstract Cliente buscarPorPin(String pin) throws PersistenciaException;
 
     public abstract void actualizarMembresia(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException;
-
+    
+    //logica de memebresias compradas
+    public abstract MembresiaComprada guardarMembresiaCompradaCliente(String idCliente,MembresiaComprada compra)throws PersistenciaException;
+    
+    public abstract List<MembresiaComprada>consultarTodasMembresiasCompradas()throws PersistenciaException;
+   
 }

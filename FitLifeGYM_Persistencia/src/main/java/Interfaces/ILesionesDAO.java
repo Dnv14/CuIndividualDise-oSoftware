@@ -5,6 +5,7 @@
 package Interfaces;
 
 import Entidades.Lesiones;
+import Excepciones.PersistenciaException;
 import java.util.List;
 
 /**
@@ -13,7 +14,5 @@ import java.util.List;
  */
 public interface ILesionesDAO {
 
-    public abstract List<Lesiones> consultarTodos();
-    
-    public abstract List<Lesiones> cargarLesiones();
+    public abstract List<Lesiones> consultarTodos()throws PersistenciaException;
 }

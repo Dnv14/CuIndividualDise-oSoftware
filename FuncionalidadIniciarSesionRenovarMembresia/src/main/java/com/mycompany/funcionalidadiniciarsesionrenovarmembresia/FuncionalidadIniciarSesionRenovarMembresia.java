@@ -20,6 +20,7 @@ import java.util.List;
  * @author PC GAMER MASTER RACE
  */
 public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalidadIniciarSesionRenovarMembresia {
+
     private final ILoginBO loginBO;
     private final IMembresiaBO membresiaBO;
     private final IRenovarMembresiaBO renovarMembresiaBO;
@@ -71,7 +72,7 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
         if (dto.getIdCliente() == null) {
             throw new NegocioException("El ID del cliente no puede ser nulo.");
         }
-        
+
         if (dto.getTipoMembresia() == null) {
             throw new NegocioException("Se debe de elegir un tipo de membresia.");
         }
@@ -98,5 +99,5 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
 
         throw new NegocioException("No se encontro la membresia '" + tipo + "' en la BD.");
     }
-    
+
 }

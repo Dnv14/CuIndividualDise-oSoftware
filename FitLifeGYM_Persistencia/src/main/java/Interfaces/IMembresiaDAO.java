@@ -10,9 +10,7 @@ import java.util.List;
  */
 public interface IMembresiaDAO {
 
-    public abstract Membresia guardar(Membresia membresia) throws PersistenciaException;
+    public abstract List<Membresia> obtenerYCargarMembresias() throws PersistenciaException;
 
-    public abstract List<Membresia> obtenerTodas() throws PersistenciaException;
-
-    public abstract Membresia obtenerPorId(String id) throws PersistenciaException;
+    
 }

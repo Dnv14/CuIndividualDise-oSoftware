@@ -16,13 +16,13 @@ import java.util.logging.Logger;
  *
  * @author Julian
  */
-public class ClientesListDAO implements IClientesDAO {
+public class ClientesListDAO  {
 
     private static final Logger LOGGER = Logger.getLogger(ClientesListDAO.class.getName());
     private static List<Cliente> clientes = new ArrayList<>();
     private static long contadorID = 1;
 
-    @Override
+
     public Cliente registrarCliente(Cliente cliente) throws PersistenciaException {
         cliente.setId(String.valueOf(contadorID));
         contadorID++;
@@ -31,7 +31,7 @@ public class ClientesListDAO implements IClientesDAO {
         return cliente;
     }
 
-    @Override
+
     public Cliente consultarClientePorId(String id) throws PersistenciaException {
         return this.clientes.stream()
                 .filter(m -> m.getId().equals(id))
@@ -39,12 +39,12 @@ public class ClientesListDAO implements IClientesDAO {
                 .orElse(null);
     }
 
-    @Override
+  
     public List<Cliente> consultarClientes() throws PersistenciaException {
         return this.clientes;
     }
 
-    @Override
+   
     public Cliente buscarPorPin(String pin) throws PersistenciaException {
         for (Cliente c : clientes) {
             if (c.getPin().equals(pin)) {
@@ -54,7 +54,7 @@ public class ClientesListDAO implements IClientesDAO {
         return null;
     }
 
-    @Override
+ 
     public void actualizarMembresia(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException {
         try {
             Cliente cliente = consultarClientePorId(idCliente);
@@ -76,7 +76,7 @@ public class ClientesListDAO implements IClientesDAO {
                         precio,
                         Estado.ACTIVO
                 );
-                cliente.setMembresíaComprada(nuevaCompra);
+                cliente.setMembresiaComprada(nuevaCompra);
             }
         } catch (PersistenciaException ex) {
             LOGGER.severe(ex.getMessage());
@@ -135,4 +135,6 @@ public class ClientesListDAO implements IClientesDAO {
             System.err.println("Error creando sujeto de prueba: " + e.getMessage());
         }
     }
+
+   
 }

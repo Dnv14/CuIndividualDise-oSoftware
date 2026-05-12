@@ -11,17 +11,19 @@ public class Cliente extends Usuario {
     private String telefono;
     private LocalDate fechaNacimiento;
     private String pin;
-    private MembresiaComprada membresíaComprada;
+    private MembresiaComprada membresiaComprada;
 
     public Cliente() {
     }
 
+    
+    
     public Cliente(String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin, MembresiaComprada membresíaComprada) {
         super(nombre, apellidos, correo, contrasenia);
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
-        this.membresíaComprada = membresíaComprada;
+        this.membresiaComprada = membresíaComprada;
     }
 
     public Cliente(String id, String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin,MembresiaComprada membresíaComprada) {
@@ -29,7 +31,7 @@ public class Cliente extends Usuario {
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
-        this.membresíaComprada = membresíaComprada;
+        this.membresiaComprada = membresíaComprada;
     }
 
     public String getTelefono() {
@@ -56,12 +58,12 @@ public class Cliente extends Usuario {
         this.pin = pin;
     }
 
-    public MembresiaComprada getMembresíaComprada() {
-        return membresíaComprada;
+    public MembresiaComprada getMembresiaComprada() {
+        return membresiaComprada;
     }
 
-    public void setMembresíaComprada(MembresiaComprada membresíaComprada) {
-        this.membresíaComprada = membresíaComprada;
+    public void setMembresiaComprada(MembresiaComprada membresíaComprada) {
+        this.membresiaComprada = membresíaComprada;
     }
 
 }
