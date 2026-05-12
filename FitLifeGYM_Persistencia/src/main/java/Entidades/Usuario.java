@@ -80,4 +80,10 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", correo=" + correo + ", contrasenia=" + contrasenia + '}';
+    }
+
+    
 }

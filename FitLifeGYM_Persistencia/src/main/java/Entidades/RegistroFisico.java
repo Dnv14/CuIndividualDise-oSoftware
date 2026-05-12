@@ -23,6 +23,11 @@ public class RegistroFisico {
     private List<Lesiones> lesiones;
     private List<Enfermedades> enfermedades;
 
+    public RegistroFisico() {
+    }
+
+    
+    
     public RegistroFisico(String id, String idCliente, NivelCondicion nivelCondicion, List<Lesiones> lesiones, List<Enfermedades> enfermedades) {
         this.id = id;
         this.idCliente = idCliente;
@@ -37,6 +42,8 @@ public class RegistroFisico {
         this.lesiones = lesiones;
         this.enfermedades = enfermedades;
     }
+    
+    
 
     public String getId() {
         return id;
@@ -77,6 +84,12 @@ public class RegistroFisico {
     public void setEnfermedades(List<Enfermedades> enfermedades) {
         this.enfermedades = enfermedades;
     }
+
+    @Override
+    public String toString() {
+        return "RegistroFisico{" + "id=" + id + ", idCliente=" + idCliente + ", nivelCondicion=" + nivelCondicion + ", lesiones=" + lesiones + ", enfermedades=" + enfermedades + '}';
+    }
+    
     
     
 }

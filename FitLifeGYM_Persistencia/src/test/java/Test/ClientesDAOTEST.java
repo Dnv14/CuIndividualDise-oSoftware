@@ -10,11 +10,10 @@ import Entidades.Membresia;
 import Entidades.MembresiaComprada;
 import Entidades.TipoMembresia;
 import Excepciones.PersistenciaException;
-import Interfaces.IClientesDAO;
 import PersistenciaMongo.ClientesDAOMongo;
 import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.AssertionsKt.fail;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,9 +51,11 @@ public class ClientesDAOTEST {
         Membresia info = new Membresia(TipoMembresia.PLATA, 500.0);
         cliente.setMembresiaComprada(new MembresiaComprada(info, LocalDate.now(), LocalDate.now().plusMonths(1), 500.0, Estado.ACTIVO));
 
-        Cliente clienteGuardar = clientesDAO.registrarCliente(cliente);
+        assertDoesNotThrow(() -> {
+            Cliente clienteGuardar = clientesDAO.registrarCliente(cliente);
 
-        assertNotNull(clienteGuardar.getContrasenia());
-        System.out.println("cliente guardado " + clienteGuardar);
+            assertNotNull(clienteGuardar.getContrasenia());
+            System.out.println("cliente guardado " + clienteGuardar);
+        });
     }
 }

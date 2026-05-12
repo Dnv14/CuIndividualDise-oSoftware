@@ -9,5 +9,5 @@ package Entidades;
  * @author Diego
  */
 public enum EstadoRutina {
-    ACTIVA,INACTIVA
+    ASIGNADA,SIN_ASIGNAR
 }

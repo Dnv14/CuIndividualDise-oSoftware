@@ -56,11 +56,11 @@ public interface IPersistenciaFachada {
     //rutinas
     public abstract Rutina guardarRutina(Rutina rutina) throws PersistenciaException;
 
-    public abstract void eliminarRutina(String idCliente) throws PersistenciaException;
+    public abstract void eliminarRutina(String idCliente, String diaSemana) throws PersistenciaException;
 
     public abstract Rutina editarRutina(Rutina rutina) throws PersistenciaException;
 
-    public abstract Rutina consultarRutina(String idCliente) throws PersistenciaException;
+    public abstract Rutina consultarRutina(String idCliente, String diaSemana) throws PersistenciaException;
 
     //registro fisico 
     public abstract RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico) throws PersistenciaException;

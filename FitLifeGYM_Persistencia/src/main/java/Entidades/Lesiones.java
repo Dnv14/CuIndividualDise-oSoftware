@@ -45,6 +45,11 @@ public class Lesiones {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "Lesiones{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
     
     
 }

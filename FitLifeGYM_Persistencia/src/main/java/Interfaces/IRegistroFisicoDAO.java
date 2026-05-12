@@ -5,6 +5,7 @@
 package Interfaces;
 
 import Entidades.RegistroFisico;
+import Excepciones.PersistenciaException;
 
 /**
  *
@@ -12,7 +13,7 @@ import Entidades.RegistroFisico;
  */
 public interface IRegistroFisicoDAO {
 
-    public abstract RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico);
+    public abstract RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico)throws PersistenciaException;
 
-    public abstract RegistroFisico consultarRegistroFisico(String idCliente);
+    public abstract RegistroFisico consultarRegistroFisico(String idCliente)throws PersistenciaException;
 }

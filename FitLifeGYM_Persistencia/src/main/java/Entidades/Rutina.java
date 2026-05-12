@@ -95,4 +95,10 @@ public class Rutina {
         this.detallesRutina = detallesRutina;
     }
 
+    @Override
+    public String toString() {
+        return "Rutina{" + "id=" + id + ", idCliente=" + idCliente + ", diaSemana=" + diaSemana + ", fechaAsignada=" + fechaAsignada + ", estadoRutina=" + estadoRutina + ", detallesRutina=" + detallesRutina + '}';
+    }
+
+    
 }

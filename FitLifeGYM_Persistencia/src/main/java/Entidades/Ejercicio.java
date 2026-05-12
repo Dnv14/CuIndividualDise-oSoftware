@@ -13,6 +13,7 @@ import org.bson.codecs.pojo.annotations.BsonRepresentation;
  * @author MrGam
  */
 public class Ejercicio {
+
     @BsonId
     @BsonRepresentation(BsonType.OBJECT_ID)
     private String id;
@@ -29,6 +30,7 @@ public class Ejercicio {
     public Ejercicio(String nombre) {
         this.nombre = nombre;
     }
+
     public String getId() {
         return id;
     }
@@ -44,8 +46,10 @@ public class Ejercicio {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "Ejercicio{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+
 }

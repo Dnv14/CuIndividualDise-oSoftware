@@ -66,4 +66,10 @@ public class Cliente extends Usuario {
         this.membresiaComprada = membresíaComprada;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente{" + "telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", pin=" + pin + ", membresiaComprada=" + membresiaComprada + '}';
+    }
+
+    
 }

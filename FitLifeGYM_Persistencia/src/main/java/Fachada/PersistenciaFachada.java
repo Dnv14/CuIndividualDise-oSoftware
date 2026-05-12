@@ -76,14 +76,12 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     public void renovarMembresiaCliente(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException {
         clientesDAO.actualizarMembresia(idCliente, nuevaMembresia);
     }
-    
+
     //prueba
     @Override
     public MembresiaComprada guardarMembresiaCompradaCliente(String idCliente, MembresiaComprada compra) throws PersistenciaException {
         return clientesDAO.guardarMembresiaCompradaCliente(idCliente, compra);
     }
-    
-    
 
     //membresia comprada
     @Override
@@ -127,8 +125,8 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     }
 
     @Override
-    public void eliminarRutina(String idCliente) throws PersistenciaException {
-        rutinasDAO.eliminarRutina(idCliente);
+    public void eliminarRutina(String idCliente, String diaSemana) throws PersistenciaException {
+        rutinasDAO.eliminarRutina(idCliente, diaSemana);
     }
 
     @Override
@@ -137,8 +135,8 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     }
 
     @Override
-    public Rutina consultarRutina(String idCliente) throws PersistenciaException {
-        return rutinasDAO.consultarRutina(idCliente);
+    public Rutina consultarRutina(String idCliente, String diaSemana) throws PersistenciaException {
+        return rutinasDAO.consultarRutina(idCliente, diaSemana);
     }
 
     //registro fisico
@@ -151,7 +149,5 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     public RegistroFisico consultarRegistroFisico(String idCliente) throws PersistenciaException {
         return registroFisicoDAO.consultarRegistroFisico(idCliente);
     }
-
-    
 
 }

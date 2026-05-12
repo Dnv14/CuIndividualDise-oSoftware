@@ -85,5 +85,10 @@ public class DetallesRutina {
     public void setSeriesRecomendadas(Integer seriesRecomendadas) {
         this.seriesRecomendadas = seriesRecomendadas;
     }
+
+    @Override
+    public String toString() {
+        return "DetallesRutina{" + "id=" + id + ", idEjercicio=" + idEjercicio + ", nombreEjercicio=" + nombreEjercicio + ", pesoRecomendado=" + pesoRecomendado + ", repeticionesRecomendadas=" + repeticionesRecomendadas + ", seriesRecomendadas=" + seriesRecomendadas + '}';
+    }
     
 }

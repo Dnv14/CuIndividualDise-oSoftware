@@ -47,5 +47,10 @@ public class Enfermedades {
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return "Enfermedades{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+
     
 }

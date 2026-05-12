@@ -5,18 +5,19 @@
 package Interfaces;
 
 import Entidades.Rutina;
+import Excepciones.PersistenciaException;
 
 /**
  *
  * @author Diego
  */
 public interface IRutinasDAO {
-    
-    public abstract Rutina guardarRutina(Rutina rutina);
-    
-    public abstract void eliminarRutina(String idCliente);
-    
-    public abstract Rutina editarRutina(Rutina rutina);
-    
-    public abstract Rutina consultarRutina(String idCliente);
+
+    public abstract Rutina guardarRutina(Rutina rutina) throws PersistenciaException;
+
+    public abstract void eliminarRutina(String idCliente, String diaSemana) throws PersistenciaException;
+
+    public abstract Rutina editarRutina(Rutina rutina) throws PersistenciaException;
+
+    public abstract Rutina consultarRutina(String idCliente, String diaSemana) throws PersistenciaException;
 }
