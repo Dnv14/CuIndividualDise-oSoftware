@@ -38,10 +38,9 @@ public class EnfermedadesDAOMongo implements IEnfermedadesDAO {
                 listaEnfermedades.add(new Enfermedades("Hipotiroidismo"));
                 coleccionEnfermedades.insertMany(listaEnfermedades);
             }
-            
-            coleccionEnfermedades.find().into(listaEnfermedades);
-            return listaEnfermedades;
-            
+
+            return coleccionEnfermedades.find().into(new LinkedList<>());
+
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al consultar las enfermedades");
         }

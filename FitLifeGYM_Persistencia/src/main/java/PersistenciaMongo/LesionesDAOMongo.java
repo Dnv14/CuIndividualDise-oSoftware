@@ -40,9 +40,9 @@ public class LesionesDAOMongo implements ILesionesDAO {
                 return listaLesiones;
             }
 
-            coleccionLesiones.find().into(listaLesiones);
+           
 
-            return listaLesiones;
+            return coleccionLesiones.find().into(new LinkedList<>());
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al consultar las lesiones");
         }

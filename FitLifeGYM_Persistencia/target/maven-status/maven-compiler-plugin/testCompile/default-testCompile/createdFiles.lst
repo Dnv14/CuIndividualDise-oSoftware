@@ -1,3 +1,6 @@
 Test\RegistroFisicoDAOTEST.class
-Test\RutinaDAOTEST.class
 Test\ClientesDAOTEST.class
+Test\RutinaDAOTEST.class
+Test\EjerciciosDAOSTEST.class
+Test\LesionesDAOTest.class
+Test\EnfermedadesDAOTest.class

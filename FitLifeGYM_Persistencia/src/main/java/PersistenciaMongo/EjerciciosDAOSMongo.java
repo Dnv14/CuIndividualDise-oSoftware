@@ -44,12 +44,8 @@ public class EjerciciosDAOSMongo implements IEjerciciosDAO {
                 listaEjercicios.add(new Ejercicio("Dominadas"));
                 coleccionEjercicios.insertMany(listaEjercicios);
             }
-            coleccionEjercicios.find().into(listaEjercicios);
 
-//            for(Ejercicio e :coleccionEjercicios.find()){
-//                listaEjercicios.add(e);
-//            }
-            return listaEjercicios;
+            return coleccionEjercicios.find().into(new LinkedList<>());
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al consultar los ejercicios");
         }
