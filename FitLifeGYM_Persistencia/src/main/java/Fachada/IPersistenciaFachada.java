@@ -13,6 +13,7 @@ import Entidades.MembresiaComprada;
 import Entidades.RegistroFisico;
 import Entidades.Rutina;
 import Entidades.TipoMembresia;
+import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import java.util.List;
 
@@ -33,13 +34,8 @@ public interface IPersistenciaFachada {
 
     public abstract void renovarMembresiaCliente(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException;
 
-    //prueba
+    //membresia comprada por parte de cliente
     public abstract MembresiaComprada guardarMembresiaCompradaCliente(String idCliente, MembresiaComprada compra) throws PersistenciaException;
-
-    //membresia comprada
-    public abstract MembresiaComprada guardarMembresiaComprada(MembresiaComprada compra) throws PersistenciaException;
-
-    public abstract List<MembresiaComprada> obtenerTodasMembresiasCompradas() throws PersistenciaException;
 
     //membresia
     public abstract List<Membresia> obtenerYCargarMembresias() throws PersistenciaException;
@@ -66,4 +62,7 @@ public interface IPersistenciaFachada {
     public abstract RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico) throws PersistenciaException;
 
     public abstract RegistroFisico consultarRegistroFisico(String idCliente) throws PersistenciaException;
+
+    //usuarios
+    public abstract Usuario registrarUsuario(Usuario usuario) throws PersistenciaException;
 }

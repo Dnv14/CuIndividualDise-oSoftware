@@ -38,6 +38,10 @@ public class ClientesDAOMongo implements IClientesDAO {
 
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<Cliente> coleccionClientes = db.getCollection(NOMBRE_COLECCION, Cliente.class);
+            
+            if(cliente.getMembresiaComprada() == null){
+                cliente.setMembresiaComprada(null);
+            }
 
             coleccionClientes.insertOne(cliente);
 

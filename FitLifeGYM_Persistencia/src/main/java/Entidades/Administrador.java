@@ -4,18 +4,53 @@
  */
 package Entidades;
 
+import org.bson.BsonType;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonRepresentation;
+
 /**
  *
  * @author Diego
  */
-public class Administrador extends Usuario{
+public class Administrador {
+    
+    @BsonId
+    @BsonRepresentation(BsonType.OBJECT_ID)
+    private String id;
+    private String idUsuario;
 
     public Administrador() {
     }
 
-    public Administrador(String id, String nombre, String apellidos, String correo, String contrasenia) {
-        super(id, nombre, apellidos, correo, contrasenia);
+    public Administrador(String id, String idUsuario) {
+        this.id = id;
+        this.idUsuario = idUsuario;
     }
-    
+
+    public Administrador(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Administrador{" + "id=" + id + ", idUsuario=" + idUsuario + '}';
+    }
+
     
 }

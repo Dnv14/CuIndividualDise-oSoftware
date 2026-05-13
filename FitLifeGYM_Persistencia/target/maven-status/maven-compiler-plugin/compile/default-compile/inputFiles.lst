@@ -23,10 +23,10 @@ C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistenc
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\IEjerciciosDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\IEnfermedadesDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\ILesionesDAO.java
-C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\IMembresiaCompradaDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\IMembresiaDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\IRegistroFisicoDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\IRutinasDAO.java
+C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\Interfaces\IUsuariosDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaConsola\ClientesListDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaConsola\MembresiaCompradaListDAO.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaConsola\MembresiaListDAO.java
@@ -35,7 +35,7 @@ C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistenc
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\EjerciciosDAOSMongo.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\EnfermedadesDAOMongo.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\LesionesDAOMongo.java
-C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\MembresiaCompradaDAOMongo.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\MembresiaDAOMongo.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\RegistroFisicoDAOMongo.java
 C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\RutinasDAOMongo.java
+C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\src\main\java\PersistenciaMongo\UsuariosDAOMongo.java

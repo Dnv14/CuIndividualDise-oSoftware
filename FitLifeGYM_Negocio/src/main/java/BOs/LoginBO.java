@@ -40,7 +40,7 @@ public class LoginBO implements ILoginBO {
                 return null;
             }
 
-            return EntidadesADTOsAdapter.adaptarClienteADTO(cliente);
+            return EntidadesADTOsAdapter.adaptarClienteEntidad(cliente);
 
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al iniciar sesion", ex);

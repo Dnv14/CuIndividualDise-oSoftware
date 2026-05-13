@@ -7,6 +7,7 @@ package Adapter;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevaMembresiaDTO;
 import DTOS.NuevoClienteDTO;
+import DTOS.UsuarioDTO;
 import DTOsENUMs.EstadoDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import Entidades.Cliente;
@@ -14,6 +15,7 @@ import Entidades.Estado;
 import Entidades.Membresia;
 import Entidades.MembresiaComprada;
 import Entidades.TipoMembresia;
+import Entidades.Usuario;
 
 /**
  *
@@ -21,22 +23,68 @@ import Entidades.TipoMembresia;
  */
 public class EntidadesADTOsAdapter {
 
-    public static NuevaMembresiaDTO adaptarMembresiaADTO(Membresia membresia) {
+    public static UsuarioDTO adaptarUsuarioEntidad(Usuario usuarioEntidad) {
+        if (usuarioEntidad == null) {
+            return null;
+        }
+
+        if (usuarioEntidad.getId() != null) {
+            UsuarioDTO usuarioDTOConId = new UsuarioDTO(usuarioEntidad.getId(),
+                    usuarioEntidad.getNombre(),
+                    usuarioEntidad.getApellidos(), usuarioEntidad.getCorreo(),
+                    usuarioEntidad.getContrasenia());
+
+            return usuarioDTOConId;
+        }
+
+        UsuarioDTO usuarioSinId = new UsuarioDTO(usuarioEntidad.getNombre(),
+                usuarioEntidad.getApellidos(), usuarioEntidad.getCorreo(),
+                usuarioEntidad.getContrasenia());
+
+        return usuarioSinId;
+    }
+
+    public static NuevoClienteDTO adaptarClienteEntidad(Cliente clienteEntidad) {
+        if (clienteEntidad == null) {
+            return null;
+        }
+
+        NuevaMembresiaCompradaDTO membresiaDTO = adaptarMembresiaCompradaEntidad(clienteEntidad.getMembresiaComprada());
+
+        if (clienteEntidad.getId() != null) {
+            NuevoClienteDTO clienteDTOConId = new NuevoClienteDTO(clienteEntidad.getId(),
+                    clienteEntidad.getIdUsuario(),
+                    clienteEntidad.getTelefono(), clienteEntidad.getFechaNacimiento(),
+                    clienteEntidad.getPin(), membresiaDTO);
+
+            return clienteDTOConId;
+        }
+
+        NuevoClienteDTO clienteSinId = new NuevoClienteDTO(
+                clienteEntidad.getIdUsuario(),
+                clienteEntidad.getTelefono(), clienteEntidad.getFechaNacimiento(),
+                clienteEntidad.getPin(), membresiaDTO);
+
+        return clienteSinId;
+
+    }
+
+    public static NuevaMembresiaDTO adaptarMembresiaEntidad(Membresia membresia) {
         if (membresia == null) {
             return null;
         }
 
-        TipoMembresiaDTO tipoDTO = adaptarTipoMembresiaADTO(membresia.getTipoMembresia());
+        TipoMembresiaDTO tipoDTO = adaptarTipoMembresiaEntidad(membresia.getTipoMembresia());
         return new NuevaMembresiaDTO(tipoDTO, membresia.getPrecio(), membresia.getVigencia());
     }
 
-    public static NuevaMembresiaCompradaDTO adaptarMembresiaCompradaADTO(MembresiaComprada membresiaComprada) {
+    public static NuevaMembresiaCompradaDTO adaptarMembresiaCompradaEntidad(MembresiaComprada membresiaComprada) {
         if (membresiaComprada == null) {
             return null;
         }
 
-        NuevaMembresiaDTO mDTO = adaptarMembresiaADTO(membresiaComprada.getMembresia());
-        EstadoDTO estadoDTO = adaptarEstadoADTO(membresiaComprada.getEstado());
+        NuevaMembresiaDTO mDTO = adaptarMembresiaEntidad(membresiaComprada.getMembresia());
+        EstadoDTO estadoDTO = adaptarEstadoEntidad(membresiaComprada.getEstado());
 
         return new NuevaMembresiaCompradaDTO(
                 mDTO,
@@ -47,27 +95,7 @@ public class EntidadesADTOsAdapter {
         );
     }
 
-    public static NuevoClienteDTO adaptarClienteADTO(Cliente cliente) {
-        if (cliente == null) {
-            return null;
-        }
-
-        NuevaMembresiaCompradaDTO membresiaDTO = adaptarMembresiaCompradaADTO(cliente.getMembresiaComprada());
-
-        return new NuevoClienteDTO(
-                cliente.getId(),
-                cliente.getNombre(),
-                cliente.getApellidos(),
-                cliente.getCorreo(),
-                cliente.getContrasenia(),
-                cliente.getTelefono(),
-                cliente.getFechaNacimiento(),
-                cliente.getPin(),
-                membresiaDTO
-        );
-    }
-
-    public static TipoMembresiaDTO adaptarTipoMembresiaADTO(TipoMembresia tipo) {
+    public static TipoMembresiaDTO adaptarTipoMembresiaEntidad(TipoMembresia tipo) {
         if (tipo == TipoMembresia.PLATA) {
             return TipoMembresiaDTO.PLATA;
         }
@@ -77,9 +105,8 @@ public class EntidadesADTOsAdapter {
         return TipoMembresiaDTO.BRONCE;
     }
 
-    public static EstadoDTO adaptarEstadoADTO(Estado estado) {
+    public static EstadoDTO adaptarEstadoEntidad(Estado estado) {
         return (estado == Estado.ACTIVO) ? EstadoDTO.ACTIVO : EstadoDTO.INACTIVO;
     }
-    
-    
+
 }

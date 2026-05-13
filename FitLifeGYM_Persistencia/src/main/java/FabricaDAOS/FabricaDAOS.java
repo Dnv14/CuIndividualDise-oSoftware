@@ -8,18 +8,20 @@ import Interfaces.IClientesDAO;
 import Interfaces.IEjerciciosDAO;
 import Interfaces.IEnfermedadesDAO;
 import Interfaces.ILesionesDAO;
-import Interfaces.IMembresiaCompradaDAO;
+
 import Interfaces.IMembresiaDAO;
 import Interfaces.IRegistroFisicoDAO;
 import Interfaces.IRutinasDAO;
+import Interfaces.IUsuariosDAO;
 import PersistenciaMongo.ClientesDAOMongo;
 import PersistenciaMongo.EjerciciosDAOSMongo;
 import PersistenciaMongo.EnfermedadesDAOMongo;
 import PersistenciaMongo.LesionesDAOMongo;
-import PersistenciaMongo.MembresiaCompradaDAOMongo;
+
 import PersistenciaMongo.MembresiaDAOMongo;
 import PersistenciaMongo.RegistroFisicoDAOMongo;
 import PersistenciaMongo.RutinasDAOMongo;
+import PersistenciaMongo.UsuariosDAOMongo;
 
 /**
  *
@@ -30,11 +32,6 @@ public class FabricaDAOS implements IFabricaDAOS {
     @Override
     public IClientesDAO crearClientesDAO() {
         return new ClientesDAOMongo();
-    }
-
-    @Override
-    public IMembresiaCompradaDAO crearMembresiaCompradaDAO() {
-        return new MembresiaCompradaDAOMongo();
     }
 
     @Override
@@ -65,5 +62,10 @@ public class FabricaDAOS implements IFabricaDAOS {
     @Override
     public IRegistroFisicoDAO crearRegistroFisicoDAO() {
         return new RegistroFisicoDAOMongo();
+    }
+
+    @Override
+    public IUsuariosDAO crearUsuarioDAO() {
+        return new UsuariosDAOMongo();
     }
 }

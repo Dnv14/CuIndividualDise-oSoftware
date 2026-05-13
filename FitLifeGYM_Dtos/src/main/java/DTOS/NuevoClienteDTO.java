@@ -10,8 +10,10 @@ import java.time.LocalDate;
  *
  * @author Diego
  */
-public class NuevoClienteDTO extends UsuarioDTO {
+public class NuevoClienteDTO {
 
+    private String id;
+    private String idUsuario;
     private String telefono;
     private LocalDate fechaNacimiento;
     private String pin;
@@ -20,20 +22,37 @@ public class NuevoClienteDTO extends UsuarioDTO {
     public NuevoClienteDTO() {
     }
 
-    public NuevoClienteDTO(String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
-        super(nombre, apellidos, correo, contrasenia);
+    public NuevoClienteDTO(String id, String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
+        this.id = id;
+        this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
         this.membresíaComprada = membresíaComprada;
     }
 
-    public NuevoClienteDTO(String id, String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
-        super(id, nombre, apellidos, correo, contrasenia);
+    public NuevoClienteDTO(String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
+        this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
         this.membresíaComprada = membresíaComprada;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getTelefono() {
@@ -70,9 +89,7 @@ public class NuevoClienteDTO extends UsuarioDTO {
 
     @Override
     public String toString() {
-        return "NuevoClienteDTO{" + "telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", pin=" + pin + ", membres\u00edaComprada=" + membresíaComprada + '}';
+        return "NuevoClienteDTO{" + "id=" + id + ", idUsuario=" + idUsuario + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", pin=" + pin + ", membres\u00edaComprada=" + membresíaComprada + '}';
     }
-    
-    
 
 }

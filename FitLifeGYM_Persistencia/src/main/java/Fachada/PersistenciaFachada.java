@@ -13,16 +13,18 @@ import Entidades.MembresiaComprada;
 import Entidades.RegistroFisico;
 import Entidades.Rutina;
 import Entidades.TipoMembresia;
+import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import FabricaDAOS.IFabricaDAOS;
 import Interfaces.IClientesDAO;
 import Interfaces.IEjerciciosDAO;
 import Interfaces.IEnfermedadesDAO;
 import Interfaces.ILesionesDAO;
-import Interfaces.IMembresiaCompradaDAO;
+
 import Interfaces.IMembresiaDAO;
 import Interfaces.IRegistroFisicoDAO;
 import Interfaces.IRutinasDAO;
+import Interfaces.IUsuariosDAO;
 import java.util.List;
 
 /**
@@ -32,17 +34,18 @@ import java.util.List;
 public class PersistenciaFachada implements IPersistenciaFachada {
 
     private IClientesDAO clientesDAO;
-    private IMembresiaCompradaDAO membresiaCompradaDAO;
+
     private IMembresiaDAO membresiaDAO;
     private IEjerciciosDAO ejerciciosDAO;
     private IEnfermedadesDAO enfermedadesDAO;
     private ILesionesDAO lesionesDAO;
     private IRutinasDAO rutinasDAO;
     private IRegistroFisicoDAO registroFisicoDAO;
+    private IUsuariosDAO usuariosDAO;
 
     public PersistenciaFachada(IFabricaDAOS fabricaDAOS) {
         this.clientesDAO = fabricaDAOS.crearClientesDAO();
-        this.membresiaCompradaDAO = fabricaDAOS.crearMembresiaCompradaDAO();
+
         this.membresiaDAO = fabricaDAOS.crearMembresiaDAO();
         this.ejerciciosDAO = fabricaDAOS.crearEjercicioDAO();
         this.enfermedadesDAO = fabricaDAOS.crearEnfermedadesDAO();
@@ -77,21 +80,10 @@ public class PersistenciaFachada implements IPersistenciaFachada {
         clientesDAO.actualizarMembresia(idCliente, nuevaMembresia);
     }
 
-    //prueba
+    //membresiaComprada por parte de cliente
     @Override
     public MembresiaComprada guardarMembresiaCompradaCliente(String idCliente, MembresiaComprada compra) throws PersistenciaException {
         return clientesDAO.guardarMembresiaCompradaCliente(idCliente, compra);
-    }
-
-    //membresia comprada
-    @Override
-    public MembresiaComprada guardarMembresiaComprada(MembresiaComprada compra) throws PersistenciaException {
-        return membresiaCompradaDAO.guardar(compra);
-    }
-
-    @Override
-    public List<MembresiaComprada> obtenerTodasMembresiasCompradas() throws PersistenciaException {
-        return membresiaCompradaDAO.obtenerTodas();
     }
 
     //membresia
@@ -148,6 +140,11 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     @Override
     public RegistroFisico consultarRegistroFisico(String idCliente) throws PersistenciaException {
         return registroFisicoDAO.consultarRegistroFisico(idCliente);
+    }
+
+    @Override
+    public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException {
+        return usuariosDAO.registrarUsuario(usuario);
     }
 
 }

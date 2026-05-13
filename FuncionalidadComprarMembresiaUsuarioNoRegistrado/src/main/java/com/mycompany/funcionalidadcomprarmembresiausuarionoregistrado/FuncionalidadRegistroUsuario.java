@@ -7,7 +7,9 @@ package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 import DTOS.NuevoClienteDTO;
 import Interfaces.IClientesBO;
 import BOs.NegocioException;
-import Entidades.Cliente;
+import DTOS.UsuarioDTO;
+
+import Interfaces.IUsuarioBO;
 import java.util.List;
 
 /**
@@ -17,17 +19,25 @@ import java.util.List;
 public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsuario {
 
     private final IClientesBO clientesBO;
+    private final IUsuarioBO usuariosBO;
 
-    public FuncionalidadRegistroUsuario(IClientesBO clientesBO) {
+    public FuncionalidadRegistroUsuario(IClientesBO clientesBO, IUsuarioBO usuariosBO) {
         this.clientesBO = clientesBO;
+        this.usuariosBO = usuariosBO;
     }
 
     @Override
-    public NuevoClienteDTO RegistrarUsuario(NuevoClienteDTO clienteDTO) throws NegocioException {
-        validarDatosUsuario(clienteDTO);
+    public NuevoClienteDTO RegistrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioException {
+        validarDatosUsuarioCliente(clienteDTO);
+
         try {
-            Cliente clienteEntidad = clientesBO.registrarCliente(clienteDTO);
-            clienteDTO.setId(clienteEntidad.getId());
+
+            UsuarioDTO usuarioRegistrado = usuariosBO.registrarUsuario(usuarioDTO);
+
+            clienteDTO.setIdUsuario(usuarioRegistrado.getId());
+
+            clientesBO.registrarCliente(clienteDTO);
+
             return clienteDTO;
         } catch (NegocioException ex) {
             throw new NegocioException("Error al registrar el cliente.", ex);
@@ -35,7 +45,7 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
     }
 
     @Override
-    public List<Cliente> obtenerTodas() throws NegocioException {
+    public List<NuevoClienteDTO> obtenerTodosLosClientes() throws NegocioException {
         try {
             return clientesBO.consultarClientes();
         } catch (NegocioException ex) {
@@ -44,38 +54,29 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
     }
 
     @Override
-    public void validarDatosUsuario(NuevoClienteDTO clienteDTO) throws NegocioException {
-        if (clienteDTO.getNombre() == null || clienteDTO.getNombre().isEmpty()) {
-            throw new NegocioException("El nombre del cliente no puede ser nulo.");
-        }
-
-        if (clienteDTO.getApellidos() == null || clienteDTO.getApellidos().isEmpty()) {
-            throw new NegocioException("El appelido del cliente no puede ser nulo.");
-        }
-
-        if (clienteDTO.getCorreo() == null || !clienteDTO.getCorreo().contains("@")) {
-            throw new NegocioException("El formato del correo no es válido.");
-        }
+    public void validarDatosUsuarioCliente(NuevoClienteDTO clienteDTO) throws NegocioException {
 
         if (clienteDTO.getTelefono().isEmpty() || !clienteDTO.getTelefono().matches("\\d{10}")) {
             throw new NegocioException("Ingrese el formato válido del teléfono.");
         }
 
         if (clienteDTO.getPin() == null || !clienteDTO.getPin().matches("\\d{4}")) {
-            throw new NegocioException("Ingrese un PIN con al menos 4 números.");
+            throw new NegocioException("El PIN debe ser de exactamente 4 números.");
+        }
+    }
+
+    @Override
+    public void validarDatosUsuarios(UsuarioDTO usuarioDTO) throws NegocioException {
+        if (usuarioDTO.getNombre() == null || usuarioDTO.getNombre().isEmpty()) {
+            throw new NegocioException("El nombre del cliente no puede ser nulo.");
         }
 
-        // Validar que el PIN y el correo no esten duplicados Dieguin
-        List<Cliente> clientesExistentes = clientesBO.consultarClientes();
-        if (clientesExistentes != null) {
-            for (Cliente c : clientesExistentes) {
-                if (c.getPin() != null && c.getPin().equals(clienteDTO.getPin())) {
-                    throw new NegocioException("El PIN ya esta en uso por favor elige otro.");
-                }
-                if (c.getCorreo() != null && c.getCorreo().equalsIgnoreCase(clienteDTO.getCorreo())) {
-                    throw new NegocioException("El correo ya está registrado por favor usa otro.");
-                }
-            }
+        if (usuarioDTO.getApellidos() == null || usuarioDTO.getApellidos().isEmpty()) {
+            throw new NegocioException("El appelido del cliente no puede ser nulo.");
+        }
+
+        if (usuarioDTO.getCorreo() == null || !usuarioDTO.getCorreo().contains("@")) {
+            throw new NegocioException("El formato del correo no es válido.");
         }
 
     }

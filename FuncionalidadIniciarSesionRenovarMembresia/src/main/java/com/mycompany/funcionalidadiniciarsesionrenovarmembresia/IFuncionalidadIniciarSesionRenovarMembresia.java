@@ -4,7 +4,6 @@
  */
 package com.mycompany.funcionalidadiniciarsesionrenovarmembresia;
 
-import DTOS.ClienteLogueadoDTO;
 import DTOS.LoginDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RenovarMembresiaDTO;

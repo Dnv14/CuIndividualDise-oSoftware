@@ -92,7 +92,7 @@ public class ControlForms {
     }
 
     public void registrarCliente(NuevoClienteDTO clienteDTO) throws NegocioException { //debiar de llamarse Validar datos cliente
-        funcionalidadRegistrarUsuario.validarDatosUsuario(clienteDTO);
+        funcionalidadRegistrarUsuario.validarDatosUsuarioCliente(clienteDTO);
         this.clienteRegistro = clienteDTO;
     }
 
@@ -105,7 +105,7 @@ public class ControlForms {
         } else if (this.clienteRegistro != null) {
 
             this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarUsuario(this.clienteRegistro);
+            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(this.clienteRegistro);
             this.clienteRegistro = null;
         }
     }
@@ -120,7 +120,7 @@ public class ControlForms {
         } else if (this.clienteRegistro != null) {
 
             this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarUsuario(this.clienteRegistro);
+            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(this.clienteRegistro);
             this.clienteRegistro = null;
         }
 
@@ -133,7 +133,7 @@ public class ControlForms {
         } else if (this.clienteRegistro != null) {
 
             this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarUsuario(this.clienteRegistro);
+            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(this.clienteRegistro);
             this.clienteRegistro = null;
         }
 
@@ -144,7 +144,7 @@ public class ControlForms {
     }
 
     public List<Cliente> consultarClientes() throws NegocioException {
-        return funcionalidadRegistrarUsuario.obtenerTodas();
+        return funcionalidadRegistrarUsuario.obtenerTodosLosClientes();
     }
 
     //Modificado

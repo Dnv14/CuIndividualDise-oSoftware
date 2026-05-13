@@ -36,17 +36,5 @@ public class MembresiaBO implements IMembresiaBO {
         }
     }
 
-//    @Override
-//    public Membresia obtenerPorId(String id) throws NegocioException {
-//
-//        if (id == null) {
-//            throw new NegocioException("El ID no puede ser nulo.");
-//        }
-//
-//        try {
-//            return persistenciaFachada.obtenerMembresiaPorId(id);
-//        } catch (PersistenciaException ex) {
-//            throw new NegocioException("Error al obtener membresia por ID.", ex);
-//        }
-//    }
+
 }

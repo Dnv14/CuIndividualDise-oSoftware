@@ -9,11 +9,13 @@ import Entidades.Estado;
 import Entidades.Membresia;
 import Entidades.MembresiaComprada;
 import Entidades.TipoMembresia;
+import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import PersistenciaMongo.ClientesDAOMongo;
+import PersistenciaMongo.UsuariosDAOMongo;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +26,7 @@ import org.junit.jupiter.api.Test;
 public class ClientesDAOTEST {
 
     private ClientesDAOMongo clientesDAO;
+    private UsuariosDAOMongo usuariosDAO;
 
     public ClientesDAOTEST() {
     }
@@ -31,31 +34,29 @@ public class ClientesDAOTEST {
     @BeforeEach()
     public void init() {
         this.clientesDAO = new ClientesDAOMongo();
+        this.usuariosDAO = new UsuariosDAOMongo();
     }
 
     @Test
     public void agregarClienteSiFunciona() throws PersistenciaException {
-        Cliente cliente = new Cliente();
-        // Atributos de Usuario
-        cliente.setNombre("Diego");
-        cliente.setApellidos("Navarro");
-        cliente.setCorreo("dieguitoPRo@pro.com");
-        cliente.setContrasenia("contrasenia12");
+        Usuario usuario = new Usuario("diego", "navarro", "diegoPro@gmail.com", "sixSeven");
 
-        // Atributos de Cliente
-        cliente.setTelefono("6441234567");
-        cliente.setFechaNacimiento(LocalDate.of(2000, 1, 1));
-        cliente.setPin("1234");
+        Membresia membresia = new Membresia(TipoMembresia.PLATA, 500.0);
 
-        // membresia
-        Membresia info = new Membresia(TipoMembresia.PLATA, 500.0);
-        cliente.setMembresiaComprada(new MembresiaComprada(info, LocalDate.now(), LocalDate.now().plusMonths(1), 500.0, Estado.ACTIVO));
+        MembresiaComprada membresiaComprada = new MembresiaComprada(membresia, LocalDate.now(), LocalDate.now().plusMonths(1), 500.0, Estado.ACTIVO);
 
         assertDoesNotThrow(() -> {
-            Cliente clienteGuardar = clientesDAO.registrarCliente(cliente);
+            Usuario usuarioRegistrado = usuariosDAO.registrarUsuario(usuario);
+            Cliente cliente = new Cliente(usuarioRegistrado.getId(), "6442262864", LocalDate.now(), "6769", membresiaComprada);
+            Cliente clienteRegistrado = clientesDAO.registrarCliente(cliente);
 
-            assertNotNull(clienteGuardar.getContrasenia());
-            System.out.println("cliente guardado " + clienteGuardar);
+            assertEquals(clienteRegistrado.getIdUsuario(), usuarioRegistrado.getId());
+            assertEquals(clienteRegistrado.getId(), cliente.getId());
+            assertEquals(usuario.getId(), usuarioRegistrado.getId());
+
+            System.out.println(usuarioRegistrado + "\n");
+            System.out.println(clienteRegistrado);
+
         });
     }
 }

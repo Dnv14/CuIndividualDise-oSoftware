@@ -8,13 +8,30 @@ package DTOS;
  *
  * @author Diego
  */
-public class AdministradorDTO extends UsuarioDTO{
+public class AdministradorDTO {
+
+    private String id;
+    private String idUsuario;
+
     public AdministradorDTO() {
     }
 
-    public AdministradorDTO(String id, String nombre, String apellidos, String correo, String contrasenia) {
-        super(id, nombre, apellidos, correo, contrasenia);
+    public AdministradorDTO(String id, String idUsuario) {
+        this.id = id;
+        this.idUsuario = idUsuario;
     }
-    
-    
+
+    public String getId() {
+        return id;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "AdministradorDTO{" + "id=" + id + ", idUsuario=" + idUsuario + '}';
+    }
+
 }

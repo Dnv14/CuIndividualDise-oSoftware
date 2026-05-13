@@ -6,9 +6,10 @@ Entidades\Cliente.class
 Entidades\Estado.class
 Entidades\Enfermedades.class
 Interfaces\IMembresiaDAO.class
+Interfaces\IUsuariosDAO.class
 Entidades\Lesiones.class
 Entidades\TipoMembresia.class
-PersistenciaMongo\MembresiaCompradaDAOMongo.class
+PersistenciaMongo\UsuariosDAOMongo.class
 PersistenciaMongo\RutinasDAOMongo.class
 PersistenciaMongo\MembresiaDAOMongo.class
 Interfaces\IRutinasDAO.class
@@ -22,7 +23,6 @@ PersistenciaMongo\ClientesDAOMongo.class
 Entidades\Administrador.class
 PersistenciaConsola\MembresiaListDAO.class
 Entidades\RegistroFisico.class
-Interfaces\IMembresiaCompradaDAO.class
 Interfaces\IRegistroFisicoDAO.class
 FabricaDAOS\FabricaDAOS.class
 PersistenciaConsola\ClientesListDAO.class

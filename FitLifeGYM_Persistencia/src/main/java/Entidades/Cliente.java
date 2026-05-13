@@ -1,13 +1,20 @@
 package Entidades;
 
 import java.time.LocalDate;
+import org.bson.BsonType;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonRepresentation;
 
 /**
  *
  * @author Julian
  */
-public class Cliente extends Usuario {
+public class Cliente {
 
+    @BsonId
+    @BsonRepresentation(BsonType.OBJECT_ID)
+    private String id;
+    private String idUsuario;
     private String telefono;
     private LocalDate fechaNacimiento;
     private String pin;
@@ -16,22 +23,39 @@ public class Cliente extends Usuario {
     public Cliente() {
     }
 
-    
-    
-    public Cliente(String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin, MembresiaComprada membresíaComprada) {
-        super(nombre, apellidos, correo, contrasenia);
+    public Cliente(String id, String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, MembresiaComprada membresiaComprada) {
+        this.id = id;
+        this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
-        this.membresiaComprada = membresíaComprada;
+        this.membresiaComprada = membresiaComprada;
     }
 
-    public Cliente(String id, String nombre, String apellidos, String correo, String contrasenia, String telefono, LocalDate fechaNacimiento, String pin,MembresiaComprada membresíaComprada) {
-        super(id, nombre, apellidos, correo, contrasenia); 
+    public Cliente(String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, MembresiaComprada membresiaComprada) {
+        this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.pin = pin;
-        this.membresiaComprada = membresíaComprada;
+        this.membresiaComprada = membresiaComprada;
+    }
+
+   
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getTelefono() {
@@ -68,8 +92,9 @@ public class Cliente extends Usuario {
 
     @Override
     public String toString() {
-        return "Cliente{" + "telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", pin=" + pin + ", membresiaComprada=" + membresiaComprada + '}';
+        return "Cliente{" + "id=" + id + ", idUsuario=" + idUsuario + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", pin=" + pin + ", membresiaComprada=" + membresiaComprada + '}';
     }
 
     
+
 }

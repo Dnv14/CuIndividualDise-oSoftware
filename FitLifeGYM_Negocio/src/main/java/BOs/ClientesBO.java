@@ -5,12 +5,14 @@
 package BOs;
 
 import Interfaces.IClientesBO;
-import Adapter.DtosAEntidadesAdapter;
+import static Adapter.DtosAEntidadesAdapter.adaptarClienteDTO;
+import static Adapter.EntidadesADTOsAdapter.adaptarClienteEntidad;
 import DTOS.NuevoClienteDTO;
 
 import Excepciones.PersistenciaException;
 import Entidades.Cliente;
 import Fachada.IPersistenciaFachada;
+import java.util.LinkedList;
 
 import java.util.List;
 
@@ -27,33 +29,41 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public Cliente registrarCliente(NuevoClienteDTO clienteDTO) throws NegocioException {
-        Cliente cliente = DtosAEntidadesAdapter.adaptarClienteDTO(clienteDTO);
+    public NuevoClienteDTO registrarCliente(NuevoClienteDTO clienteDTO) throws NegocioException {
+
         try {
-            return persistenciaFachada.registrarCliente(cliente);
+            Cliente clienteEntidad = adaptarClienteDTO(clienteDTO);
+            Cliente clienteGuardado = persistenciaFachada.registrarCliente(clienteEntidad);
+
+            return adaptarClienteEntidad(clienteGuardado);
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al registrar el cliente", ex);
         }
     }
 
     @Override
-    public Cliente buscarClientePorId(String id) throws NegocioException {
-
+    public NuevoClienteDTO buscarClientePorId(String id) throws NegocioException {
         if (id == null) {
             throw new NegocioException("Se debe de colocar un ID.");
         }
 
         try {
-            return persistenciaFachada.consultarClientePorId(id);
+            Cliente clienteConsultado = persistenciaFachada.consultarClientePorId(id);
+            return adaptarClienteEntidad(clienteConsultado);
+
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al registrar el cliente", ex);
         }
     }
 
     @Override
-    public List<Cliente> consultarClientes() throws NegocioException {
+    public List<NuevoClienteDTO> consultarClientes() throws NegocioException {
+        List<NuevoClienteDTO> clientesConsultados = new LinkedList<>();
         try {
-            return persistenciaFachada.consultarClientes();
+            for (Cliente c : persistenciaFachada.consultarClientes()) {
+                clientesConsultados.add(adaptarClienteEntidad(c));
+            }
+            return clientesConsultados;
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al registrar el cliente", ex);
         }

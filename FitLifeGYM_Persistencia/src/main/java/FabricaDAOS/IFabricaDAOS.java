@@ -8,10 +8,11 @@ import Interfaces.IClientesDAO;
 import Interfaces.IEjerciciosDAO;
 import Interfaces.IEnfermedadesDAO;
 import Interfaces.ILesionesDAO;
-import Interfaces.IMembresiaCompradaDAO;
+
 import Interfaces.IMembresiaDAO;
 import Interfaces.IRegistroFisicoDAO;
 import Interfaces.IRutinasDAO;
+import Interfaces.IUsuariosDAO;
 
 /**
  *
@@ -21,17 +22,17 @@ public interface IFabricaDAOS {
 
     public abstract IClientesDAO crearClientesDAO();
 
-    public abstract IMembresiaCompradaDAO crearMembresiaCompradaDAO();
-
     public abstract IMembresiaDAO crearMembresiaDAO();
-    
+
     public abstract IEjerciciosDAO crearEjercicioDAO();
-    
+
     public abstract IEnfermedadesDAO crearEnfermedadesDAO();
-    
+
     public abstract ILesionesDAO crearLesionesDAO();
-    
+
     public abstract IRutinasDAO crearRutinasDAO();
-    
+
     public abstract IRegistroFisicoDAO crearRegistroFisicoDAO();
+
+    public abstract IUsuariosDAO crearUsuarioDAO();
 }

@@ -23,7 +23,7 @@ public class RenovarMembresiaBO implements IRenovarMembresiaBO {
 
     @Override
     public void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioException {
-        TipoMembresia tipo = DtosAEntidadesAdapter.adaptarTipoMembresia(dto.getTipoMembresia());
+        TipoMembresia tipo = DtosAEntidadesAdapter.adaptarTipoMembresiaDTO(dto.getTipoMembresia());
         try {
             persistenciaFachada.renovarMembresiaCliente(dto.getIdCliente(), tipo);
         } catch (PersistenciaException ex) {
