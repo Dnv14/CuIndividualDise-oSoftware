@@ -45,7 +45,7 @@ public class PersistenciaFachada implements IPersistenciaFachada {
 
     public PersistenciaFachada(IFabricaDAOS fabricaDAOS) {
         this.clientesDAO = fabricaDAOS.crearClientesDAO();
-
+        this.usuariosDAO = fabricaDAOS.crearUsuarioDAO();
         this.membresiaDAO = fabricaDAOS.crearMembresiaDAO();
         this.ejerciciosDAO = fabricaDAOS.crearEjercicioDAO();
         this.enfermedadesDAO = fabricaDAOS.crearEnfermedadesDAO();

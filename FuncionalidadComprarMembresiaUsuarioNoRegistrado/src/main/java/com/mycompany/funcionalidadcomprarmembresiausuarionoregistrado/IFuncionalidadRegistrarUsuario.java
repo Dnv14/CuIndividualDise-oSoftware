@@ -6,6 +6,7 @@ package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 
 import DTOS.NuevoClienteDTO;
 import BOs.NegocioException;
+import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.UsuarioDTO;
 import Entidades.Cliente;
 import java.util.List;
@@ -28,4 +29,6 @@ public interface IFuncionalidadRegistrarUsuario {
     public abstract void validarTarjeta(String cvv, String numeroTarjeta, String fechaVencimiento,String nombreTitular)throws NegocioException;
     
     public abstract void validarPaypal(String correo, String contrasenia)throws NegocioException;
+    
+    public abstract NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra)throws NegocioException; 
 }

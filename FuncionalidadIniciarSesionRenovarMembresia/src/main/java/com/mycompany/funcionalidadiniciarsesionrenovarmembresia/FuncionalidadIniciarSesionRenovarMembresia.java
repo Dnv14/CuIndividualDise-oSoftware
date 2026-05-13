@@ -12,6 +12,7 @@ import Interfaces.ILoginBO;
 import Interfaces.IMembresiaBO;
 import Interfaces.IRenovarMembresiaBO;
 import BOs.NegocioException;
+import DTOS.NuevaMembresiaDTO;
 import Entidades.Membresia;
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
     }
 
     @Override
-    public List<Membresia> consultarMembresias() throws NegocioException {
-        List<Membresia> membresias = membresiaBO.obtenerTodas();
+    public List<NuevaMembresiaDTO> consultarMembresias() throws NegocioException {
+        List<NuevaMembresiaDTO> membresias = membresiaBO.obtenerMembresias();
 
         if (membresias == null || membresias.isEmpty()) {
             throw new NegocioException("No hay tipos de membresia disponibles.");
@@ -81,17 +82,17 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
     }
 
     @Override
-    public Membresia buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException {
+    public NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException {
         if (tipo == null) {
             throw new NegocioException("El tipo de membresia no puede ser nulo.");
         }
 
-        List<Membresia> membresias = membresiaBO.obtenerTodas();
+        List<NuevaMembresiaDTO> membresias = membresiaBO.obtenerMembresias();
         if (membresias == null || membresias.isEmpty()) {
             throw new NegocioException("No hay membresias disponibles.");
         }
 
-        for (Membresia m : membresias) {
+        for (NuevaMembresiaDTO m : membresias) {
             if (m.getTipoMembresia().name().equals(tipo.name())) {
                 return m;
             }

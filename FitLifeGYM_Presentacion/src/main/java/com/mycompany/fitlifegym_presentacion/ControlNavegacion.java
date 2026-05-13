@@ -4,7 +4,7 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import DTOS.ClienteLogueadoDTO;
+
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import javax.swing.JDialog;

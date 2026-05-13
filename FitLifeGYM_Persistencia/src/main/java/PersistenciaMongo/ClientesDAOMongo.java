@@ -38,8 +38,8 @@ public class ClientesDAOMongo implements IClientesDAO {
 
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<Cliente> coleccionClientes = db.getCollection(NOMBRE_COLECCION, Cliente.class);
-            
-            if(cliente.getMembresiaComprada() == null){
+
+            if (cliente.getMembresiaComprada() == null) {
                 cliente.setMembresiaComprada(null);
             }
 
@@ -101,6 +101,9 @@ public class ClientesDAOMongo implements IClientesDAO {
     public void actualizarMembresia(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException {
         try (MongoClient client = CreadorConexiones.crearConexion()) {
 
+            if (idCliente == null || idCliente.trim().isEmpty()) {
+                throw new PersistenciaException("El ID del cliente no puede estar vacío.");
+            }
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<Cliente> coleccionClientes = db.getCollection(NOMBRE_COLECCION, Cliente.class);
 
@@ -127,7 +130,7 @@ public class ClientesDAOMongo implements IClientesDAO {
 
             }
         } catch (MongoException ex) {
-            throw new PersistenciaException("Error al consultar el cliente por su pin");
+            throw new PersistenciaException("Error al darle la membresia a cliente");
         }
 
     }
@@ -135,6 +138,11 @@ public class ClientesDAOMongo implements IClientesDAO {
     @Override
     public MembresiaComprada guardarMembresiaCompradaCliente(String idCliente, MembresiaComprada compra) throws PersistenciaException {
         try (MongoClient client = CreadorConexiones.crearConexion()) {
+
+            if (idCliente == null || idCliente.trim().isEmpty()) {
+                throw new PersistenciaException("El ID del cliente no puede estar vacío.");
+            }
+
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<Cliente> coleccion = db.getCollection(NOMBRE_COLECCION, Cliente.class);
 

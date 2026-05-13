@@ -4,7 +4,6 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import DTOS.ClienteLogueadoDTO;
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import BOs.NegocioException;
@@ -19,14 +18,12 @@ public class TarjetaFORM extends javax.swing.JDialog {
     private ControlNavegacion controlNavegacion;
     private ControlForms controlForms;
     private TipoMembresiaDTO membresia;
-    private NuevoClienteDTO cliente;
 
-    public TarjetaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion ,ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+    public TarjetaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
         this.controlForms = control;
         this.membresia = membresia;
-        this.cliente = cliente; 
         this.setTitle("Pago Con Tarjeta");
         initComponents();
         setearEditablesFalsos();
@@ -307,19 +304,14 @@ public class TarjetaFORM extends javax.swing.JDialog {
         String ccv = txtCVV.getText().trim();
         String fecha = txtFechaVencimiento.getText().trim();
 
-        
         try {
-            // Asignar la membresia al cliente (en memoria por lo pronto)
-            controlForms.asignarMembresiaCliente(this.cliente, this.membresia);
 
-            // Procesar pago registra cliente + membresía en BD
-            controlForms.procesarPagoTarjeta(this.cliente, numero, ccv, fecha, nombreTitular);
-
+            controlForms.asignarMembresiaCliente(controlForms.getClienteActual(), this.membresia);
+            controlForms.procesarPagoTarjeta(numero, ccv, fecha, nombreTitular);
             JOptionPane.showMessageDialog(this, "El pago se ha realizado correctamente.", "Pago Correctamente", JOptionPane.INFORMATION_MESSAGE);
-
-            //Solo navegar si todo salio bien
             this.dispose();
-            controlNavegacion.navegarBienvenida(cliente);
+
+            controlNavegacion.navegarBienvenida(controlForms.getClienteActual());
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -328,7 +320,7 @@ public class TarjetaFORM extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPagarAhoraActionPerformed
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
-        controlNavegacion.navegarMetodosPago(membresia, cliente);
+        controlNavegacion.navegarMetodosPago(this.membresia, controlForms.getClienteActual());
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
     public void setearEditablesFalsos() {

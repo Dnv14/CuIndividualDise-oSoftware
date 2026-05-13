@@ -7,6 +7,7 @@ package com.mycompany.fitlifegym_presentacion;
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import BOs.NegocioException;
+import DTOS.NuevaMembresiaDTO;
 import Entidades.Membresia;
 import Entidades.TipoMembresia;
 import java.util.List;
@@ -22,7 +23,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
     private ControlNavegacion controlNavegacion;
     private ControlForms controlForms;
     private NuevoClienteDTO cliente;
-    private List<Membresia> membresiasDisponibles;
+    private List<NuevaMembresiaDTO> membresiasDisponibles;
 
     public BeneficiosFORM(ControlNavegacion controlNavegacion, ControlForms controlForms, NuevoClienteDTO cliente) {
         this.controlNavegacion = controlNavegacion;
@@ -308,7 +309,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
                 break;
         }
 
-        Membresia seleccionada = buscarMembresiaPorNombre(membresiaMayus
+        NuevaMembresiaDTO seleccionada = buscarMembresiaPorNombre(membresiaMayus
         );
         if (seleccionada != null && seleccionada.getPrecio() != null) {
             btnPrecio.setText("$" + seleccionada.getPrecio());
@@ -330,7 +331,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
         }
     }
 
-    private Membresia buscarMembresiaPorNombre(String nombre) {
+    private NuevaMembresiaDTO buscarMembresiaPorNombre(String nombre) {
         try {
             TipoMembresiaDTO tipo = controlForms.seleccionarMembresia(nombre);
             return controlForms.buscarMembresiaPorTipo(tipo);

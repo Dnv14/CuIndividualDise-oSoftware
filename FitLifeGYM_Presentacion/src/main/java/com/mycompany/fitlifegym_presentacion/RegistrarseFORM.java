@@ -6,6 +6,7 @@ package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
 import BOs.NegocioException;
+import DTOS.UsuarioDTO;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
@@ -305,14 +306,14 @@ public class RegistrarseFORM extends javax.swing.JDialog {
 
         try {
             LocalDate fechaNacimiento = LocalDate.parse(fechaString);
-            
-            NuevoClienteDTO clienteRegistrar = new NuevoClienteDTO(nombre, apellidos, correo, contrasenia, telefono, fechaNacimiento, pin, null);
-            controlForms.registrarCliente(clienteRegistrar);
 
+            UsuarioDTO nuevoUsuario = new UsuarioDTO(nombre, apellidos, correo, contrasenia);
+            NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(telefono, fechaNacimiento, pin, null);
+            controlForms.registrarCliente(nuevoCliente, nuevoUsuario);
             JOptionPane.showMessageDialog(this, "Datos personales guardados");
-            
 
-            controlNavegacion.navegarBenificios(clienteRegistrar);
+            controlNavegacion.navegarBenificios(controlForms.getClienteActual());
+            this.dispose();
 
         } catch (DateTimeParseException ex) {
             JOptionPane.showMessageDialog(this, "La fecha debe tener el formato AAAA-MM-DD ");

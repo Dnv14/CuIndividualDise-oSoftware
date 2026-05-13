@@ -4,15 +4,13 @@
  */
 package BOs;
 
+import static Adapter.EntidadesADTOsAdapter.adaptarMembresiaEntidad;
 import Interfaces.IMembresiaBO;
-import Adapter.DtosAEntidadesAdapter;
 import DTOS.NuevaMembresiaDTO;
-import Interfaces.IMembresiaDAO;
 import Excepciones.PersistenciaException;
 import Entidades.Membresia;
 import Fachada.IPersistenciaFachada;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,13 +26,18 @@ public class MembresiaBO implements IMembresiaBO {
     }
 
     @Override
-    public List<Membresia> obtenerTodas() throws NegocioException {
+    public List<NuevaMembresiaDTO> obtenerMembresias() throws NegocioException {
+        List<NuevaMembresiaDTO> membresiasConsulta = new LinkedList<>();
+
         try {
-            return persistenciaFachada.obtenerYCargarMembresias();
+            for (Membresia m : persistenciaFachada.obtenerYCargarMembresias()) {
+                membresiasConsulta.add(adaptarMembresiaEntidad(m));
+            }
+            
+            return membresiasConsulta;
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error al obtener las membresias", ex);
         }
     }
-
 
 }

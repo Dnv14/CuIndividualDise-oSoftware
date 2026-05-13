@@ -7,6 +7,7 @@ package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 import DTOS.NuevoClienteDTO;
 import Interfaces.IClientesBO;
 import BOs.NegocioException;
+import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.UsuarioDTO;
 
 import Interfaces.IUsuarioBO;
@@ -31,16 +32,23 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
         validarDatosUsuarioCliente(clienteDTO);
 
         try {
-
             UsuarioDTO usuarioRegistrado = usuariosBO.registrarUsuario(usuarioDTO);
-
             clienteDTO.setIdUsuario(usuarioRegistrado.getId());
-
-            clientesBO.registrarCliente(clienteDTO);
-
-            return clienteDTO;
+            
+            NuevoClienteDTO clienteRegistrado = clientesBO.registrarCliente(clienteDTO);
+            
+            return clienteRegistrado;
         } catch (NegocioException ex) {
             throw new NegocioException("Error al registrar el cliente.", ex);
+        }
+    }
+
+    @Override
+    public NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws NegocioException {
+        try {
+            return clientesBO.gestionMembresiaCliente(idCliente, compra);
+        } catch (NegocioException ex) {
+            throw new NegocioException("Error al gestionar la membresia de cliente", ex);
         }
     }
 

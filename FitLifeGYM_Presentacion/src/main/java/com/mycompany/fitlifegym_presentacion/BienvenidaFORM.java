@@ -4,9 +4,9 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import DTOS.ClienteLogueadoDTO;
 import DTOsENUMs.EstadoDTO;
 import DTOS.NuevoClienteDTO;
+import DTOS.UsuarioDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import javax.swing.JOptionPane;
 
@@ -14,10 +14,6 @@ import javax.swing.JOptionPane;
  *
  * @author Diego
  */
-//aqui el plan es que si no se lleno el textfiel con la membresia
-//el boton no se pueda utilizar y si le da click ahi ponga
-//esta funcion solo esta en el plan oro, actualizalo
-//o algo asi
 public class BienvenidaFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
@@ -37,21 +33,24 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     }
 
     private void mostrarDatosCliente() {
-        if (cliente != null) {
-            String nombre = cliente.getNombre();
+        UsuarioDTO usuario = controlForms.getUsuarioActual();
+        NuevoClienteDTO cliente = controlForms.getClienteActual();
 
-            if (cliente.getMembresíaComprada() != null && cliente.getMembresíaComprada().getMembresia() != null && cliente.getMembresíaComprada().getMembresia().getTipoMembresia() != null) {
+        if (usuario != null) {
+            String nombre = usuario.getNombre();
 
+            if (cliente != null && cliente.getMembresíaComprada() != null) {
                 String plan = cliente.getMembresíaComprada().getMembresia().getTipoMembresia().name();
+                String estado = cliente.getMembresíaComprada().getEstado().name();
+
                 lblTitulo.setText("Bienvenido: " + nombre + " | Plan: " + plan);
+                LblEstadoMembresia.setText("ESTADO: " + estado);
             } else {
                 lblTitulo.setText("Bienvenido: " + nombre + " | Sin membresía");
+                LblEstadoMembresia.setText("ESTADO: INACTIVO");
             }
-        } else {
-            lblTitulo.setText("Bienvenido");
         }
-        
-        LblEstadoMembresia.setText("ESTADO: " + String.valueOf(cliente.getMembresíaComprada().getEstado()));
+
     }
 
     @SuppressWarnings("unchecked")
@@ -244,7 +243,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
             controlNavegacion.navegarBenificios(cliente);
         } else {
             String planActual = cliente.getMembresíaComprada().getMembresia().getTipoMembresia().name();
-            JOptionPane.showMessageDialog(this, 
+            JOptionPane.showMessageDialog(this,
                     "Actualmente tienes el Plan " + planActual + " activo\n" + "Tu membresía vence el: " + cliente.getMembresíaComprada().getFechaFin(), "Membresía Activa", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnBeneficiosActionPerformed

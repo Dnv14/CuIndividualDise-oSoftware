@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface IMembresiaBO {
 
-    public abstract List<Membresia> obtenerTodas() throws NegocioException;
+    public abstract List<NuevaMembresiaDTO> obtenerMembresias() throws NegocioException;
 
 }

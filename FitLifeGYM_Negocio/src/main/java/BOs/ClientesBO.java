@@ -6,11 +6,15 @@ package BOs;
 
 import Interfaces.IClientesBO;
 import static Adapter.DtosAEntidadesAdapter.adaptarClienteDTO;
+import static Adapter.DtosAEntidadesAdapter.adaptarMembresiaCompradaDTO;
 import static Adapter.EntidadesADTOsAdapter.adaptarClienteEntidad;
+import static Adapter.EntidadesADTOsAdapter.adaptarMembresiaCompradaEntidad;
+import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevoClienteDTO;
 
 import Excepciones.PersistenciaException;
 import Entidades.Cliente;
+import Entidades.MembresiaComprada;
 import Fachada.IPersistenciaFachada;
 import java.util.LinkedList;
 
@@ -52,7 +56,7 @@ public class ClientesBO implements IClientesBO {
             return adaptarClienteEntidad(clienteConsultado);
 
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al registrar el cliente", ex);
+            throw new NegocioException("Error al consultar los cliente", ex);
         }
     }
 
@@ -65,7 +69,20 @@ public class ClientesBO implements IClientesBO {
             }
             return clientesConsultados;
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al registrar el cliente", ex);
+            throw new NegocioException("Error al consultar los clientes", ex);
+        }
+    }
+
+    @Override
+    public NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws NegocioException {
+        try {
+            MembresiaComprada MembresiaCompradaEntidad = adaptarMembresiaCompradaDTO(compra);
+
+            MembresiaComprada membresiaComprada = persistenciaFachada.guardarMembresiaCompradaCliente(idCliente, MembresiaCompradaEntidad);
+
+            return adaptarMembresiaCompradaEntidad(membresiaComprada);
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error al actualizar membresía", ex);
         }
     }
 

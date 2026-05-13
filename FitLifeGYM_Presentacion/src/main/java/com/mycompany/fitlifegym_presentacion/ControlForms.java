@@ -21,12 +21,15 @@ import BOs.LoginBO;
 import BOs.MembresiaBO;
 import BOs.NegocioException;
 import BOs.RenovarMembresiaBO;
+import BOs.UsuarioBO;
+import DTOS.UsuarioDTO;
 import Entidades.Cliente;
 import Entidades.Membresia;
 import FabricaDAOS.FabricaDAOS;
 import FabricaDAOS.IFabricaDAOS;
 import Fachada.IPersistenciaFachada;
 import Fachada.PersistenciaFachada;
+import Interfaces.IUsuarioBO;
 import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.FuncionalidadRegistroUsuario;
 import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.IFuncionalidadRegistrarUsuario;
 import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.FuncionalidadIniciarSesionRenovarMembresia;
@@ -40,21 +43,30 @@ import java.util.List;
  */
 public class ControlForms {
 
-    private NuevoClienteDTO clienteRegistro;
-    private NuevoClienteDTO clienteActual;
+    //actuales
+    private UsuarioDTO usuarioActual;
     private AdministradorDTO administradorActual;
+    private NuevoClienteDTO clienteActual;
+
+    //registros
+    private NuevaMembresiaCompradaDTO membresiaSeleccionada;
+    private UsuarioDTO usuarioRegistro;
+    private NuevoClienteDTO clienteRegistro;
+
     private IFuncionalidadRegistrarUsuario funcionalidadRegistrarUsuario;
     private IFuncionalidadIniciarSesionRenovarMembresia funcionalidadRenovarUsuario;
 
     public ControlForms() {
         IFabricaDAOS fabrica = new FabricaDAOS();
         IPersistenciaFachada persistenciaFachada = new PersistenciaFachada(fabrica);
+
         IClientesBO clientesBO = new ClientesBO(persistenciaFachada);
+        IUsuarioBO usuariosBO = new UsuarioBO(persistenciaFachada);
         IMembresiaBO membresiaBO = new MembresiaBO(persistenciaFachada);
         ILoginBO loginBO = new LoginBO(persistenciaFachada);
         IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO(persistenciaFachada);
 
-        this.funcionalidadRegistrarUsuario = new FuncionalidadRegistroUsuario(clientesBO);
+        this.funcionalidadRegistrarUsuario = new FuncionalidadRegistroUsuario(clientesBO, usuariosBO);
         this.funcionalidadRenovarUsuario = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO);
     }
 
@@ -76,74 +88,58 @@ public class ControlForms {
     }
 
     public void asignarMembresiaCliente(NuevoClienteDTO cliente, TipoMembresiaDTO membresia) throws NegocioException {
-        Membresia membresiaBD = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(membresia);
+        NuevaMembresiaDTO membresiaBD = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(membresia);
         double precio = membresiaBD.getPrecio();
         LocalDate hoy = LocalDate.now();
 
-        NuevaMembresiaDTO membresiaDTO = new NuevaMembresiaDTO(membresia, precio, hoy.plusMonths(1));
+//        NuevaMembresiaDTO membresiaDTO = new NuevaMembresiaDTO(membresia, precio, hoy.plusMonths(1));
         NuevaMembresiaCompradaDTO membresiaCompradaDTO = new NuevaMembresiaCompradaDTO(
-                membresiaDTO,
+                membresiaBD,
                 hoy,
                 hoy.plusMonths(1),
                 precio,
                 EstadoDTO.ACTIVO
         );
         cliente.setMembresíaComprada(membresiaCompradaDTO);
+        this.membresiaSeleccionada = membresiaCompradaDTO;
     }
 
-    public void registrarCliente(NuevoClienteDTO clienteDTO) throws NegocioException { //debiar de llamarse Validar datos cliente
+    public void registrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioException {
         funcionalidadRegistrarUsuario.validarDatosUsuarioCliente(clienteDTO);
-        this.clienteRegistro = clienteDTO;
+        this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(clienteDTO, usuarioDTO);
+
+        this.usuarioActual = usuarioDTO;
+        this.clienteRegistro = null;
+        this.usuarioRegistro = null;
     }
 
-    public void procesarPagoTarjeta(NuevoClienteDTO cliente, String numeroTarjeta, String cvv, String fechaVencimiento, String nombreTitular) throws NegocioException {
+    public void procesarPagoTarjeta(String numeroTarjeta, String cvv, String fechaVencimiento, String nombreTitular) throws NegocioException {
         funcionalidadRegistrarUsuario.validarTarjeta(cvv, numeroTarjeta, fechaVencimiento, nombreTitular);
+        NuevaMembresiaCompradaDTO membresiaActivada = funcionalidadRegistrarUsuario.gestionMembresiaCliente(this.clienteActual.getId(), this.membresiaSeleccionada);
 
-        if (this.clienteActual != null) {
-            TipoMembresiaDTO tipo = cliente.getMembresíaComprada().getMembresia().getTipoMembresia();
-            renovarMembresia(tipo);
-        } else if (this.clienteRegistro != null) {
+        this.clienteActual.setMembresíaComprada(membresiaActivada);
+        this.membresiaSeleccionada = null;
 
-            this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(this.clienteRegistro);
-            this.clienteRegistro = null;
-        }
     }
 
-    public void procesarPagoPaypal(NuevoClienteDTO cliente, String correo, String contrasenia) throws NegocioException {
+    public void procesarPagoPaypal(String correo, String contrasenia) throws NegocioException {
         funcionalidadRegistrarUsuario.validarPaypal(correo, contrasenia);
+        NuevaMembresiaCompradaDTO membresiaActivada = funcionalidadRegistrarUsuario.gestionMembresiaCliente(this.clienteActual.getId(), this.membresiaSeleccionada);
 
-        // Si hay cliente logueado es pos es renovacion
-        if (this.clienteActual != null) {
-            TipoMembresiaDTO tipo = cliente.getMembresíaComprada().getMembresia().getTipoMembresia();
-            renovarMembresia(tipo);
-        } else if (this.clienteRegistro != null) {
-
-            this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(this.clienteRegistro);
-            this.clienteRegistro = null;
-        }
+        this.clienteActual.setMembresíaComprada(membresiaActivada);
+        this.membresiaSeleccionada = null;
 
     }
 
-    public void procesarPagoTransferencia(NuevoClienteDTO cliente) throws NegocioException {
-        if (this.clienteActual != null) {
-            TipoMembresiaDTO tipo = cliente.getMembresíaComprada().getMembresia().getTipoMembresia();
-            renovarMembresia(tipo);
-        } else if (this.clienteRegistro != null) {
+    public void procesarPagoTransferencia() throws NegocioException {
+        NuevaMembresiaCompradaDTO membresiaActivada = funcionalidadRegistrarUsuario.gestionMembresiaCliente(this.clienteActual.getId(), this.membresiaSeleccionada);
 
-            this.clienteRegistro.setMembresíaComprada(cliente.getMembresíaComprada());
-            this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(this.clienteRegistro);
-            this.clienteRegistro = null;
-        }
+        this.clienteActual.setMembresíaComprada(membresiaActivada);
+        this.membresiaSeleccionada = null;
 
     }
 
-    public NuevoClienteDTO getClienteActual() {
-        return clienteActual;
-    }
-
-    public List<Cliente> consultarClientes() throws NegocioException {
+    public List<NuevoClienteDTO> consultarClientes() throws NegocioException {
         return funcionalidadRegistrarUsuario.obtenerTodosLosClientes();
     }
 
@@ -151,16 +147,18 @@ public class ControlForms {
     public NuevoClienteDTO iniciarSesion(String pin, String contrasenia) throws NegocioException {
         LoginDTO loginDTO = new LoginDTO(pin, contrasenia);
         this.clienteActual = funcionalidadRenovarUsuario.iniciarSesion(loginDTO);
+
+//        this.usuarioActual = funcionalidadRegistrarUsuario.obtenerUsuarioPorId(this.clienteActual.getIdUsuario()); //TODO ocupo el agreggate
         return this.clienteActual;
     }
 
     //Nuevo Para consultar las Membresias
-    public List<Membresia> consultarMembresias() throws NegocioException {
+    public List<NuevaMembresiaDTO> consultarMembresias() throws NegocioException {
         return funcionalidadRenovarUsuario.consultarMembresias();
     }
 
     // Para Consultar Los Tipos de Membresia
-    public Membresia buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException {
+    public NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException {
         return funcionalidadRenovarUsuario.buscarMembresiaPorTipo(tipo);
     }
 
@@ -170,7 +168,7 @@ public class ControlForms {
             throw new NegocioException("No se encontró un ID de cliente ");
         }
 
-        Membresia infoPlan = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(tipoDTO);
+        NuevaMembresiaDTO infoPlan = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(tipoDTO);
 
         NuevaMembresiaDTO planDTO = new NuevaMembresiaDTO(tipoDTO, infoPlan.getPrecio(), LocalDate.now().plusMonths(1));
         NuevaMembresiaCompradaDTO nuevaCompra = new NuevaMembresiaCompradaDTO(
@@ -185,6 +183,23 @@ public class ControlForms {
 
         RenovarMembresiaDTO renovarDTO = new RenovarMembresiaDTO(clienteActual.getId(), tipoDTO);
         funcionalidadRenovarUsuario.renovarMembresia(renovarDTO);
+    }
+
+    //getters
+    public void seleccionarMembresia(NuevaMembresiaCompradaDTO seleccion) {
+        this.membresiaSeleccionada = seleccion;
+    }
+
+    public NuevoClienteDTO getClienteActual() {
+        return clienteActual;
+    }
+
+    public UsuarioDTO getUsuarioActual() {
+        return usuarioActual;
+    }
+
+    public UsuarioDTO getUsuarioRegistro() {
+        return usuarioRegistro;
     }
 
 }

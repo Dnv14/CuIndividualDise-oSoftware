@@ -4,7 +4,6 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import DTOS.ClienteLogueadoDTO;
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import BOs.NegocioException;
@@ -18,7 +17,6 @@ public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
 
     private ControlNavegacion controlNavegacion;
     private ControlForms controlForms;
-    private NuevoClienteDTO cliente;
     private TipoMembresiaDTO membresia;
 
     public IniciarSesionPaypalFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
@@ -26,7 +24,7 @@ public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.membresia = membresia;
-        this.cliente = cliente;
+
         this.setTitle("Iniciar Sesión con PayPal");
         initComponents();
     }
@@ -244,16 +242,12 @@ public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
         String contrasenia = txtContrasenia.getText();
 
         try {
-            // Asignar la membresia al cliente en memoria
-            controlForms.asignarMembresiaCliente(this.cliente, this.membresia);
-
-            // Procesar el pago registra en "BD"
-            controlForms.procesarPagoPaypal(cliente, correo, contrasenia);
-
+            controlForms.asignarMembresiaCliente(controlForms.getClienteActual(), this.membresia);
+            controlForms.procesarPagoPaypal(correo, contrasenia);
             JOptionPane.showMessageDialog(this, "Pago con PayPal exitoso. Membresía activada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
             this.dispose();
-            controlNavegacion.navegarBienvenida(cliente);
+            controlNavegacion.navegarBienvenida(controlForms.getClienteActual());
 
         } catch (NegocioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -270,7 +264,7 @@ public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
     }//GEN-LAST:event_txtContraseniaActionPerformed
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
-        controlNavegacion.navegarMetodosPago(membresia, cliente);
+        controlNavegacion.navegarMetodosPago(membresia, controlForms.getClienteActual());
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
 

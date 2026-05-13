@@ -39,6 +39,15 @@ public class NuevoClienteDTO {
         this.membresíaComprada = membresíaComprada;
     }
 
+    public NuevoClienteDTO(String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
+        this.pin = pin;
+        this.membresíaComprada = membresíaComprada;
+    }
+    
+    
+
     public String getId() {
         return id;
     }
