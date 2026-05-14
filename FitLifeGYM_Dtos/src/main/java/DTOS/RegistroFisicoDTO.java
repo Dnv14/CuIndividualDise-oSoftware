@@ -16,10 +16,10 @@ public class RegistroFisicoDTO {
     private String id;
     private String idCliente;
     private NivelCondicionDTO nivelCondicion;
-    private List<LesionesDTO> lesiones;
-    private List<EnfermedadesDTO> enfermedades;
+    private List<LesionesSeleccionadasDTO> lesiones;
+    private List<EnfermedadesSeleccionadasDTO> enfermedades;
 
-    public RegistroFisicoDTO(String id, String idCliente, NivelCondicionDTO nivelCondicion, List<LesionesDTO> lesiones, List<EnfermedadesDTO> enfermedades) {
+    public RegistroFisicoDTO(String id, String idCliente, NivelCondicionDTO nivelCondicion, List<LesionesSeleccionadasDTO> lesiones, List<EnfermedadesSeleccionadasDTO> enfermedades) {
         this.id = id;
         this.idCliente = idCliente;
         this.nivelCondicion = nivelCondicion;
@@ -27,7 +27,7 @@ public class RegistroFisicoDTO {
         this.enfermedades = enfermedades;
     }
 
-    public RegistroFisicoDTO(String idCliente, NivelCondicionDTO nivelCondicion, List<LesionesDTO> lesiones, List<EnfermedadesDTO> enfermedades) {
+    public RegistroFisicoDTO(String idCliente, NivelCondicionDTO nivelCondicion, List<LesionesSeleccionadasDTO> lesiones, List<EnfermedadesSeleccionadasDTO> enfermedades) {
         this.idCliente = idCliente;
         this.nivelCondicion = nivelCondicion;
         this.lesiones = lesiones;
@@ -58,19 +58,21 @@ public class RegistroFisicoDTO {
         this.nivelCondicion = nivelCondicion;
     }
 
-    public List<LesionesDTO> getLesiones() {
+    public List<LesionesSeleccionadasDTO> getLesiones() {
         return lesiones;
     }
 
-    public void setLesiones(List<LesionesDTO> lesiones) {
+    public void setLesiones(List<LesionesSeleccionadasDTO> lesiones) {
         this.lesiones = lesiones;
     }
 
-    public List<EnfermedadesDTO> getEnfermedades() {
+    public List<EnfermedadesSeleccionadasDTO> getEnfermedades() {
         return enfermedades;
     }
 
-    public void setEnfermedades(List<EnfermedadesDTO> enfermedades) {
+    public void setEnfermedades(List<EnfermedadesSeleccionadasDTO> enfermedades) {
         this.enfermedades = enfermedades;
     }
+
+   
 }

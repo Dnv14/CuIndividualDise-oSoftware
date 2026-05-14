@@ -8,15 +8,15 @@ package DTOS;
  *
  * @author Diego
  */
-public class EnfermedadesDTO {
+public class EjerciciosSeleccionadosDTO {
 
     private String id;
     private String nombre;
 
-    public EnfermedadesDTO() {
+    public EjerciciosSeleccionadosDTO() {
     }
 
-    public EnfermedadesDTO(String id, String nombre) {
+    public EjerciciosSeleccionadosDTO(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -36,4 +36,5 @@ public class EnfermedadesDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 }

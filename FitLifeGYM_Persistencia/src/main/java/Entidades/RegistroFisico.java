@@ -20,27 +20,27 @@ public class RegistroFisico {
     private String id;
     private String idCliente;
     private NivelCondicion nivelCondicion;
-    private List<Lesiones> lesiones;
-    private List<Enfermedades> enfermedades;
+    private List<LesionesSeleccionadas> lesionesSeleccionadas;
+    private List<EnfermedadesSeleccionadas> enfermedadesSeleccionadas;
 
     public RegistroFisico() {
     }
 
     
     
-    public RegistroFisico(String id, String idCliente, NivelCondicion nivelCondicion, List<Lesiones> lesiones, List<Enfermedades> enfermedades) {
+    public RegistroFisico(String id, String idCliente, NivelCondicion nivelCondicion, List<LesionesSeleccionadas> lesiones, List<EnfermedadesSeleccionadas> enfermedadesSeleccionadas) {
         this.id = id;
         this.idCliente = idCliente;
         this.nivelCondicion = nivelCondicion;
-        this.lesiones = lesiones;
-        this.enfermedades = enfermedades;
+        this.lesionesSeleccionadas = lesiones;
+        this.enfermedadesSeleccionadas = enfermedadesSeleccionadas;
     }
 
-    public RegistroFisico(String idCliente, NivelCondicion nivelCondicion, List<Lesiones> lesiones, List<Enfermedades> enfermedades) {
+    public RegistroFisico(String idCliente, NivelCondicion nivelCondicion, List<LesionesSeleccionadas> lesiones, List<EnfermedadesSeleccionadas> enfermedadesSeleccionadas) {
         this.idCliente = idCliente;
         this.nivelCondicion = nivelCondicion;
-        this.lesiones = lesiones;
-        this.enfermedades = enfermedades;
+        this.lesionesSeleccionadas = lesiones;
+        this.enfermedadesSeleccionadas = enfermedadesSeleccionadas;
     }
     
     
@@ -69,25 +69,25 @@ public class RegistroFisico {
         this.nivelCondicion = nivelCondicion;
     }
 
-    public List<Lesiones> getLesiones() {
-        return lesiones;
+    public List<LesionesSeleccionadas> getLesiones() {
+        return lesionesSeleccionadas;
     }
 
-    public void setLesiones(List<Lesiones> lesiones) {
-        this.lesiones = lesiones;
+    public void setLesiones(List<LesionesSeleccionadas> lesionesSeleccionadas) {
+        this.lesionesSeleccionadas = lesionesSeleccionadas;
     }
 
-    public List<Enfermedades> getEnfermedades() {
-        return enfermedades;
+    public List<EnfermedadesSeleccionadas> getEnfermedades() {
+        return enfermedadesSeleccionadas;
     }
 
-    public void setEnfermedades(List<Enfermedades> enfermedades) {
-        this.enfermedades = enfermedades;
+    public void setEnfermedades(List<EnfermedadesSeleccionadas> enfermedadesSeleccionadas) {
+        this.enfermedadesSeleccionadas = enfermedadesSeleccionadas;
     }
 
     @Override
     public String toString() {
-        return "RegistroFisico{" + "id=" + id + ", idCliente=" + idCliente + ", nivelCondicion=" + nivelCondicion + ", lesiones=" + lesiones + ", enfermedades=" + enfermedades + '}';
+        return "RegistroFisico{" + "id=" + id + ", idCliente=" + idCliente + ", nivelCondicion=" + nivelCondicion + ", lesiones=" + lesionesSeleccionadas + ", enfermedades=" + enfermedadesSeleccionadas + '}';
     }
     
     

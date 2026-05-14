@@ -2,22 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DTOS;
+package Entidades;
 
 /**
  *
  * @author Diego
  */
-public class EnfermedadesDTO {
+public class EnfermedadesSeleccionadas {
 
     private String id;
     private String nombre;
 
-    public EnfermedadesDTO() {
+    public EnfermedadesSeleccionadas() {
     }
 
-    public EnfermedadesDTO(String id, String nombre) {
+    public EnfermedadesSeleccionadas(String id, String nombre) {
         this.id = id;
+        this.nombre = nombre;
+    }
+
+    public EnfermedadesSeleccionadas(String nombre) {
         this.nombre = nombre;
     }
 
@@ -36,4 +40,11 @@ public class EnfermedadesDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "EnfermedadesSeleccionadas{" + "id=" + id + ", nombre=" + nombre + '}';
+    }
+    
+    
 }

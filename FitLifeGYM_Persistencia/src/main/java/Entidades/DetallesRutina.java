@@ -4,14 +4,15 @@
  */
 package Entidades;
 
+import java.util.List;
+
 /**
  *
  * @author MrGam
  */
 public class DetallesRutina {
     private String id;
-    private String idEjercicio;
-    private String nombreEjercicio;
+    private List<EjerciciosSeleccionados> ejercicios;
     private Integer pesoRecomendado;
     private Integer repeticionesRecomendadas;
     private Integer seriesRecomendadas;
@@ -19,24 +20,20 @@ public class DetallesRutina {
     public DetallesRutina() {
     }
 
-    public DetallesRutina(String id, String idEjercicio, String nombreEjercicio, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+    public DetallesRutina(String id, List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
         this.id = id;
-        this.idEjercicio = idEjercicio;
-        this.nombreEjercicio = nombreEjercicio;
+        this.ejercicios = ejercicios;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
     }
 
-    public DetallesRutina(String idEjercicio, String nombreEjercicio, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
-        this.idEjercicio = idEjercicio;
-        this.nombreEjercicio = nombreEjercicio;
+    public DetallesRutina(List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+        this.ejercicios = ejercicios;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
     }
-    
-    
 
     public String getId() {
         return id;
@@ -46,20 +43,12 @@ public class DetallesRutina {
         this.id = id;
     }
 
-    public String getIdEjercicio() {
-        return idEjercicio;
+    public List<EjerciciosSeleccionados> getEjercicios() {
+        return ejercicios;
     }
 
-    public void setIdEjercicio(String idEjercicio) {
-        this.idEjercicio = idEjercicio;
-    }
-
-    public String getNombreEjercicio() {
-        return nombreEjercicio;
-    }
-
-    public void setNombreEjercicio(String nombreEjercicio) {
-        this.nombreEjercicio = nombreEjercicio;
+    public void setEjercicios(List<EjerciciosSeleccionados> ejercicios) {
+        this.ejercicios = ejercicios;
     }
 
     public Integer getPesoRecomendado() {
@@ -88,7 +77,8 @@ public class DetallesRutina {
 
     @Override
     public String toString() {
-        return "DetallesRutina{" + "id=" + id + ", idEjercicio=" + idEjercicio + ", nombreEjercicio=" + nombreEjercicio + ", pesoRecomendado=" + pesoRecomendado + ", repeticionesRecomendadas=" + repeticionesRecomendadas + ", seriesRecomendadas=" + seriesRecomendadas + '}';
+        return "DetallesRutina{" + "id=" + id + ", ejercicios=" + ejercicios + ", pesoRecomendado=" + pesoRecomendado + ", repeticionesRecomendadas=" + repeticionesRecomendadas + ", seriesRecomendadas=" + seriesRecomendadas + '}';
     }
+
     
 }

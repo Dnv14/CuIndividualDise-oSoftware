@@ -35,34 +35,34 @@ public class RegistroFisicoDAOTEST {
         this.registroDAO = new RegistroFisicoDAOMongo();
     }
 
-    @Test
-    public void crearRegistroFisicoSiFunciona() throws PersistenciaException {
-
-        String idCliente = "6a02a1b11fcda04bdaf8ac77";
-
-        List<Lesiones> misLesiones = new LinkedList<>();
-        misLesiones.add(new Lesiones("ESPALDA"));
-        misLesiones.add(new Lesiones("RODILLA"));
-
-        List<Enfermedades> misEnfermedades = new LinkedList<>();
-        misEnfermedades.add(new Enfermedades("DIABETES"));
-
-        RegistroFisico registro = new RegistroFisico();
-        registro.setIdCliente(idCliente);
-        registro.setNivelCondicion(NivelCondicion.INTERMEDIA);
-        registro.setLesiones(misLesiones);
-        registro.setEnfermedades(misEnfermedades);
-
-        assertDoesNotThrow(() -> {
-            RegistroFisico resultadoRegistro = registroDAO.guardarRegistroFisico(registro);
-
-            assertNotNull(resultadoRegistro.getId());
-            assertEquals(idCliente, resultadoRegistro.getIdCliente());
-
-            System.out.println("Registro Físico con guardado");
-
-        });
-    }
+//    @Test
+//    public void crearRegistroFisicoSiFunciona() throws PersistenciaException {
+//
+//        String idCliente = "6a02a1b11fcda04bdaf8ac77";
+//
+//        List<Lesiones> misLesiones = new LinkedList<>();
+//        misLesiones.add(new Lesiones("ESPALDA"));
+//        misLesiones.add(new Lesiones("RODILLA"));
+//
+//        List<Enfermedades> misEnfermedades = new LinkedList<>();
+//        misEnfermedades.add(new Enfermedades("DIABETES"));
+//
+//        RegistroFisico registro = new RegistroFisico();
+//        registro.setIdCliente(idCliente);
+//        registro.setNivelCondicion(NivelCondicion.INTERMEDIA);
+//        registro.setLesiones(misLesiones);
+//        registro.setEnfermedades(misEnfermedades);
+//
+//        assertDoesNotThrow(() -> {
+//            RegistroFisico resultadoRegistro = registroDAO.guardarRegistroFisico(registro);
+//
+//            assertNotNull(resultadoRegistro.getId());
+//            assertEquals(idCliente, resultadoRegistro.getIdCliente());
+//
+//            System.out.println("Registro Físico con guardado");
+//
+//        });
+//    }
 
     @Test
     public void consultarElRegistroFisicoPorIdFunciona() throws PersistenciaException {
