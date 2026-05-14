@@ -19,7 +19,7 @@ import Interfaces.IMembresiaBO;
 import Interfaces.IRenovarMembresiaBO;
 import BOs.LoginBO;
 import BOs.MembresiaBO;
-import BOs.NegocioException;
+import BOs.BOException;
 import BOs.RenovarMembresiaBO;
 import BOs.UsuarioBO;
 import DTOS.UsuarioDTO;
@@ -32,8 +32,10 @@ import Fachada.PersistenciaFachada;
 import Interfaces.IUsuarioBO;
 import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.FuncionalidadRegistroUsuario;
 import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.IFuncionalidadRegistrarUsuario;
+import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.NegocioExceptionRegistrar;
 import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.FuncionalidadIniciarSesionRenovarMembresia;
 import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.IFuncionalidadIniciarSesionRenovarMembresia;
+import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -57,14 +59,11 @@ public class ControlForms {
     private IFuncionalidadIniciarSesionRenovarMembresia funcionalidadRenovarUsuario;
 
     public ControlForms() {
-        IFabricaDAOS fabrica = new FabricaDAOS();
-        IPersistenciaFachada persistenciaFachada = new PersistenciaFachada(fabrica);
-
-        IClientesBO clientesBO = new ClientesBO(persistenciaFachada);
-        IUsuarioBO usuariosBO = new UsuarioBO(persistenciaFachada);
-        IMembresiaBO membresiaBO = new MembresiaBO(persistenciaFachada);
-        ILoginBO loginBO = new LoginBO(persistenciaFachada);
-        IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO(persistenciaFachada);
+        IClientesBO clientesBO = new ClientesBO();
+        IUsuarioBO usuariosBO = new UsuarioBO();
+        IMembresiaBO membresiaBO = new MembresiaBO();
+        ILoginBO loginBO = new LoginBO();
+        IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO();
 
         this.funcionalidadRegistrarUsuario = new FuncionalidadRegistroUsuario(clientesBO, usuariosBO);
         this.funcionalidadRenovarUsuario = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO);
@@ -87,7 +86,7 @@ public class ControlForms {
         return tipoMembresiaDTO;
     }
 
-    public void asignarMembresiaCliente(NuevoClienteDTO cliente, TipoMembresiaDTO membresia) throws NegocioException {
+    public void asignarMembresiaCliente(NuevoClienteDTO cliente, TipoMembresiaDTO membresia) throws BOException, NegocioExceptionRenovar {
         NuevaMembresiaDTO membresiaBD = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(membresia);
         double precio = membresiaBD.getPrecio();
         LocalDate hoy = LocalDate.now();
@@ -104,7 +103,7 @@ public class ControlForms {
         this.membresiaSeleccionada = membresiaCompradaDTO;
     }
 
-    public void registrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioException {
+    public void registrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws BOException, NegocioExceptionRenovar, NegocioExceptionRegistrar {
         funcionalidadRegistrarUsuario.validarDatosUsuarioCliente(clienteDTO);
         this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(clienteDTO, usuarioDTO);
 
@@ -113,7 +112,7 @@ public class ControlForms {
         this.usuarioRegistro = null;
     }
 
-    public void procesarPagoTarjeta(String numeroTarjeta, String cvv, String fechaVencimiento, String nombreTitular) throws NegocioException {
+    public void procesarPagoTarjeta(String numeroTarjeta, String cvv, String fechaVencimiento, String nombreTitular) throws BOException, NegocioExceptionRegistrar {
         funcionalidadRegistrarUsuario.validarTarjeta(cvv, numeroTarjeta, fechaVencimiento, nombreTitular);
         NuevaMembresiaCompradaDTO membresiaActivada = funcionalidadRegistrarUsuario.gestionMembresiaCliente(this.clienteActual.getId(), this.membresiaSeleccionada);
 
@@ -122,7 +121,7 @@ public class ControlForms {
 
     }
 
-    public void procesarPagoPaypal(String correo, String contrasenia) throws NegocioException {
+    public void procesarPagoPaypal(String correo, String contrasenia) throws BOException, NegocioExceptionRegistrar {
         funcionalidadRegistrarUsuario.validarPaypal(correo, contrasenia);
         NuevaMembresiaCompradaDTO membresiaActivada = funcionalidadRegistrarUsuario.gestionMembresiaCliente(this.clienteActual.getId(), this.membresiaSeleccionada);
 
@@ -131,7 +130,7 @@ public class ControlForms {
 
     }
 
-    public void procesarPagoTransferencia() throws NegocioException {
+    public void procesarPagoTransferencia() throws BOException, NegocioExceptionRegistrar {
         NuevaMembresiaCompradaDTO membresiaActivada = funcionalidadRegistrarUsuario.gestionMembresiaCliente(this.clienteActual.getId(), this.membresiaSeleccionada);
 
         this.clienteActual.setMembresíaComprada(membresiaActivada);
@@ -139,12 +138,12 @@ public class ControlForms {
 
     }
 
-    public List<NuevoClienteDTO> consultarClientes() throws NegocioException {
+    public List<NuevoClienteDTO> consultarClientes() throws BOException, NegocioExceptionRegistrar {
         return funcionalidadRegistrarUsuario.obtenerTodosLosClientes();
     }
 
     //Modificado
-    public NuevoClienteDTO iniciarSesion(String pin, String contrasenia) throws NegocioException {
+    public NuevoClienteDTO iniciarSesion(String pin, String contrasenia) throws BOException, NegocioExceptionRenovar {
         LoginDTO loginDTO = new LoginDTO(pin, contrasenia);
         this.clienteActual = funcionalidadRenovarUsuario.iniciarSesion(loginDTO);
 
@@ -153,19 +152,19 @@ public class ControlForms {
     }
 
     //Nuevo Para consultar las Membresias
-    public List<NuevaMembresiaDTO> consultarMembresias() throws NegocioException {
+    public List<NuevaMembresiaDTO> consultarMembresias() throws BOException, NegocioExceptionRenovar {
         return funcionalidadRenovarUsuario.consultarMembresias();
     }
 
     // Para Consultar Los Tipos de Membresia
-    public NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException {
+    public NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws BOException, NegocioExceptionRenovar {
         return funcionalidadRenovarUsuario.buscarMembresiaPorTipo(tipo);
     }
 
     //Nuevo(lo agregrege para la renovacion)
-    public void renovarMembresia(TipoMembresiaDTO tipoDTO) throws NegocioException {
+    public void renovarMembresia(TipoMembresiaDTO tipoDTO) throws BOException, NegocioExceptionRenovar {
         if (this.clienteActual == null || this.clienteActual.getId() == null) {
-            throw new NegocioException("No se encontró un ID de cliente ");
+            throw new BOException("No se encontró un ID de cliente ");
         }
 
         NuevaMembresiaDTO infoPlan = funcionalidadRenovarUsuario.buscarMembresiaPorTipo(tipoDTO);

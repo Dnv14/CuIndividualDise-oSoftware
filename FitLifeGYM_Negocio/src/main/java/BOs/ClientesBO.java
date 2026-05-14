@@ -16,6 +16,7 @@ import Excepciones.PersistenciaException;
 import Entidades.Cliente;
 import Entidades.MembresiaComprada;
 import Fachada.IPersistenciaFachada;
+import Fachada.PersistenciaFachada;
 import java.util.LinkedList;
 
 import java.util.List;
@@ -28,12 +29,12 @@ public class ClientesBO implements IClientesBO {
 
     private IPersistenciaFachada persistenciaFachada;
 
-    public ClientesBO(IPersistenciaFachada fachadaPersistencia) {
-        this.persistenciaFachada = fachadaPersistencia;
+    public ClientesBO() {
+        this.persistenciaFachada = new PersistenciaFachada();
     }
 
     @Override
-    public NuevoClienteDTO registrarCliente(NuevoClienteDTO clienteDTO) throws NegocioException {
+    public NuevoClienteDTO registrarCliente(NuevoClienteDTO clienteDTO) throws BOException {
 
         try {
             Cliente clienteEntidad = adaptarClienteDTO(clienteDTO);
@@ -41,14 +42,14 @@ public class ClientesBO implements IClientesBO {
 
             return adaptarClienteEntidad(clienteGuardado);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al registrar el cliente", ex);
+            throw new BOException("Error al registrar el cliente", ex);
         }
     }
 
     @Override
-    public NuevoClienteDTO buscarClientePorId(String id) throws NegocioException {
+    public NuevoClienteDTO buscarClientePorId(String id) throws BOException {
         if (id == null) {
-            throw new NegocioException("Se debe de colocar un ID.");
+            throw new BOException("Se debe de colocar un ID.");
         }
 
         try {
@@ -56,12 +57,12 @@ public class ClientesBO implements IClientesBO {
             return adaptarClienteEntidad(clienteConsultado);
 
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al consultar los cliente", ex);
+            throw new BOException("Error al consultar los cliente", ex);
         }
     }
 
     @Override
-    public List<NuevoClienteDTO> consultarClientes() throws NegocioException {
+    public List<NuevoClienteDTO> consultarClientes() throws BOException {
         List<NuevoClienteDTO> clientesConsultados = new LinkedList<>();
         try {
             for (Cliente c : persistenciaFachada.consultarClientes()) {
@@ -69,12 +70,12 @@ public class ClientesBO implements IClientesBO {
             }
             return clientesConsultados;
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al consultar los clientes", ex);
+            throw new BOException("Error al consultar los clientes", ex);
         }
     }
 
     @Override
-    public NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws NegocioException {
+    public NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws BOException {
         try {
             MembresiaComprada MembresiaCompradaEntidad = adaptarMembresiaCompradaDTO(compra);
 
@@ -82,7 +83,7 @@ public class ClientesBO implements IClientesBO {
 
             return adaptarMembresiaCompradaEntidad(membresiaComprada);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al actualizar membresía", ex);
+            throw new BOException("Error al actualizar membresía", ex);
         }
     }
 

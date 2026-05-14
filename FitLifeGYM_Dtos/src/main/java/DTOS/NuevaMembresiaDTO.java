@@ -34,6 +34,14 @@ public class NuevaMembresiaDTO {
         this.vigencia = vigencia;
     }
 
+    public NuevaMembresiaDTO(String idMembresia, TipoMembresiaDTO tipoMembresia, Double precio) {
+        this.idMembresia = idMembresia;
+        this.tipoMembresia = tipoMembresia;
+        this.precio = precio;
+    }
+    
+    
+
     public String getIdMembresia() {
         return idMembresia;
     }

@@ -5,7 +5,7 @@
 package Interfaces;
 
 
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.LoginDTO;
 import DTOS.NuevoClienteDTO;
 
@@ -14,5 +14,5 @@ import DTOS.NuevoClienteDTO;
  * @author PC GAMER MASTER RACE
  */
 public interface ILoginBO {
-    public abstract NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioException;
+    public abstract NuevoClienteDTO iniciarSesion(LoginDTO login) throws BOException;
 }

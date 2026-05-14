@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Test.EnfermedadesDAOTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.789 s -- in Test.EnfermedadesDAOTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.441 s -- in Test.EnfermedadesDAOTest

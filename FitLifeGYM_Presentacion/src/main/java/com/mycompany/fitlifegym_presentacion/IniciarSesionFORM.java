@@ -5,7 +5,8 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
-import BOs.NegocioException;
+import BOs.BOException;
+import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
@@ -195,7 +196,7 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
             NuevoClienteDTO cliente = controlForms.iniciarSesion(pin, contrasenia);
             dispose();
             controlNavegacion.navegarBienvenida(cliente);
-        } catch (NegocioException ex) {
+        } catch (BOException | NegocioExceptionRenovar ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed

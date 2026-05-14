@@ -6,7 +6,9 @@ package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import BOs.NegocioException;
+import BOs.BOException;
+import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.NegocioExceptionRegistrar;
+import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
 import javax.swing.JOptionPane;
 
 /**
@@ -313,7 +315,7 @@ public class TarjetaFORM extends javax.swing.JDialog {
 
             controlNavegacion.navegarBienvenida(controlForms.getClienteActual());
 
-        } catch (NegocioException ex) {
+        } catch (BOException | NegocioExceptionRegistrar | NegocioExceptionRenovar ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 

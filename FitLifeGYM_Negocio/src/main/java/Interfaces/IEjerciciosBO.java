@@ -5,12 +5,14 @@
 package Interfaces;
 
 import BOs.BOException;
-import DTOS.RenovarMembresiaDTO;
+import DTOS.EjerciciosDTO;
+import java.util.List;
 
 /**
  *
- * @author PC GAMER MASTER RACE
+ * @author Diego
  */
-public interface IRenovarMembresiaBO {
-    public abstract void renovarMembresia(RenovarMembresiaDTO dto) throws BOException; 
+public interface IEjerciciosBO {
+
+    public abstract List<EjerciciosDTO> consultarEjercicios() throws BOException;
 }

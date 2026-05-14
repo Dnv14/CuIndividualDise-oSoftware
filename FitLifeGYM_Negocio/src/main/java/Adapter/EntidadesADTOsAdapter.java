@@ -4,18 +4,34 @@
  */
 package Adapter;
 
+import DTOS.EjerciciosDTO;
+import DTOS.EnfermedadesDTO;
+import DTOS.EnfermedadesSeleccionadasDTO;
+import DTOS.LesionesDTO;
+import DTOS.LesionesSeleccionadasDTO;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevaMembresiaDTO;
 import DTOS.NuevoClienteDTO;
+import DTOS.RegistroFisicoDTO;
 import DTOS.UsuarioDTO;
 import DTOsENUMs.EstadoDTO;
+import DTOsENUMs.NivelCondicionDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import Entidades.Cliente;
+import Entidades.Ejercicio;
+import Entidades.Enfermedades;
+import Entidades.EnfermedadesSeleccionadas;
 import Entidades.Estado;
+import Entidades.Lesiones;
+import Entidades.LesionesSeleccionadas;
 import Entidades.Membresia;
 import Entidades.MembresiaComprada;
+import Entidades.NivelCondicion;
+import Entidades.RegistroFisico;
 import Entidades.TipoMembresia;
 import Entidades.Usuario;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -109,4 +125,95 @@ public class EntidadesADTOsAdapter {
         return (estado == Estado.ACTIVO) ? EstadoDTO.ACTIVO : EstadoDTO.INACTIVO;
     }
 
+    public static NivelCondicionDTO adaptarNivelCondicionEntidad(NivelCondicion nivelCondicionEntidad) {
+        NivelCondicionDTO nivelCondicionDTO = NivelCondicionDTO.BAJA;
+
+        if (nivelCondicionEntidad == NivelCondicion.INTERMEDIA) {
+            nivelCondicionDTO = NivelCondicionDTO.INTERMEDIA;
+        } else if (nivelCondicionEntidad == NivelCondicion.AVANZADA) {
+            nivelCondicionDTO = NivelCondicionDTO.AVANZADA;
+        }
+
+        return nivelCondicionDTO;
+    }
+
+    public static RegistroFisicoDTO adaptarRegistroFisicoEntidad(RegistroFisico registroFisicoEntidad) {
+        if (registroFisicoEntidad == null) {
+            return null;
+        }
+
+        List<LesionesSeleccionadasDTO> lesionesSeleccionadas = new LinkedList<>();
+        List<EnfermedadesSeleccionadasDTO> enfermedadesSeleccionadas = new LinkedList<>();
+
+        if (registroFisicoEntidad.getLesiones() != null) {
+            for (LesionesSeleccionadas l : registroFisicoEntidad.getLesiones()) {
+                LesionesSeleccionadasDTO lesionDTO = new LesionesSeleccionadasDTO();
+                lesionDTO.setId(l.getId());
+                lesionDTO.setNombre(l.getNombre());
+                lesionesSeleccionadas.add(lesionDTO);
+            }
+        }
+
+        if (registroFisicoEntidad.getEnfermedades() != null) {
+            for (EnfermedadesSeleccionadas e : registroFisicoEntidad.getEnfermedades()) {
+                EnfermedadesSeleccionadasDTO enfermedadDTO = new EnfermedadesSeleccionadasDTO();
+                enfermedadDTO.setId(e.getId());
+                enfermedadDTO.setNombre(e.getNombre());
+                enfermedadesSeleccionadas.add(enfermedadDTO);
+            }
+        }
+
+        if (registroFisicoEntidad.getId() != null) {
+            RegistroFisicoDTO registroFisicoConId = new RegistroFisicoDTO(registroFisicoEntidad.getId(),
+                    registroFisicoEntidad.getIdCliente(),
+                    adaptarNivelCondicionEntidad(registroFisicoEntidad.getNivelCondicion()),
+                    lesionesSeleccionadas, enfermedadesSeleccionadas);
+            return registroFisicoConId;
+        }
+
+        RegistroFisicoDTO registroFisicoSinId = new RegistroFisicoDTO(
+                registroFisicoEntidad.getIdCliente(),
+                adaptarNivelCondicionEntidad(registroFisicoEntidad.getNivelCondicion()),
+                lesionesSeleccionadas, enfermedadesSeleccionadas);
+        return registroFisicoSinId;
+    }
+
+    public static List<EjerciciosDTO> adaptarEjerciciosEntidad(List<Ejercicio> ejercicios) {
+        List<EjerciciosDTO> ejerciciosDTO = new LinkedList<>();
+
+        for (Ejercicio e : ejercicios) {
+            EjerciciosDTO ejercicioDTO = new EjerciciosDTO();
+            ejercicioDTO.setId(e.getId());
+            ejercicioDTO.setNombre(e.getNombre());
+            ejerciciosDTO.add(ejercicioDTO);
+        }
+
+        return ejerciciosDTO;
+    }
+
+    public static List<EnfermedadesDTO> adaptarEnfermedadesEntidad(List<Enfermedades> enfermedades) {
+        List<EnfermedadesDTO> enfermedadesDTO = new LinkedList<>();
+
+        for (Enfermedades e : enfermedades) {
+            EnfermedadesDTO enfermedadDTO = new EnfermedadesDTO();
+            enfermedadDTO.setId(e.getId());
+            enfermedadDTO.setNombre(e.getNombre());
+            enfermedadesDTO.add(enfermedadDTO);
+        }
+
+        return enfermedadesDTO;
+    }
+
+    public static List<LesionesDTO> adaptarLesionesEntidad(List<Lesiones> lesiones) {
+        List<LesionesDTO> lesionesDTO = new LinkedList<>();
+
+        for (Lesiones e : lesiones) {
+            LesionesDTO lesionDTO = new LesionesDTO();
+            lesionDTO.setId(e.getId());
+            lesionDTO.setNombre(e.getNombre());
+            lesionesDTO.add(lesionDTO);
+        }
+
+        return lesionesDTO;
+    }
 }

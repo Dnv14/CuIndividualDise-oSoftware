@@ -10,6 +10,7 @@ import DTOS.NuevaMembresiaDTO;
 import Excepciones.PersistenciaException;
 import Entidades.Membresia;
 import Fachada.IPersistenciaFachada;
+import Fachada.PersistenciaFachada;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,12 +22,12 @@ public class MembresiaBO implements IMembresiaBO {
 
     private IPersistenciaFachada persistenciaFachada;
 
-    public MembresiaBO(IPersistenciaFachada fachadaPersistencia) {
-        this.persistenciaFachada = fachadaPersistencia;
+    public MembresiaBO() {
+        this.persistenciaFachada =  new PersistenciaFachada();
     }
 
     @Override
-    public List<NuevaMembresiaDTO> obtenerMembresias() throws NegocioException {
+    public List<NuevaMembresiaDTO> obtenerMembresias() throws BOException {
         List<NuevaMembresiaDTO> membresiasConsulta = new LinkedList<>();
 
         try {
@@ -36,7 +37,7 @@ public class MembresiaBO implements IMembresiaBO {
             
             return membresiasConsulta;
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al obtener las membresias", ex);
+            throw new BOException("Error al obtener las membresias", ex);
         }
     }
 

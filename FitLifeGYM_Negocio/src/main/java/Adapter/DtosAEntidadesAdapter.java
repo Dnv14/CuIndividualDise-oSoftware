@@ -4,19 +4,29 @@
  */
 package Adapter;
 
+import DTOS.EjerciciosDTO;
+import DTOS.EnfermedadesSeleccionadasDTO;
+import DTOS.LesionesSeleccionadasDTO;
 import DTOsENUMs.EstadoDTO;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevaMembresiaDTO;
 import DTOS.NuevoClienteDTO;
+import DTOS.RegistroFisicoDTO;
 import DTOS.UsuarioDTO;
+import DTOsENUMs.NivelCondicionDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import Entidades.Cliente;
+import Entidades.EnfermedadesSeleccionadas;
 import Entidades.Estado;
+import Entidades.LesionesSeleccionadas;
 import Entidades.Membresia;
 import Entidades.MembresiaComprada;
+import Entidades.NivelCondicion;
+import Entidades.RegistroFisico;
 import Entidades.TipoMembresia;
 import Entidades.Usuario;
-import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -58,13 +68,12 @@ public class DtosAEntidadesAdapter {
             return clienteConId;
         }
 
-        Cliente clienteSinId = new Cliente(clienteDTO.getIdUsuario(), 
-                clienteDTO.getTelefono(), clienteDTO.getFechaNacimiento(), 
+        Cliente clienteSinId = new Cliente(clienteDTO.getIdUsuario(),
+                clienteDTO.getTelefono(), clienteDTO.getFechaNacimiento(),
                 clienteDTO.getPin(), membresiaComprada);
-        
+
         return clienteSinId;
     }
-    
 
     public static Membresia adaptarMembresiaDTO(NuevaMembresiaDTO nuevaMembresiaDTO) {
         if (nuevaMembresiaDTO == null) {
@@ -110,4 +119,59 @@ public class DtosAEntidadesAdapter {
         }
         return TipoMembresia.BRONCE;
     }
+
+    public static NivelCondicion adaptarNivelCondicionDTO(NivelCondicionDTO nivelCondicionDTO) {
+        NivelCondicion nivelCondicionEntidad = NivelCondicion.BAJA;
+
+        if (nivelCondicionDTO == NivelCondicionDTO.INTERMEDIA) {
+            nivelCondicionEntidad = NivelCondicion.INTERMEDIA;
+        } else if (nivelCondicionDTO == NivelCondicionDTO.AVANZADA) {
+            nivelCondicionEntidad = NivelCondicion.AVANZADA;
+        }
+
+        return nivelCondicionEntidad;
+    }
+
+    public static RegistroFisico adaptarRegistroFisicoDTO(RegistroFisicoDTO registroFisicoDTO) {
+        if (registroFisicoDTO == null) {
+            return null;
+        }
+
+        List<LesionesSeleccionadas> lesionesSeleccionadas = new LinkedList<>();
+        List<EnfermedadesSeleccionadas> enfermedadesSeleccionadas = new LinkedList<>();
+
+        if (registroFisicoDTO.getLesiones() != null) {
+            for (LesionesSeleccionadasDTO lDto : registroFisicoDTO.getLesiones()) {
+                LesionesSeleccionadas lesion = new LesionesSeleccionadas();
+                lesion.setId(lDto.getId());
+                lesion.setNombre(lDto.getNombre());
+                lesionesSeleccionadas.add(lesion);
+            }
+        }
+
+        if (registroFisicoDTO.getEnfermedades() != null) {
+            for (EnfermedadesSeleccionadasDTO eDto : registroFisicoDTO.getEnfermedades()) {
+                EnfermedadesSeleccionadas enfermedad = new EnfermedadesSeleccionadas();
+                enfermedad.setId(eDto.getId());
+                enfermedad.setNombre(eDto.getNombre());
+                enfermedadesSeleccionadas.add(enfermedad);
+            }
+        }
+
+        if (registroFisicoDTO.getId() != null) {
+            RegistroFisico registroFisicoConId = new RegistroFisico(registroFisicoDTO.getId(),
+                    registroFisicoDTO.getIdCliente(),
+                    adaptarNivelCondicionDTO(registroFisicoDTO.getNivelCondicion()),
+                    lesionesSeleccionadas, enfermedadesSeleccionadas);
+            return registroFisicoConId;
+        }
+
+        RegistroFisico registroFisicoSinId = new RegistroFisico(
+                registroFisicoDTO.getIdCliente(),
+                adaptarNivelCondicionDTO(registroFisicoDTO.getNivelCondicion()),
+                lesionesSeleccionadas, enfermedadesSeleccionadas);
+        return registroFisicoSinId;
+    }
+    
+    
 }

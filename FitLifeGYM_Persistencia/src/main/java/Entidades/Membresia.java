@@ -39,6 +39,11 @@ public class Membresia {
         this.precio = precio;
     }
     
+    public Membresia(String idMembresia, TipoMembresia tipoMembresia, Double precio) {
+        this.tipoMembresia = tipoMembresia;
+        this.precio = precio;
+    }
+    
     
 
     public String getIdMembresia() {

@@ -6,7 +6,7 @@ package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 
 import DTOS.NuevoClienteDTO;
 import Interfaces.IClientesBO;
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.UsuarioDTO;
 
@@ -28,7 +28,7 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
     }
 
     @Override
-    public NuevoClienteDTO RegistrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioException {
+    public NuevoClienteDTO RegistrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioExceptionRegistrar {
         validarDatosUsuarioCliente(clienteDTO);
 
         try {
@@ -38,84 +38,84 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
             NuevoClienteDTO clienteRegistrado = clientesBO.registrarCliente(clienteDTO);
             
             return clienteRegistrado;
-        } catch (NegocioException ex) {
-            throw new NegocioException("Error al registrar el cliente.", ex);
+        } catch (BOException ex) {
+            throw new NegocioExceptionRegistrar("Error al registrar el cliente.", ex);
         }
     }
 
     @Override
-    public NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws NegocioException {
+    public NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws NegocioExceptionRegistrar {
         try {
             return clientesBO.gestionMembresiaCliente(idCliente, compra);
-        } catch (NegocioException ex) {
-            throw new NegocioException("Error al gestionar la membresia de cliente", ex);
+        } catch (BOException ex) {
+            throw new NegocioExceptionRegistrar("Error al gestionar la membresia de cliente", ex);
         }
     }
 
     @Override
-    public List<NuevoClienteDTO> obtenerTodosLosClientes() throws NegocioException {
+    public List<NuevoClienteDTO> obtenerTodosLosClientes() throws NegocioExceptionRegistrar {
         try {
             return clientesBO.consultarClientes();
-        } catch (NegocioException ex) {
-            throw new NegocioException("Error al obtener todos los clientes", ex);
+        } catch (BOException ex) {
+            throw new NegocioExceptionRegistrar("Error al obtener todos los clientes", ex);
         }
     }
 
     @Override
-    public void validarDatosUsuarioCliente(NuevoClienteDTO clienteDTO) throws NegocioException {
+    public void validarDatosUsuarioCliente(NuevoClienteDTO clienteDTO) throws NegocioExceptionRegistrar {
 
         if (clienteDTO.getTelefono().isEmpty() || !clienteDTO.getTelefono().matches("\\d{10}")) {
-            throw new NegocioException("Ingrese el formato válido del teléfono.");
+            throw new NegocioExceptionRegistrar("Ingrese el formato válido del teléfono.");
         }
 
         if (clienteDTO.getPin() == null || !clienteDTO.getPin().matches("\\d{4}")) {
-            throw new NegocioException("El PIN debe ser de exactamente 4 números.");
+            throw new NegocioExceptionRegistrar("El PIN debe ser de exactamente 4 números.");
         }
     }
 
     @Override
-    public void validarDatosUsuarios(UsuarioDTO usuarioDTO) throws NegocioException {
+    public void validarDatosUsuarios(UsuarioDTO usuarioDTO) throws NegocioExceptionRegistrar {
         if (usuarioDTO.getNombre() == null || usuarioDTO.getNombre().isEmpty()) {
-            throw new NegocioException("El nombre del cliente no puede ser nulo.");
+            throw new NegocioExceptionRegistrar("El nombre del cliente no puede ser nulo.");
         }
 
         if (usuarioDTO.getApellidos() == null || usuarioDTO.getApellidos().isEmpty()) {
-            throw new NegocioException("El appelido del cliente no puede ser nulo.");
+            throw new NegocioExceptionRegistrar("El appelido del cliente no puede ser nulo.");
         }
 
         if (usuarioDTO.getCorreo() == null || !usuarioDTO.getCorreo().contains("@")) {
-            throw new NegocioException("El formato del correo no es válido.");
+            throw new NegocioExceptionRegistrar("El formato del correo no es válido.");
         }
 
     }
 
     @Override
-    public void validarTarjeta(String cvv, String numeroTarjeta, String fechaVencimiento, String nombreTitular) throws NegocioException {
+    public void validarTarjeta(String cvv, String numeroTarjeta, String fechaVencimiento, String nombreTitular) throws NegocioExceptionRegistrar {
         if (!numeroTarjeta.matches("\\d{16}")) {
-            throw new NegocioException("La tarjeta debe tener exactamente 16 números.");
+            throw new NegocioExceptionRegistrar("La tarjeta debe tener exactamente 16 números.");
         }
 
         if (!cvv.matches("\\d{3}")) {
-            throw new NegocioException("El CVV debe ser de 3 dígitos.");
+            throw new NegocioExceptionRegistrar("El CVV debe ser de 3 dígitos.");
         }
 
         if (!fechaVencimiento.matches("(0[1-9]|1[0-2])/[0-9]{2}")) {
-            throw new NegocioException("Formato de fecha inválido (MM/YY)");
+            throw new NegocioExceptionRegistrar("Formato de fecha inválido (MM/YY)");
         }
 
         if (nombreTitular.isEmpty() || numeroTarjeta.isEmpty() || cvv.isEmpty() || fechaVencimiento.isEmpty()) {
-            throw new NegocioException("Favor de llenar todos los campos");
+            throw new NegocioExceptionRegistrar("Favor de llenar todos los campos");
         }
     }
 
     @Override
-    public void validarPaypal(String correo, String contrasenia) throws NegocioException {
+    public void validarPaypal(String correo, String contrasenia) throws NegocioExceptionRegistrar {
         if (!correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
-            throw new NegocioException("Formato de correo inválido");
+            throw new NegocioExceptionRegistrar("Formato de correo inválido");
         }
 
         if (contrasenia.isEmpty()) {
-            throw new NegocioException("La contraseña no puede estar vacía");
+            throw new NegocioExceptionRegistrar("La contraseña no puede estar vacía");
         }
     }
 

@@ -4,7 +4,7 @@
  */
 package Interfaces;
 
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.UsuarioDTO;
 import Entidades.Usuario;
 
@@ -14,6 +14,6 @@ import Entidades.Usuario;
  */
 public interface IUsuarioBO {
 
-    public abstract UsuarioDTO registrarUsuario(UsuarioDTO usuarioDTO) throws NegocioException;
+    public abstract UsuarioDTO registrarUsuario(UsuarioDTO usuarioDTO) throws BOException;
 
 }

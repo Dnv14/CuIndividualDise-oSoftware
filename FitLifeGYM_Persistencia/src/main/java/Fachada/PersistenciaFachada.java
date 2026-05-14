@@ -15,6 +15,7 @@ import Entidades.Rutina;
 import Entidades.TipoMembresia;
 import Entidades.Usuario;
 import Excepciones.PersistenciaException;
+import FabricaDAOS.FabricaDAOS;
 import FabricaDAOS.IFabricaDAOS;
 import Interfaces.IClientesDAO;
 import Interfaces.IEjerciciosDAO;
@@ -43,7 +44,8 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     private IRegistroFisicoDAO registroFisicoDAO;
     private IUsuariosDAO usuariosDAO;
 
-    public PersistenciaFachada(IFabricaDAOS fabricaDAOS) {
+    public PersistenciaFachada() {
+        IFabricaDAOS fabricaDAOS = new FabricaDAOS();
         this.clientesDAO = fabricaDAOS.crearClientesDAO();
         this.usuariosDAO = fabricaDAOS.crearUsuarioDAO();
         this.membresiaDAO = fabricaDAOS.crearMembresiaDAO();

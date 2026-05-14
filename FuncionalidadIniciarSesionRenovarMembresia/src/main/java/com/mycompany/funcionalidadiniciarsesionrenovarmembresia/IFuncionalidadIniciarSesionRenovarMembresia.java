@@ -8,7 +8,7 @@ import DTOS.LoginDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RenovarMembresiaDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.NuevaMembresiaDTO;
 import Entidades.Membresia;
 import java.util.List;
@@ -19,12 +19,12 @@ import java.util.List;
  */
 public interface IFuncionalidadIniciarSesionRenovarMembresia {
 
-    public abstract NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioException;
+    public abstract NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioExceptionRenovar;
 
-    public abstract List<NuevaMembresiaDTO> consultarMembresias() throws NegocioException;
+    public abstract List<NuevaMembresiaDTO> consultarMembresias() throws NegocioExceptionRenovar;
 
-    public abstract void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioException;
+    public abstract void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioExceptionRenovar;
 
-    public abstract NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException;
+    public abstract NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioExceptionRenovar;
 
 }

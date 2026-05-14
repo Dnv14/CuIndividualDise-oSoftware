@@ -18,6 +18,7 @@ import Excepciones.PersistenciaException;
 import Entidades.Cliente;
 import Entidades.TipoMembresia;
 import Fachada.IPersistenciaFachada;
+import Fachada.PersistenciaFachada;
 
 /**
  *
@@ -27,12 +28,12 @@ public class LoginBO implements ILoginBO {
 
     private IPersistenciaFachada persistenciaFachada;
 
-    public LoginBO(IPersistenciaFachada fachadaPersistencia) {
-        this.persistenciaFachada = fachadaPersistencia;
+    public LoginBO() {
+        this.persistenciaFachada = new PersistenciaFachada();
     }
 
     @Override
-    public NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioException {
+    public NuevoClienteDTO iniciarSesion(LoginDTO login) throws BOException {
         try {
             Cliente cliente = persistenciaFachada.buscarPorPin(login.getPin());
 
@@ -43,7 +44,7 @@ public class LoginBO implements ILoginBO {
             return EntidadesADTOsAdapter.adaptarClienteEntidad(cliente);
 
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al iniciar sesion", ex);
+            throw new BOException("Error al iniciar sesion", ex);
         }
     }
 

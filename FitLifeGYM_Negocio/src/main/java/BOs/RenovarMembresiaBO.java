@@ -8,6 +8,7 @@ import Interfaces.IClientesDAO;
 import Excepciones.PersistenciaException;
 import Entidades.TipoMembresia;
 import Fachada.IPersistenciaFachada;
+import Fachada.PersistenciaFachada;
 
 /**
  *
@@ -17,17 +18,17 @@ public class RenovarMembresiaBO implements IRenovarMembresiaBO {
 
     private IPersistenciaFachada persistenciaFachada;
 
-    public RenovarMembresiaBO(IPersistenciaFachada fachadaPersistencia) {
-        this.persistenciaFachada = fachadaPersistencia;
+    public RenovarMembresiaBO() {
+        this.persistenciaFachada = new PersistenciaFachada();
     }
 
     @Override
-    public void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioException {
+    public void renovarMembresia(RenovarMembresiaDTO dto) throws BOException {
         TipoMembresia tipo = DtosAEntidadesAdapter.adaptarTipoMembresiaDTO(dto.getTipoMembresia());
         try {
             persistenciaFachada.renovarMembresiaCliente(dto.getIdCliente(), tipo);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al renovar la membresia.", ex);
+            throw new BOException("Error al renovar la membresia.", ex);
         }
     }
 

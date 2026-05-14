@@ -4,7 +4,7 @@
  */
 package Interfaces;
 
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevoClienteDTO;
 import Entidades.Cliente;
@@ -16,11 +16,11 @@ import java.util.List;
  */
 public interface IClientesBO {
 
-    public abstract NuevoClienteDTO registrarCliente(NuevoClienteDTO cliente) throws NegocioException;
+    public abstract NuevoClienteDTO registrarCliente(NuevoClienteDTO cliente) throws BOException;
 
-    public abstract NuevoClienteDTO buscarClientePorId(String id) throws NegocioException;
+    public abstract NuevoClienteDTO buscarClientePorId(String id) throws BOException;
 
-    public abstract List<NuevoClienteDTO> consultarClientes() throws NegocioException;
+    public abstract List<NuevoClienteDTO> consultarClientes() throws BOException;
 
-    public abstract NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws NegocioException;
+    public abstract NuevaMembresiaCompradaDTO gestionMembresiaCliente(String idCliente, NuevaMembresiaCompradaDTO compra) throws BOException;
 }

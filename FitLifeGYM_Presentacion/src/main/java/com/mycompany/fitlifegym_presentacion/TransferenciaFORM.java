@@ -6,10 +6,12 @@ package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.NuevaMembresiaDTO;
 import Entidades.Membresia;
 import Entidades.TipoMembresia;
+import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.NegocioExceptionRegistrar;
+import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -39,7 +41,7 @@ public class TransferenciaFORM extends javax.swing.JDialog {
         try {
             NuevaMembresiaDTO m = controlForms.buscarMembresiaPorTipo(this.membresia);
             textMonto.setText("Monto: $" + m.getPrecio());
-        } catch (NegocioException ex) {
+        } catch (BOException | NegocioExceptionRenovar ex) {
             textMonto.setText("Monto: error al cargar");
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -235,7 +237,7 @@ public class TransferenciaFORM extends javax.swing.JDialog {
 
             controlNavegacion.navegarBienvenida(controlForms.getClienteActual());
 
-        } catch (NegocioException ex) {
+        } catch (BOException | NegocioExceptionRegistrar | NegocioExceptionRenovar ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnTransferenciaRealizadaActionPerformed

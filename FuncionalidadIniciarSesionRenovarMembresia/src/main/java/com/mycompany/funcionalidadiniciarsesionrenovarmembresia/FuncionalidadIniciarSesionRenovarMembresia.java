@@ -11,7 +11,7 @@ import DTOsENUMs.TipoMembresiaDTO;
 import Interfaces.ILoginBO;
 import Interfaces.IMembresiaBO;
 import Interfaces.IRenovarMembresiaBO;
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.NuevaMembresiaDTO;
 import Entidades.Membresia;
 import java.util.List;
@@ -33,63 +33,83 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
     }
 
     @Override
-    public NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioException {
+    public NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioExceptionRenovar {
         if (login == null) {
-            throw new NegocioException("Los datos de inicio de sesion no pueden ser nulos.");
+            throw new NegocioExceptionRenovar("Los datos de inicio de sesion no pueden ser nulos.");
         }
 
         if (login.getPin() == null || login.getPin().isBlank()) {
-            throw new NegocioException("El PIN no puede estar vacio.");
+            throw new NegocioExceptionRenovar("El PIN no puede estar vacio.");
         }
 
         if (!login.getPin().matches("\\d{4}")) {
-            throw new NegocioException("El PIN debe ser de 4 digitos numericos.");
+            throw new NegocioExceptionRenovar("El PIN debe ser de 4 digitos numericos.");
         }
 
         if (login.getContrasenia() == null || login.getContrasenia().isBlank()) {
-            throw new NegocioException("La contraseña no puede estar vacia.");
+            throw new NegocioExceptionRenovar("La contraseña no puede estar vacia.");
         }
 
-        return loginBO.iniciarSesion(login);
+        try {
+            return loginBO.iniciarSesion(login);
+        } catch (BOException ex) {
+            throw new NegocioExceptionRenovar("No se pudo procesar el inicio de sesion: " + ex.getMessage());
+        }
     }
 
     @Override
-    public List<NuevaMembresiaDTO> consultarMembresias() throws NegocioException {
-        List<NuevaMembresiaDTO> membresias = membresiaBO.obtenerMembresias();
+    public List<NuevaMembresiaDTO> consultarMembresias() throws NegocioExceptionRenovar {
+        List<NuevaMembresiaDTO> membresias;
+        try {
+            membresias = membresiaBO.obtenerMembresias();
+        } catch (BOException ex) {
+            throw new NegocioExceptionRenovar("No se pudo obtener las membresias" + ex.getMessage());
+        }
 
         if (membresias == null || membresias.isEmpty()) {
-            throw new NegocioException("No hay tipos de membresia disponibles.");
+            throw new NegocioExceptionRenovar("No hay tipos de membresia disponibles.");
         }
 
         return membresias;
     }
 
     @Override
-    public void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioException {
+    public void renovarMembresia(RenovarMembresiaDTO dto) throws NegocioExceptionRenovar {
         if (dto == null) {
-            throw new NegocioException("Los datos de la renovacion no pueden ser nulos.");
+            throw new NegocioExceptionRenovar("Los datos de la renovacion no pueden ser nulos.");
         }
 
         if (dto.getIdCliente() == null) {
-            throw new NegocioException("El ID del cliente no puede ser nulo.");
+            throw new NegocioExceptionRenovar("El ID del cliente no puede ser nulo.");
         }
 
         if (dto.getTipoMembresia() == null) {
-            throw new NegocioException("Se debe de elegir un tipo de membresia.");
+            throw new NegocioExceptionRenovar("Se debe de elegir un tipo de membresia.");
         }
 
-        renovarMembresiaBO.renovarMembresia(dto);
+        try {
+            renovarMembresiaBO.renovarMembresia(dto);
+        } catch (BOException ex) {
+
+            throw new NegocioExceptionRenovar("No se pudo procesar la renovación: " + ex.getMessage());
+        }
     }
 
     @Override
-    public NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioException {
+    public NuevaMembresiaDTO buscarMembresiaPorTipo(TipoMembresiaDTO tipo) throws NegocioExceptionRenovar {
         if (tipo == null) {
-            throw new NegocioException("El tipo de membresia no puede ser nulo.");
+            throw new NegocioExceptionRenovar("El tipo de membresia no puede ser nulo.");
         }
 
-        List<NuevaMembresiaDTO> membresias = membresiaBO.obtenerMembresias();
+        List<NuevaMembresiaDTO> membresias;
+        try {
+            membresias = membresiaBO.obtenerMembresias();
+        } catch (BOException ex) {
+            throw new NegocioExceptionRenovar("No se pudo buscar la membresia: " + ex.getMessage());
+        }
+        
         if (membresias == null || membresias.isEmpty()) {
-            throw new NegocioException("No hay membresias disponibles.");
+            throw new NegocioExceptionRenovar("No hay membresias disponibles.");
         }
 
         for (NuevaMembresiaDTO m : membresias) {
@@ -98,7 +118,7 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
             }
         }
 
-        throw new NegocioException("No se encontro la membresia '" + tipo + "' en la BD.");
+        throw new NegocioExceptionRenovar("No se encontro la membresia '" + tipo + "' en la BD.");
     }
 
 }

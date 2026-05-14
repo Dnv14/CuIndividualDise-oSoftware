@@ -6,10 +6,10 @@ package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.NuevaMembresiaDTO;
-import Entidades.Membresia;
-import Entidades.TipoMembresia;
+import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.NegocioExceptionRegistrar;
+import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -326,7 +326,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
             }
 
             ComboBoxMembresia.setModel(new DefaultComboBoxModel<>(nombres));
-        } catch (NegocioException ex) {
+        } catch (BOException | NegocioExceptionRenovar ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar membresías", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -335,7 +335,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
         try {
             TipoMembresiaDTO tipo = controlForms.seleccionarMembresia(nombre);
             return controlForms.buscarMembresiaPorTipo(tipo);
-        } catch (NegocioException ex) {
+        } catch (BOException | NegocioExceptionRenovar ex) {
             return null;
         }
     }

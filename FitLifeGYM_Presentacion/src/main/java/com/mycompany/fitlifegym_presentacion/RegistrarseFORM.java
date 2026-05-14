@@ -5,8 +5,10 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.UsuarioDTO;
+import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.NegocioExceptionRegistrar;
+import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
@@ -317,7 +319,7 @@ public class RegistrarseFORM extends javax.swing.JDialog {
 
         } catch (DateTimeParseException ex) {
             JOptionPane.showMessageDialog(this, "La fecha debe tener el formato AAAA-MM-DD ");
-        } catch (NegocioException ex) {
+        } catch (BOException | NegocioExceptionRegistrar | NegocioExceptionRenovar ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed

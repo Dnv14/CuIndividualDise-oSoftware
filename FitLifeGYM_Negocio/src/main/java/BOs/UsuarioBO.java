@@ -10,6 +10,7 @@ import DTOS.UsuarioDTO;
 import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import Fachada.IPersistenciaFachada;
+import Fachada.PersistenciaFachada;
 import Interfaces.IUsuarioBO;
 
 /**
@@ -20,12 +21,12 @@ public class UsuarioBO implements IUsuarioBO {
 
     private IPersistenciaFachada persistenciaFachada;
 
-    public UsuarioBO(IPersistenciaFachada persistenciaFachada) {
-        this.persistenciaFachada = persistenciaFachada;
+    public UsuarioBO() {
+        this.persistenciaFachada = new PersistenciaFachada();
     }
 
     @Override
-    public UsuarioDTO registrarUsuario(UsuarioDTO usuarioDTO) throws NegocioException {
+    public UsuarioDTO registrarUsuario(UsuarioDTO usuarioDTO) throws BOException {
 
         try {
             //agarramos los datos que vienen del cu
@@ -35,7 +36,7 @@ public class UsuarioBO implements IUsuarioBO {
             //devolvemos el dto pero ahora con el id de mongo
             return adaptarUsuarioEntidad(usuarioGuardado);
         } catch (PersistenciaException ex) {
-            throw new NegocioException("Error al registrar la cuenta en la base de datos", ex);
+            throw new BOException("Error al registrar la cuenta en la base de datos", ex);
         }
     }
 }

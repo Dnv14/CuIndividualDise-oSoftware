@@ -4,7 +4,7 @@
  */
 package Interfaces;
 
-import BOs.NegocioException;
+import BOs.BOException;
 import DTOS.NuevaMembresiaDTO;
 import Entidades.Membresia;
 import java.util.List;
@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface IMembresiaBO {
 
-    public abstract List<NuevaMembresiaDTO> obtenerMembresias() throws NegocioException;
+    public abstract List<NuevaMembresiaDTO> obtenerMembresias() throws BOException;
 
 }

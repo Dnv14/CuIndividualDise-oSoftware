@@ -23,7 +23,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlForms controlForms, NuevoClienteDTO cliente) {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
-        this.cliente = cliente;
+        this.cliente = controlForms.getClienteActual();
 
         this.setTitle("Bienvenida");
         initComponents();
@@ -34,7 +34,6 @@ public class BienvenidaFORM extends javax.swing.JFrame {
 
     private void mostrarDatosCliente() {
         UsuarioDTO usuario = controlForms.getUsuarioActual();
-        NuevoClienteDTO cliente = controlForms.getClienteActual();
 
         if (usuario != null) {
             String nombre = usuario.getNombre();
@@ -268,6 +267,8 @@ public class BienvenidaFORM extends javax.swing.JFrame {
             case ORO:
                 btnCursos.setEnabled(true);
                 btnProgreso.setEnabled(true);
+                btnNutricion.setEnabled(true);
+                btnAmbienteMusical.setEnabled(true);
                 break;
             case PLATA:
                 btnNutricion.setEnabled(true);
