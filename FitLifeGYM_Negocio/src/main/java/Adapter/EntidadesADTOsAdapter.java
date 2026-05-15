@@ -4,7 +4,9 @@
  */
 package Adapter;
 
+import DTOS.DetallesRutinaDTO;
 import DTOS.EjerciciosDTO;
+import DTOS.EjerciciosSeleccionadosDTO;
 import DTOS.EnfermedadesDTO;
 import DTOS.EnfermedadesSeleccionadasDTO;
 import DTOS.LesionesDTO;
@@ -13,21 +15,27 @@ import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevaMembresiaDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
+import DTOS.RutinaDTO;
 import DTOS.UsuarioDTO;
 import DTOsENUMs.EstadoDTO;
+import DTOsENUMs.EstadoRutinaDTO;
 import DTOsENUMs.NivelCondicionDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import Entidades.Cliente;
+import Entidades.DetallesRutina;
 import Entidades.Ejercicio;
+import Entidades.EjerciciosSeleccionados;
 import Entidades.Enfermedades;
 import Entidades.EnfermedadesSeleccionadas;
 import Entidades.Estado;
+import Entidades.EstadoRutina;
 import Entidades.Lesiones;
 import Entidades.LesionesSeleccionadas;
 import Entidades.Membresia;
 import Entidades.MembresiaComprada;
 import Entidades.NivelCondicion;
 import Entidades.RegistroFisico;
+import Entidades.Rutina;
 import Entidades.TipoMembresia;
 import Entidades.Usuario;
 import java.util.LinkedList;
@@ -215,5 +223,58 @@ public class EntidadesADTOsAdapter {
         }
 
         return lesionesDTO;
+    }
+    
+    public static EstadoRutinaDTO adaptarEstadoRutinaEntidad(EstadoRutina estadoRutinaEntidad) {
+        EstadoRutinaDTO estadoRutinaDTO = EstadoRutinaDTO.ASIGNADA;
+
+        if (estadoRutinaEntidad == EstadoRutina.SIN_ASIGNAR) {
+            estadoRutinaDTO = EstadoRutinaDTO.SIN_ASIGNAR;
+        }
+        return estadoRutinaDTO;
+    }
+
+    public static RutinaDTO adaptarRutinaEntidad(Rutina rutinaEntidad) {
+        if (rutinaEntidad == null) {
+            return null;
+        }
+
+        List<DetallesRutinaDTO> detallesRutina = new LinkedList<>();
+
+        if (rutinaEntidad.getDetallesRutina() != null) {
+            for (DetallesRutina dt : rutinaEntidad.getDetallesRutina()) {
+
+                List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados = new LinkedList<>();
+                for (EjerciciosSeleccionados est : dt.getEjerciciosSeleccionados()){
+                    EjerciciosSeleccionadosDTO ejercicioSeleccionado = new EjerciciosSeleccionadosDTO();
+                    ejercicioSeleccionado.setId(est.getId());
+                    ejercicioSeleccionado.setNombre(est.getNombre());
+                    ejerciciosSeleccionados.add(ejercicioSeleccionado);
+                }
+
+                DetallesRutinaDTO detalleRutina = new DetallesRutinaDTO();
+                detalleRutina.setId(dt.getId());
+                detalleRutina.setEjerciciosSeleccionados(ejerciciosSeleccionados);
+                detalleRutina.setPesoRecomendado(dt.getPesoRecomendado());
+                detalleRutina.setRepeticionesRecomendadas(dt.getRepeticionesRecomendadas());
+                detalleRutina.setSeriesRecomendadas(dt.getSeriesRecomendadas());
+                detallesRutina.add(detalleRutina);
+            }
+        }
+
+        if (rutinaEntidad.getId() != null) {
+            RutinaDTO rutinaConId = new RutinaDTO(rutinaEntidad.getId(), rutinaEntidad.getIdCliente(),
+                    rutinaEntidad.getDiaSemana(), rutinaEntidad.getFechaAsignada(),
+                    adaptarEstadoRutinaEntidad(rutinaEntidad.getEstadoRutina()),
+                    detallesRutina);
+            return rutinaConId;
+        }
+
+        RutinaDTO rutinaSinId = new RutinaDTO(rutinaEntidad.getIdCliente(),
+                rutinaEntidad.getDiaSemana(), rutinaEntidad.getFechaAsignada(),
+                adaptarEstadoRutinaEntidad(rutinaEntidad.getEstadoRutina()),
+                detallesRutina);
+
+        return rutinaSinId;
     }
 }

@@ -9,5 +9,5 @@ package DTOsENUMs;
  * @author Diego
  */
 public enum EstadoRutinaDTO {
-    ACTIVA,INACTIVA
+    ASIGNADA,SIN_ASIGNAR
 }

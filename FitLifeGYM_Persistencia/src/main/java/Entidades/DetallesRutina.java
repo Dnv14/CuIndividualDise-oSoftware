@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class DetallesRutina {
     private String id;
-    private List<EjerciciosSeleccionados> ejercicios;
+    private List<EjerciciosSeleccionados> ejerciciosSeleccionados;
     private Integer pesoRecomendado;
     private Integer repeticionesRecomendadas;
     private Integer seriesRecomendadas;
@@ -22,14 +22,14 @@ public class DetallesRutina {
 
     public DetallesRutina(String id, List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
         this.id = id;
-        this.ejercicios = ejercicios;
+        this.ejerciciosSeleccionados = ejercicios;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
     }
 
     public DetallesRutina(List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
-        this.ejercicios = ejercicios;
+        this.ejerciciosSeleccionados = ejercicios;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
@@ -43,12 +43,12 @@ public class DetallesRutina {
         this.id = id;
     }
 
-    public List<EjerciciosSeleccionados> getEjercicios() {
-        return ejercicios;
+    public List<EjerciciosSeleccionados> getEjerciciosSeleccionados() {
+        return ejerciciosSeleccionados;
     }
 
-    public void setEjercicios(List<EjerciciosSeleccionados> ejercicios) {
-        this.ejercicios = ejercicios;
+    public void setEjerciciosSeleccionados(List<EjerciciosSeleccionados> ejerciciosSeleccionados) {
+        this.ejerciciosSeleccionados = ejerciciosSeleccionados;
     }
 
     public Integer getPesoRecomendado() {
@@ -75,9 +75,11 @@ public class DetallesRutina {
         this.seriesRecomendadas = seriesRecomendadas;
     }
 
+    
+
     @Override
     public String toString() {
-        return "DetallesRutina{" + "id=" + id + ", ejercicios=" + ejercicios + ", pesoRecomendado=" + pesoRecomendado + ", repeticionesRecomendadas=" + repeticionesRecomendadas + ", seriesRecomendadas=" + seriesRecomendadas + '}';
+        return "DetallesRutina{" + "id=" + id + ", ejercicios=" + ejerciciosSeleccionados + ", pesoRecomendado=" + pesoRecomendado + ", repeticionesRecomendadas=" + repeticionesRecomendadas + ", seriesRecomendadas=" + seriesRecomendadas + '}';
     }
 
     
