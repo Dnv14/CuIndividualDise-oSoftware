@@ -17,10 +17,10 @@ import javax.swing.JOptionPane;
 public class BienvenidaFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
-    private ControlForms controlForms;
+    private ControlRegistroInicioSesion controlForms;
     private NuevoClienteDTO cliente;
 
-    public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlForms controlForms, NuevoClienteDTO cliente) {
+    public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms, NuevoClienteDTO cliente) {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.cliente = controlForms.getClienteActual();

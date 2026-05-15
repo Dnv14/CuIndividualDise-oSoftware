@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
 public class TarjetaFORM extends javax.swing.JDialog {
 
     private ControlNavegacion controlNavegacion;
-    private ControlForms controlForms;
+    private ControlRegistroInicioSesion controlForms;
     private TipoMembresiaDTO membresia;
 
-    public TarjetaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+    public TarjetaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion control, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
         this.controlForms = control;

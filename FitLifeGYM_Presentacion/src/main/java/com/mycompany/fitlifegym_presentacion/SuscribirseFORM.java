@@ -14,11 +14,11 @@ import DTOsENUMs.TipoMembresiaDTO;
 public class SuscribirseFORM extends javax.swing.JFrame {
     
     private ControlNavegacion controlNavegacion;
-    private ControlForms controlForms;
+    private ControlRegistroInicioSesion controlForms;
     private TipoMembresiaDTO membresia;
     private NuevoClienteDTO cliente;
    
-    public SuscribirseFORM(ControlNavegacion controlNavegacion ,ControlForms controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+    public SuscribirseFORM(ControlNavegacion controlNavegacion ,ControlRegistroInicioSesion controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.membresia = membresia;

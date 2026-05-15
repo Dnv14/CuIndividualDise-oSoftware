@@ -43,7 +43,7 @@ import java.util.List;
  *
  * @author Diego
  */
-public class ControlForms {
+public class ControlRegistroInicioSesion {
 
     //actuales
     private UsuarioDTO usuarioActual;
@@ -58,7 +58,7 @@ public class ControlForms {
     private IFuncionalidadRegistrarUsuario funcionalidadRegistrarUsuario;
     private IFuncionalidadIniciarSesionRenovarMembresia funcionalidadRenovarUsuario;
 
-    public ControlForms() {
+    public ControlRegistroInicioSesion() {
         IClientesBO clientesBO = new ClientesBO();
         IUsuarioBO usuariosBO = new UsuarioBO();
         IMembresiaBO membresiaBO = new MembresiaBO();

@@ -17,9 +17,9 @@ import javax.swing.JFrame;
 public class ControlNavegacion {
 
     private JFrame frameActual;
-    private ControlForms controlForms;
+    private ControlRegistroInicioSesion controlForms;
 
-    public ControlNavegacion(ControlForms controlForms) {
+    public ControlNavegacion(ControlRegistroInicioSesion controlForms) {
         this.controlForms = controlForms;
     }
 

@@ -1,32 +1,25 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.fitlifegym_presentacion;
-
-import DTOS.NuevoClienteDTO;
-import BOs.BOException;
-import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Diego
  */
-public class IniciarSesionFORM extends javax.swing.JDialog {
+public class RegistroFisico extends javax.swing.JFrame {
 
-    private static final Logger LOGGER = Logger.getLogger(IniciarSesionFORM.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroFisico.class.getName());
 
     private ControlNavegacion controlNavegacion;
     private ControlRegistroInicioSesion controlForms;
 
-    public IniciarSesionFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
-        super(parent, modal);
+    public RegistroFisico(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.setResizable(false);
-        this.setTitle("Iniciar Sesión");
+        this.setTitle("Registro Fisico");
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -51,7 +44,7 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         lblContrasenia = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel.setBackground(new java.awt.Color(18, 18, 18));
 
@@ -112,10 +105,10 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
                         .addComponent(btnVolverAtras)
                         .addGap(201, 201, 201)
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 223, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(279, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnQuejasSugerencias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
@@ -164,9 +157,11 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 791, Short.MAX_VALUE)
+            .addGap(0, 850, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,22 +186,7 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
     }//GEN-LAST:event_btnQuejasSugerenciasActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        String correo = txtCorreo.getText().trim();
-        String contrasenia = new String(jPasswordField1.getPassword()).trim();
 
-        try {
-
-            NuevoClienteDTO cliente = controlForms.iniciarSesion(correo, contrasenia);
-
-            if (cliente != null && cliente.getId() != null) {
-                dispose();
-                controlNavegacion.navegarBienvenida(cliente);
-            }else{
-                JOptionPane.showMessageDialog(this, "Credenciales Incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (BOException | NegocioExceptionRenovar ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
 

@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
 public class BeneficiosFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
-    private ControlForms controlForms;
+    private ControlRegistroInicioSesion controlForms;
     private NuevoClienteDTO cliente;
     private List<NuevaMembresiaDTO> membresiasDisponibles;
 
-    public BeneficiosFORM(ControlNavegacion controlNavegacion, ControlForms controlForms, NuevoClienteDTO cliente) {
+    public BeneficiosFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms, NuevoClienteDTO cliente) {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.cliente = cliente;

@@ -19,13 +19,13 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarseFORM extends javax.swing.JDialog {
 
-    private ControlForms controlForms;
+    private ControlRegistroInicioSesion controlForms;
     private ControlNavegacion controlNavegacion;
 
     /**
      * Creates new form RegistrarseFORM
      */
-    public RegistrarseFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms controlForms) {
+    public RegistrarseFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
         super(parent, modal);
         this.controlForms = controlForms;
         this.controlNavegacion = controlNavegacion;

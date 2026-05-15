@@ -23,10 +23,10 @@ import javax.swing.JOptionPane;
 public class TransferenciaFORM extends javax.swing.JDialog {
 
     private ControlNavegacion controlNavegacion;
-    private ControlForms controlForms;
+    private ControlRegistroInicioSesion controlForms;
     private TipoMembresiaDTO membresia;
 
-    public TransferenciaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlForms controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
+    public TransferenciaFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms, TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
