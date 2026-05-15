@@ -4,6 +4,7 @@
  */
 package FabricaDAOS;
 
+import Interfaces.IAdministradorDAO;
 import Interfaces.IClientesDAO;
 import Interfaces.IEjerciciosDAO;
 import Interfaces.IEnfermedadesDAO;
@@ -35,4 +36,6 @@ public interface IFabricaDAOS {
     public abstract IRegistroFisicoDAO crearRegistroFisicoDAO();
 
     public abstract IUsuariosDAO crearUsuarioDAO();
+    
+    public abstract IAdministradorDAO crearAdministradorDAO();
 }

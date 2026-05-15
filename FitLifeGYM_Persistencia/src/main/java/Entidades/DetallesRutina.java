@@ -17,7 +17,7 @@ public class DetallesRutina {
     private Integer repeticionesRecomendadas;
     private Integer seriesRecomendadas;
 
-    public DetallesRutina() {
+    public DetallesRutina() {   
     }
 
     public DetallesRutina(String id, List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {

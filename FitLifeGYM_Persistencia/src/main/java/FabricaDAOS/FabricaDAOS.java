@@ -4,6 +4,7 @@
  */
 package FabricaDAOS;
 
+import Interfaces.IAdministradorDAO;
 import Interfaces.IClientesDAO;
 import Interfaces.IEjerciciosDAO;
 import Interfaces.IEnfermedadesDAO;
@@ -13,6 +14,7 @@ import Interfaces.IMembresiaDAO;
 import Interfaces.IRegistroFisicoDAO;
 import Interfaces.IRutinasDAO;
 import Interfaces.IUsuariosDAO;
+import PersistenciaMongo.AdministradorDAOMongo;
 import PersistenciaMongo.ClientesDAOMongo;
 import PersistenciaMongo.EjerciciosDAOSMongo;
 import PersistenciaMongo.EnfermedadesDAOMongo;
@@ -68,4 +70,10 @@ public class FabricaDAOS implements IFabricaDAOS {
     public IUsuariosDAO crearUsuarioDAO() {
         return new UsuariosDAOMongo();
     }
+
+    @Override
+    public IAdministradorDAO crearAdministradorDAO() {
+        return new AdministradorDAOMongo();
+    }
+    
 }

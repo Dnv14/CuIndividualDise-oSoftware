@@ -79,7 +79,7 @@ public class EntidadesADTOsAdapter {
             NuevoClienteDTO clienteDTOConId = new NuevoClienteDTO(clienteEntidad.getId(),
                     clienteEntidad.getIdUsuario(),
                     clienteEntidad.getTelefono(), clienteEntidad.getFechaNacimiento(),
-                    clienteEntidad.getPin(), membresiaDTO);
+                    membresiaDTO);
 
             return clienteDTOConId;
         }
@@ -87,10 +87,31 @@ public class EntidadesADTOsAdapter {
         NuevoClienteDTO clienteSinId = new NuevoClienteDTO(
                 clienteEntidad.getIdUsuario(),
                 clienteEntidad.getTelefono(), clienteEntidad.getFechaNacimiento(),
-                clienteEntidad.getPin(), membresiaDTO);
+                membresiaDTO);
 
         return clienteSinId;
 
+    }
+
+    public static NuevoClienteDTO adaptarClienteInicioSesionEntidad(Cliente clienteEntidad) {
+        if (clienteEntidad == null) {
+            return null;
+        }
+        NuevaMembresiaCompradaDTO membresiaDTO = adaptarMembresiaCompradaEntidad(clienteEntidad.getMembresiaComprada());
+
+        NuevoClienteDTO clienteInicioSesion = new NuevoClienteDTO();
+
+        clienteInicioSesion.setId(clienteEntidad.getId());
+        clienteInicioSesion.setIdUsuario(clienteEntidad.getIdUsuario());
+        clienteInicioSesion.setTelefono(clienteEntidad.getTelefono());
+        clienteInicioSesion.setFechaNacimiento(clienteEntidad.getFechaNacimiento());
+        clienteInicioSesion.setMembresíaComprada(membresiaDTO);
+
+        clienteInicioSesion.setNombre(clienteEntidad.getNombre());
+        clienteInicioSesion.setApellidos(clienteEntidad.getApellidos());
+        clienteInicioSesion.setCorreo(clienteEntidad.getCorreo());
+
+        return clienteInicioSesion;
     }
 
     public static NuevaMembresiaDTO adaptarMembresiaEntidad(Membresia membresia) {
@@ -224,7 +245,7 @@ public class EntidadesADTOsAdapter {
 
         return lesionesDTO;
     }
-    
+
     public static EstadoRutinaDTO adaptarEstadoRutinaEntidad(EstadoRutina estadoRutinaEntidad) {
         EstadoRutinaDTO estadoRutinaDTO = EstadoRutinaDTO.ASIGNADA;
 
@@ -245,7 +266,7 @@ public class EntidadesADTOsAdapter {
             for (DetallesRutina dt : rutinaEntidad.getDetallesRutina()) {
 
                 List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados = new LinkedList<>();
-                for (EjerciciosSeleccionados est : dt.getEjerciciosSeleccionados()){
+                for (EjerciciosSeleccionados est : dt.getEjerciciosSeleccionados()) {
                     EjerciciosSeleccionadosDTO ejercicioSeleccionado = new EjerciciosSeleccionadosDTO();
                     ejercicioSeleccionado.setId(est.getId());
                     ejercicioSeleccionado.setNombre(est.getNombre());

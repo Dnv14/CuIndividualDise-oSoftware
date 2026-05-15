@@ -14,6 +14,8 @@ public interface IClientesDAO {
 
     public abstract Cliente registrarCliente(Cliente cliente) throws PersistenciaException;
 
+    public abstract Cliente iniciarSesionCliente(String pin, String contrasenia) throws PersistenciaException;
+
     public abstract Cliente consultarClientePorId(String id) throws PersistenciaException;
 
     public abstract List<Cliente> consultarClientes() throws PersistenciaException;
@@ -21,10 +23,10 @@ public interface IClientesDAO {
     public abstract Cliente buscarPorPin(String pin) throws PersistenciaException;
 
     public abstract void actualizarMembresia(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException;
-    
+
     //logica de memebresias compradas
-    public abstract MembresiaComprada guardarMembresiaCompradaCliente(String idCliente,MembresiaComprada compra)throws PersistenciaException;
-    
-    public abstract List<MembresiaComprada>consultarTodasMembresiasCompradas()throws PersistenciaException;
-   
+    public abstract MembresiaComprada guardarMembresiaCompradaCliente(String idCliente, MembresiaComprada compra) throws PersistenciaException;
+
+    public abstract List<MembresiaComprada> consultarTodasMembresiasCompradas() throws PersistenciaException;
+
 }

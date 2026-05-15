@@ -34,13 +34,16 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
         try {
             UsuarioDTO usuarioRegistrado = usuariosBO.registrarUsuario(usuarioDTO);
             clienteDTO.setIdUsuario(usuarioRegistrado.getId());
-            
+
             NuevoClienteDTO clienteRegistrado = clientesBO.registrarCliente(clienteDTO);
-            
+            System.out.println(clienteRegistrado);
+            System.out.println(clienteDTO);
+
             return clienteRegistrado;
         } catch (BOException ex) {
             throw new NegocioExceptionRegistrar("Error al registrar el cliente.", ex);
         }
+
     }
 
     @Override
@@ -68,9 +71,6 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
             throw new NegocioExceptionRegistrar("Ingrese el formato válido del teléfono.");
         }
 
-        if (clienteDTO.getPin() == null || !clienteDTO.getPin().matches("\\d{4}")) {
-            throw new NegocioExceptionRegistrar("El PIN debe ser de exactamente 4 números.");
-        }
     }
 
     @Override

@@ -298,14 +298,17 @@ public class BeneficiosFORM extends javax.swing.JFrame {
             case "ORO":
                 checkBoxCursos.setSelected(true);
                 checkBoxFisico.setSelected(true);
+                checkBoxNutricion.setSelected(true);
+                checkBoxMusica.setSelected(true);
                 break;
 
             case "PLATA":
                 checkBoxNutricion.setSelected(true);
                 checkBoxMusica.setSelected(true);
                 break;
-                
+
             case "BRONCE":
+
                 break;
         }
 

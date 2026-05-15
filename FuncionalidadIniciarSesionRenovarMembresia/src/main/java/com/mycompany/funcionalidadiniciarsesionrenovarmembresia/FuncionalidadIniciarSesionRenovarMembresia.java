@@ -13,7 +13,7 @@ import Interfaces.IMembresiaBO;
 import Interfaces.IRenovarMembresiaBO;
 import BOs.BOException;
 import DTOS.NuevaMembresiaDTO;
-import Entidades.Membresia;
+import Interfaces.IClientesBO;
 import java.util.List;
 
 /**
@@ -25,33 +25,31 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
     private final ILoginBO loginBO;
     private final IMembresiaBO membresiaBO;
     private final IRenovarMembresiaBO renovarMembresiaBO;
+    private final IClientesBO clientesBO;
 
-    public FuncionalidadIniciarSesionRenovarMembresia(ILoginBO loginBO, IMembresiaBO membresiaBO, IRenovarMembresiaBO renovarMembresiaBO) {
+    public FuncionalidadIniciarSesionRenovarMembresia(ILoginBO loginBO, IMembresiaBO membresiaBO, IRenovarMembresiaBO renovarMembresiaBO, IClientesBO clientesBO) {
         this.loginBO = loginBO;
         this.membresiaBO = membresiaBO;
         this.renovarMembresiaBO = renovarMembresiaBO;
+        this.clientesBO = clientesBO;
     }
 
     @Override
-    public NuevoClienteDTO iniciarSesion(LoginDTO login) throws NegocioExceptionRenovar {
-        if (login == null) {
+    public NuevoClienteDTO iniciarSesion(NuevoClienteDTO clienteDTO) throws NegocioExceptionRenovar {
+        if (clienteDTO == null) {
             throw new NegocioExceptionRenovar("Los datos de inicio de sesion no pueden ser nulos.");
         }
 
-        if (login.getPin() == null || login.getPin().isBlank()) {
-            throw new NegocioExceptionRenovar("El PIN no puede estar vacio.");
-        }
-
-        if (!login.getPin().matches("\\d{4}")) {
-            throw new NegocioExceptionRenovar("El PIN debe ser de 4 digitos numericos.");
-        }
-
-        if (login.getContrasenia() == null || login.getContrasenia().isBlank()) {
+        if (clienteDTO.getContrasenia() == null || clienteDTO.getContrasenia().isBlank()) {
             throw new NegocioExceptionRenovar("La contraseña no puede estar vacia.");
         }
 
+        if (clienteDTO.getCorreo() == null || clienteDTO.getCorreo().isBlank()) {
+            throw new NegocioExceptionRenovar("El correo electrónico es obligatorio.");
+        }
+
         try {
-            return loginBO.iniciarSesion(login);
+            return clientesBO.iniciarSesion(clienteDTO);
         } catch (BOException ex) {
             throw new NegocioExceptionRenovar("No se pudo procesar el inicio de sesion: " + ex.getMessage());
         }
@@ -107,7 +105,7 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
         } catch (BOException ex) {
             throw new NegocioExceptionRenovar("No se pudo buscar la membresia: " + ex.getMessage());
         }
-        
+
         if (membresias == null || membresias.isEmpty()) {
             throw new NegocioExceptionRenovar("No hay membresias disponibles.");
         }

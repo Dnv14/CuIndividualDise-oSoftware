@@ -47,7 +47,7 @@ public class ClientesDAOTEST {
 
         assertDoesNotThrow(() -> {
             Usuario usuarioRegistrado = usuariosDAO.registrarUsuario(usuario);
-            Cliente cliente = new Cliente(usuarioRegistrado.getId(), "6442262864", LocalDate.now(), "6769", membresiaComprada);
+            Cliente cliente = new Cliente(usuarioRegistrado.getId(), "6442262864", LocalDate.now(), membresiaComprada);
             Cliente clienteRegistrado = clientesDAO.registrarCliente(cliente);
 
             assertEquals(clienteRegistrado.getIdUsuario(), usuarioRegistrado.getId());

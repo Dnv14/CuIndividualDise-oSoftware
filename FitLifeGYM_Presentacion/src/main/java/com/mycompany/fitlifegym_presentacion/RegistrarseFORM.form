@@ -48,10 +48,6 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblPin" min="-2" pref="208" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="lblApellidos" max="32767" attributes="0"/>
@@ -84,7 +80,6 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtNombreCompleto" min="-2" pref="265" max="-2" attributes="0"/>
-                              <Component id="txtPIN" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
                               <Component id="txtContrasenia" min="-2" pref="265" max="-2" attributes="0"/>
                               <Component id="txtApellidos" min="-2" pref="265" max="-2" attributes="0"/>
                           </Group>
@@ -184,12 +179,7 @@
                               <Component id="lblContrasenia" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                               <Component id="txtContrasenia" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtPIN" min="-2" pref="46" max="-2" attributes="0"/>
-                              <Component id="lblPin" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnSiguiente" min="-2" pref="54" max="-2" attributes="0"/>
@@ -295,20 +285,6 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#xbf;Ya tienes cuenta? Da click aqui"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblPin">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="18" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Pin para iniciar sesi&#xf3;n:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCorreoElectronico1">
@@ -419,16 +395,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaNacimientoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtPIN">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPINActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtContrasenia">

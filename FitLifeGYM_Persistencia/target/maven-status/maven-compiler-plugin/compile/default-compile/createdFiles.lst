@@ -1,3 +1,4 @@
+Interfaces\IAdministradorDAO.class
 Interfaces\IEnfermedadesDAO.class
 PersistenciaMongo\CreadorConexiones.class
 Entidades\Usuario.class
@@ -7,6 +8,7 @@ Entidades\Estado.class
 Entidades\Enfermedades.class
 Interfaces\IMembresiaDAO.class
 Interfaces\IUsuariosDAO.class
+PersistenciaMongo\AdministradorDAOMongo.class
 Entidades\EnfermedadesSeleccionadas.class
 Entidades\Lesiones.class
 Entidades\TipoMembresia.class

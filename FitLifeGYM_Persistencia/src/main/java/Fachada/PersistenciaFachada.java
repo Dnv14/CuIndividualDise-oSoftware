@@ -17,6 +17,7 @@ import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import FabricaDAOS.FabricaDAOS;
 import FabricaDAOS.IFabricaDAOS;
+import Interfaces.IAdministradorDAO;
 import Interfaces.IClientesDAO;
 import Interfaces.IEjerciciosDAO;
 import Interfaces.IEnfermedadesDAO;
@@ -43,6 +44,7 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     private IRutinasDAO rutinasDAO;
     private IRegistroFisicoDAO registroFisicoDAO;
     private IUsuariosDAO usuariosDAO;
+    private IAdministradorDAO administradorDAO;
 
     public PersistenciaFachada() {
         IFabricaDAOS fabricaDAOS = new FabricaDAOS();
@@ -54,12 +56,18 @@ public class PersistenciaFachada implements IPersistenciaFachada {
         this.lesionesDAO = fabricaDAOS.crearLesionesDAO();
         this.rutinasDAO = fabricaDAOS.crearRutinasDAO();
         this.registroFisicoDAO = fabricaDAOS.crearRegistroFisicoDAO();
+        this.administradorDAO = fabricaDAOS.crearAdministradorDAO();
     }
 
     //Clientes
     @Override
     public Cliente registrarCliente(Cliente cliente) throws PersistenciaException {
         return clientesDAO.registrarCliente(cliente);
+    }
+    
+    @Override
+    public Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException {
+        return clientesDAO.iniciarSesionCliente(correo, contrasenia);
     }
 
     @Override
@@ -148,5 +156,7 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException {
         return usuariosDAO.registrarUsuario(usuario);
     }
+
+    
 
 }

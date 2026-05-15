@@ -17,6 +17,8 @@ import java.util.List;
 public interface IClientesBO {
 
     public abstract NuevoClienteDTO registrarCliente(NuevoClienteDTO cliente) throws BOException;
+    
+    public abstract NuevoClienteDTO iniciarSesion(NuevoClienteDTO cliente)throws BOException;
 
     public abstract NuevoClienteDTO buscarClientePorId(String id) throws BOException;
 

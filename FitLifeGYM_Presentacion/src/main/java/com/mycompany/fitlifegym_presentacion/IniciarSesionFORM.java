@@ -43,9 +43,9 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         jPanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         lblTitulo = new javax.swing.JLabel();
-        txtNIP = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         btnVolverAtras = new javax.swing.JButton();
-        lblNIP = new javax.swing.JLabel();
+        lblCorreo = new javax.swing.JLabel();
         btnQuejasSugerencias = new javax.swing.JButton();
         btnIniciarSesion = new javax.swing.JButton();
         lblContrasenia = new javax.swing.JLabel();
@@ -63,8 +63,8 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Iniciar Sesión");
 
-        txtNIP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtNIP.addActionListener(this::txtNIPActionPerformed);
+        txtCorreo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtCorreo.addActionListener(this::txtCorreoActionPerformed);
 
         btnVolverAtras.setBackground(new java.awt.Color(255, 0, 51));
         btnVolverAtras.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -73,10 +73,10 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         btnVolverAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnVolverAtras.addActionListener(this::btnVolverAtrasActionPerformed);
 
-        lblNIP.setBackground(new java.awt.Color(255, 255, 255));
-        lblNIP.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        lblNIP.setForeground(new java.awt.Color(255, 255, 255));
-        lblNIP.setText("NIP");
+        lblCorreo.setBackground(new java.awt.Color(255, 255, 255));
+        lblCorreo.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCorreo.setText("Correo");
 
         btnQuejasSugerencias.setBackground(new java.awt.Color(51, 51, 51));
         btnQuejasSugerencias.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -115,25 +115,27 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
                         .addGap(0, 223, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblContrasenia)
-                .addGap(265, 265, 265))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnQuejasSugerencias, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addComponent(lblNIP)
-                        .addGap(365, 365, 365))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNIP, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(215, 215, 215))))
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(296, 296, 296)
                 .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addComponent(lblContrasenia)
+                        .addGap(265, 265, 265))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(315, 315, 315))))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,9 +146,9 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addComponent(lblNIP)
+                .addComponent(lblCorreo)
                 .addGap(18, 18, 18)
-                .addComponent(txtNIP, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblContrasenia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,9 +178,9 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNIPActionPerformed
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNIPActionPerformed
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
         dispose();
@@ -189,13 +191,19 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
     }//GEN-LAST:event_btnQuejasSugerenciasActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        String pin = txtNIP.getText().trim();
+        String correo = txtCorreo.getText().trim();
         String contrasenia = new String(jPasswordField1.getPassword()).trim();
 
         try {
-            NuevoClienteDTO cliente = controlForms.iniciarSesion(pin, contrasenia);
-            dispose();
-            controlNavegacion.navegarBienvenida(cliente);
+
+            NuevoClienteDTO cliente = controlForms.iniciarSesion(correo, contrasenia);
+
+            if (cliente != null && cliente.getId() != null) {
+                dispose();
+                controlNavegacion.navegarBienvenida(cliente);
+            }else{
+                JOptionPane.showMessageDialog(this, "Credenciales Incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (BOException | NegocioExceptionRenovar ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -210,8 +218,8 @@ public class IniciarSesionFORM extends javax.swing.JDialog {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblContrasenia;
-    private javax.swing.JLabel lblNIP;
+    private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextField txtNIP;
+    private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }

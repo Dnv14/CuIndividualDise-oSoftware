@@ -9,18 +9,26 @@ import Entidades.Estado;
 import Entidades.Membresia;
 import Entidades.MembresiaComprada;
 import Entidades.TipoMembresia;
+import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import Interfaces.IClientesDAO;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.model.Projections;
+import static com.mongodb.client.model.Projections.computed;
+import static com.mongodb.client.model.Projections.fields;
+import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Updates.set;
-import com.mongodb.client.result.UpdateResult;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
@@ -49,6 +57,61 @@ public class ClientesDAOMongo implements IClientesDAO {
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al registrar Cliente");
         }
+    }
+
+    @Override
+    public Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException {
+        try (MongoClient client = CreadorConexiones.crearConexion()) {
+            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
+
+            MongoCollection<Usuario> coleccionUsuarios = db.getCollection("usuarios", Usuario.class);
+            Usuario usuario = coleccionUsuarios.find(and(eq("correo", correo), eq("contrasenia", contrasenia))).first();
+
+            if (usuario == null) {
+                return null;
+            }
+
+            MongoCollection<Cliente> coleccionClientes = db.getCollection("clientes", Cliente.class);
+            Cliente cliente = coleccionClientes.find(eq("idUsuario", usuario.getId())).first();
+
+            if (cliente != null) {
+                cliente.setNombre(usuario.getNombre());
+                cliente.setApellidos(usuario.getApellidos());
+                cliente.setCorreo(usuario.getCorreo());
+                cliente.setIdUsuario(usuario.getId());
+                return cliente;
+            }
+
+            return null;
+
+        } catch (MongoException ex) {
+            throw new PersistenciaException("Error al iniciar sesión" );
+        }
+
+//        try (MongoClient client = CreadorConexiones.crearConexion()) {
+//            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
+//
+//            MongoCollection<Cliente> coleccionUsuarios = db.getCollection("usuarios", Cliente.class);
+//
+//            Bson matcher = Aggregates.match(and(eq("correo", correo), eq("contrasenia", contrasenia)));
+//
+//            Bson lookup = Aggregates.lookup("clientes", "_id", "idUsuario", "datosCliente");
+//            Bson unwind = Aggregates.unwind("$datosCliente");
+//
+//            Bson project = Aggregates.project(fields(
+//                    include("nombre", "apellidos", "correo"),
+//                    computed("idUsuario", "$_id"),
+//                    computed("id", "$datosCliente._id"),
+//                    computed("telefono", "$datosCliente.telefono"),
+//                    computed("membresiaComprada", "$datosCliente.membresiaComprada")
+//            ));
+//            List<Bson> consultaAvanzada = Arrays.asList(matcher, lookup, unwind, project);
+//
+//            return coleccionUsuarios.aggregate(consultaAvanzada).first();
+//
+//        } catch (MongoException ex) {
+//            throw new PersistenciaException("Error al iniciar sesión");
+//        }
     }
 
     @Override
@@ -160,4 +223,5 @@ public class ClientesDAOMongo implements IClientesDAO {
     public List<MembresiaComprada> consultarTodasMembresiasCompradas() throws PersistenciaException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }

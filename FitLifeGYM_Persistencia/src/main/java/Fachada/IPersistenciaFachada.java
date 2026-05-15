@@ -26,6 +26,8 @@ public interface IPersistenciaFachada {
     //clientes
     public abstract Cliente registrarCliente(Cliente cliente) throws PersistenciaException;
 
+    public abstract Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException;
+
     public abstract Cliente consultarClientePorId(String id) throws PersistenciaException;
 
     public abstract List<Cliente> consultarClientes() throws PersistenciaException;

@@ -66,7 +66,7 @@ public class ControlForms {
         IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO();
 
         this.funcionalidadRegistrarUsuario = new FuncionalidadRegistroUsuario(clientesBO, usuariosBO);
-        this.funcionalidadRenovarUsuario = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO);
+        this.funcionalidadRenovarUsuario = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO, clientesBO);
     }
 
     //control
@@ -107,7 +107,13 @@ public class ControlForms {
         funcionalidadRegistrarUsuario.validarDatosUsuarioCliente(clienteDTO);
         this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(clienteDTO, usuarioDTO);
 
-        this.usuarioActual = usuarioDTO;
+        if (this.clienteActual != null) {
+            this.clienteActual.setNombre(usuarioDTO.getNombre());
+            this.clienteActual.setApellidos(usuarioDTO.getApellidos());
+            this.clienteActual.setCorreo(usuarioDTO.getCorreo());
+        }
+
+        this.usuarioActual = null;
         this.clienteRegistro = null;
         this.usuarioRegistro = null;
     }
@@ -143,11 +149,13 @@ public class ControlForms {
     }
 
     //Modificado
-    public NuevoClienteDTO iniciarSesion(String pin, String contrasenia) throws BOException, NegocioExceptionRenovar {
-        LoginDTO loginDTO = new LoginDTO(pin, contrasenia);
+    public NuevoClienteDTO iniciarSesion(String correo, String contrasenia) throws BOException, NegocioExceptionRenovar {
+        NuevoClienteDTO loginDTO = new NuevoClienteDTO();
+        loginDTO.setCorreo(correo);
+        loginDTO.setContrasenia(contrasenia);
+
         this.clienteActual = funcionalidadRenovarUsuario.iniciarSesion(loginDTO);
 
-//        this.usuarioActual = funcionalidadRegistrarUsuario.obtenerUsuarioPorId(this.clienteActual.getIdUsuario()); //TODO ocupo el agreggate
         return this.clienteActual;
     }
 

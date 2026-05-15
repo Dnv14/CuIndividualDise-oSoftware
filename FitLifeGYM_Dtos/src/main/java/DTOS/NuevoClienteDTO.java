@@ -16,37 +16,71 @@ public class NuevoClienteDTO {
     private String idUsuario;
     private String telefono;
     private LocalDate fechaNacimiento;
-    private String pin;
     private NuevaMembresiaCompradaDTO membresíaComprada;
+
+    private String nombre;
+    private String apellidos;
+    private String correo;
+    private String contrasenia;
 
     public NuevoClienteDTO() {
     }
 
-    public NuevoClienteDTO(String id, String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
+    public NuevoClienteDTO(String id, String idUsuario, String telefono, LocalDate fechaNacimiento, NuevaMembresiaCompradaDTO membresíaComprada) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
-        this.pin = pin;
+
         this.membresíaComprada = membresíaComprada;
     }
 
-    public NuevoClienteDTO(String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
+    public NuevoClienteDTO(String idUsuario, String telefono, LocalDate fechaNacimiento, NuevaMembresiaCompradaDTO membresíaComprada) {
         this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
-        this.pin = pin;
+
         this.membresíaComprada = membresíaComprada;
     }
 
-    public NuevoClienteDTO(String telefono, LocalDate fechaNacimiento, String pin, NuevaMembresiaCompradaDTO membresíaComprada) {
+    public NuevoClienteDTO(String telefono, LocalDate fechaNacimiento, NuevaMembresiaCompradaDTO membresíaComprada) {
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
-        this.pin = pin;
+
         this.membresíaComprada = membresíaComprada;
     }
-    
-    
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public String getId() {
         return id;
@@ -80,14 +114,6 @@ public class NuevoClienteDTO {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
     public NuevaMembresiaCompradaDTO getMembresíaComprada() {
         return membresíaComprada;
     }
@@ -98,7 +124,7 @@ public class NuevoClienteDTO {
 
     @Override
     public String toString() {
-        return "NuevoClienteDTO{" + "id=" + id + ", idUsuario=" + idUsuario + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", pin=" + pin + ", membres\u00edaComprada=" + membresíaComprada + '}';
+        return "NuevoClienteDTO{" + "id=" + id + ", idUsuario=" + idUsuario + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", membres\u00edaComprada=" + membresíaComprada + '}';
     }
 
 }

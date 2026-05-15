@@ -8,6 +8,7 @@ import Interfaces.IClientesBO;
 import static Adapter.DtosAEntidadesAdapter.adaptarClienteDTO;
 import static Adapter.DtosAEntidadesAdapter.adaptarMembresiaCompradaDTO;
 import static Adapter.EntidadesADTOsAdapter.adaptarClienteEntidad;
+import static Adapter.EntidadesADTOsAdapter.adaptarClienteInicioSesionEntidad;
 import static Adapter.EntidadesADTOsAdapter.adaptarMembresiaCompradaEntidad;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevoClienteDTO;
@@ -41,6 +42,20 @@ public class ClientesBO implements IClientesBO {
             Cliente clienteGuardado = persistenciaFachada.registrarCliente(clienteEntidad);
 
             return adaptarClienteEntidad(clienteGuardado);
+        } catch (PersistenciaException ex) {
+            throw new BOException("Error al registrar el cliente", ex);
+        }
+    }
+
+    @Override
+    public NuevoClienteDTO iniciarSesion(NuevoClienteDTO clienteDTO) throws BOException {
+        try {
+            Cliente clienteEntidad = persistenciaFachada.iniciarSesionCliente(
+                    clienteDTO.getCorreo(),
+                    clienteDTO.getContrasenia()
+            );
+
+            return adaptarClienteInicioSesionEntidad(clienteEntidad);
         } catch (PersistenciaException ex) {
             throw new BOException("Error al registrar el cliente", ex);
         }

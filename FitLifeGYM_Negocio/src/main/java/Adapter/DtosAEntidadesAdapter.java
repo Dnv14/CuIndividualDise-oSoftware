@@ -71,13 +71,13 @@ public class DtosAEntidadesAdapter {
         if (clienteDTO.getId() != null) {
             Cliente clienteConId = new Cliente(clienteDTO.getId(),
                     clienteDTO.getIdUsuario(), clienteDTO.getTelefono(),
-                    clienteDTO.getFechaNacimiento(), clienteDTO.getPin(), membresiaComprada);
+                    clienteDTO.getFechaNacimiento(), membresiaComprada);
             return clienteConId;
         }
 
         Cliente clienteSinId = new Cliente(clienteDTO.getIdUsuario(),
                 clienteDTO.getTelefono(), clienteDTO.getFechaNacimiento(),
-                clienteDTO.getPin(), membresiaComprada);
+                membresiaComprada);
 
         return clienteSinId;
     }

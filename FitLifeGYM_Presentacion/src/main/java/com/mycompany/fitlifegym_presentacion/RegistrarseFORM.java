@@ -50,7 +50,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         btnIniciarSesion = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
-        lblPin = new javax.swing.JLabel();
         lblCorreoElectronico1 = new javax.swing.JLabel();
         lblTelefono1 = new javax.swing.JLabel();
         lblFechaNacimiento = new javax.swing.JLabel();
@@ -60,7 +59,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         txtTelefono = new javax.swing.JTextField();
         txtNombreCompleto = new javax.swing.JTextField();
         txtFechaNacimiento = new javax.swing.JTextField();
-        txtPIN = new javax.swing.JTextField();
         txtContrasenia = new javax.swing.JTextField();
         btnVolverAtras = new javax.swing.JButton();
         lblApellidos = new javax.swing.JLabel();
@@ -96,11 +94,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         lblTitulo.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("¿Ya tienes cuenta? Da click aqui");
-
-        lblPin.setBackground(new java.awt.Color(255, 255, 255));
-        lblPin.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lblPin.setForeground(new java.awt.Color(255, 255, 255));
-        lblPin.setText("Pin para iniciar sesión:");
 
         lblCorreoElectronico1.setBackground(new java.awt.Color(255, 255, 255));
         lblCorreoElectronico1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -139,9 +132,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         txtFechaNacimiento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtFechaNacimiento.addActionListener(this::txtFechaNacimientoActionPerformed);
 
-        txtPIN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPIN.addActionListener(this::txtPINActionPerformed);
-
         txtContrasenia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtContrasenia.addActionListener(this::txtContraseniaActionPerformed);
 
@@ -173,9 +163,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblPin, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelLayout.createSequentialGroup()
                                 .addGap(56, 56, 56)
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -198,7 +185,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPIN, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,11 +257,7 @@ public class RegistrarseFORM extends javax.swing.JDialog {
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPIN, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPin, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                        .addGap(64, 64, 64))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                         .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))))
@@ -304,13 +286,12 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         String telefono = txtTelefono.getText();
         String fechaString = txtFechaNacimiento.getText();
         String contrasenia = txtContrasenia.getText();
-        String pin = txtPIN.getText();
 
         try {
             LocalDate fechaNacimiento = LocalDate.parse(fechaString);
 
             UsuarioDTO nuevoUsuario = new UsuarioDTO(nombre, apellidos, correo, contrasenia);
-            NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(telefono, fechaNacimiento, pin, null);
+            NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(telefono, fechaNacimiento, null);
             controlForms.registrarCliente(nuevoCliente, nuevoUsuario);
             JOptionPane.showMessageDialog(this, "Datos personales guardados");
 
@@ -344,10 +325,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaNacimientoActionPerformed
 
-    private void txtPINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPINActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPINActionPerformed
-
     private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseniaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContraseniaActionPerformed
@@ -372,7 +349,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
     private javax.swing.JLabel lblCorreoElectronico1;
     private javax.swing.JLabel lblFechaNacimiento;
     private javax.swing.JLabel lblNombreCompleto;
-    private javax.swing.JLabel lblPin;
     private javax.swing.JLabel lblTelefono1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTitulo1;
@@ -381,7 +357,6 @@ public class RegistrarseFORM extends javax.swing.JDialog {
     private javax.swing.JTextField txtCorreoElectronico;
     private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombreCompleto;
-    private javax.swing.JTextField txtPIN;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

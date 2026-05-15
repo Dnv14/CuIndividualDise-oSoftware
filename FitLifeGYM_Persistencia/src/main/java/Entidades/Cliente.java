@@ -17,30 +17,65 @@ public class Cliente {
     private String idUsuario;
     private String telefono;
     private LocalDate fechaNacimiento;
-    private String pin;
     private MembresiaComprada membresiaComprada;
+
+    //no se usan como tal pero se ocupan para el inicio de sesion
+    private String nombre;
+    private String apellidos;
+    private String correo;
+    private String contrasenia;
 
     public Cliente() {
     }
 
-    public Cliente(String id, String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, MembresiaComprada membresiaComprada) {
+    public Cliente(String id, String idUsuario, String telefono, LocalDate fechaNacimiento, MembresiaComprada membresiaComprada) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
-        this.pin = pin;
         this.membresiaComprada = membresiaComprada;
     }
 
-    public Cliente(String idUsuario, String telefono, LocalDate fechaNacimiento, String pin, MembresiaComprada membresiaComprada) {
+    public Cliente(String idUsuario, String telefono, LocalDate fechaNacimiento, MembresiaComprada membresiaComprada) {
         this.idUsuario = idUsuario;
         this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
-        this.pin = pin;
         this.membresiaComprada = membresiaComprada;
     }
 
-   
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+    
+    
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public String getId() {
         return id;
@@ -74,14 +109,6 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
     public MembresiaComprada getMembresiaComprada() {
         return membresiaComprada;
     }
@@ -92,9 +119,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", idUsuario=" + idUsuario + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + ", pin=" + pin + ", membresiaComprada=" + membresiaComprada + '}';
+        return "Cliente{" + "id=" + id + ", idUsuario=" + idUsuario + ", telefono=" + telefono + ", fechaNacimiento=" + fechaNacimiento + " , membresiaComprada=" + membresiaComprada + '}';
     }
-
-    
 
 }

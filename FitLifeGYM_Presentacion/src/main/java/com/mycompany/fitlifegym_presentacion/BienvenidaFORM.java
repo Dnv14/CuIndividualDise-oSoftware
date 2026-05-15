@@ -33,14 +33,13 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     }
 
     private void mostrarDatosCliente() {
-        UsuarioDTO usuario = controlForms.getUsuarioActual();
+        if (this.cliente != null) {
 
-        if (usuario != null) {
-            String nombre = usuario.getNombre();
+            String nombre = this.cliente.getNombre();
 
-            if (cliente != null && cliente.getMembresíaComprada() != null) {
-                String plan = cliente.getMembresíaComprada().getMembresia().getTipoMembresia().name();
-                String estado = cliente.getMembresíaComprada().getEstado().name();
+            if (this.cliente.getMembresíaComprada() != null) {
+                String plan = this.cliente.getMembresíaComprada().getMembresia().getTipoMembresia().name();
+                String estado = this.cliente.getMembresíaComprada().getEstado().name();
 
                 lblTitulo.setText("Bienvenido: " + nombre + " | Plan: " + plan);
                 LblEstadoMembresia.setText("ESTADO: " + estado);
