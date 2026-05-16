@@ -15,24 +15,15 @@ public class RutinaSemanalClienteFORM extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RutinaSemanalClienteFORM.class.getName());
 
-    /**
-     * Creates new form RutinaSemanalClienteFORM
-     */
-    public RutinaSemanalClienteFORM() {
+    private ControlNavegacion controlNavegacion;
+
+    public RutinaSemanalClienteFORM(ControlNavegacion controlNavegacion) {
+        this.controlNavegacion = controlNavegacion;
+        this.setTitle("Rutina Semanal");
         initComponents();
+        diseñoTabla();
         this.setLocationRelativeTo(null);
 
-        DiasSemana.setRowHeight(60);
-
-//      
-//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-//        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-//        DiasSemana.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-//
-//        
-//        DiasSemana.setBackground(new java.awt.Color(30, 30, 30));
-//        DiasSemana.setForeground(java.awt.Color.WHITE);
-//        DiasSemana.setGridColor(new java.awt.Color(225, 6, 0)); 
     }
 
     /**
@@ -48,7 +39,7 @@ public class RutinaSemanalClienteFORM extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
-        DiasSemana = new javax.swing.JTable();
+        DiasSemanaTable = new javax.swing.JTable();
         btnVolverAtras3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,9 +54,11 @@ public class RutinaSemanalClienteFORM extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Rutina Semanal");
 
+        jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setPreferredSize(new java.awt.Dimension(703, 573));
 
-        DiasSemana.setModel(new javax.swing.table.DefaultTableModel(
+        DiasSemanaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Lunes"},
                 {"Martes"},
@@ -85,15 +78,15 @@ public class RutinaSemanalClienteFORM extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        DiasSemana.setAutoscrolls(false);
-        DiasSemana.getTableHeader().setResizingAllowed(false);
-        DiasSemana.getTableHeader().setReorderingAllowed(false);
-        DiasSemana.addMouseListener(new java.awt.event.MouseAdapter() {
+        DiasSemanaTable.setAutoscrolls(false);
+        DiasSemanaTable.getTableHeader().setResizingAllowed(false);
+        DiasSemanaTable.getTableHeader().setReorderingAllowed(false);
+        DiasSemanaTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DiasSemanaMouseClicked(evt);
+                DiasSemanaTableMouseClicked(evt);
             }
         });
-        jScrollPane.setViewportView(DiasSemana);
+        jScrollPane.setViewportView(DiasSemanaTable);
 
         btnVolverAtras3.setBackground(new java.awt.Color(255, 0, 51));
         btnVolverAtras3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -156,41 +149,29 @@ public class RutinaSemanalClienteFORM extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DiasSemanaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DiasSemanaMouseClicked
+    private void DiasSemanaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DiasSemanaTableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_DiasSemanaMouseClicked
+    }//GEN-LAST:event_DiasSemanaTableMouseClicked
 
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
-
+        controlNavegacion.navegarMenuRutinasCliente();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RutinaSemanalClienteFORM().setVisible(true));
+    private void diseñoTabla() {
+        DiasSemanaTable.setRowHeight(75);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        DiasSemanaTable.getTableHeader().setBackground(new java.awt.Color(30, 30, 30));
+        DiasSemanaTable.getTableHeader().setForeground(java.awt.Color.WHITE);
+        DiasSemanaTable.getTableHeader().setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 16));
+        DiasSemanaTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        DiasSemanaTable.setBackground(new java.awt.Color(30, 30, 30));
+        DiasSemanaTable.setForeground(java.awt.Color.WHITE);
+        DiasSemanaTable.setGridColor(new java.awt.Color(225, 6, 0));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable DiasSemana;
+    private javax.swing.JTable DiasSemanaTable;
     private javax.swing.JButton btnVolverAtras3;
     private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane;

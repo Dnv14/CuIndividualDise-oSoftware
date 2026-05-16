@@ -4,7 +4,6 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-
 import DTOS.NuevoClienteDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import javax.swing.JDialog;
@@ -19,8 +18,8 @@ public class ControlNavegacion {
     private JFrame frameActual;
     private ControlRegistroInicioSesion controlRegistroInicioSesion;
 
-    public ControlNavegacion(ControlRegistroInicioSesion controlForms) {
-        this.controlRegistroInicioSesion = controlForms;
+    public ControlNavegacion(ControlRegistroInicioSesion controlRegistroInicioSesion) {
+        this.controlRegistroInicioSesion = controlRegistroInicioSesion;
     }
 
     private void mostrarPantalla(JFrame nuevoFrame) {
@@ -31,6 +30,7 @@ public class ControlNavegacion {
         this.frameActual = nuevoFrame;
         this.frameActual.setResizable(false);
         frameActual.setVisible(true);
+
     }
 
     private void mostrarDialogo(JDialog nuevoDialogo) {
@@ -55,11 +55,38 @@ public class ControlNavegacion {
     public void navegarMetodosPago(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         mostrarPantalla(new SuscribirseFORM(this, controlRegistroInicioSesion, membresia, cliente));
     }
-    
-    public void navegarRegistroFisico(){
-        
+
+    public void navegarRegistroFisico() {
+        mostrarPantalla(new RegistroFisico(this));
     }
-    
+
+    public void navegarRegistroFisicoConfirmar() {
+        mostrarPantalla(new RegistroFisicoConfirmacion(this));
+    }
+
+    public void navegarMenuRutinasCliente() {
+        mostrarPantalla(new MenuRutinasClienteFORM(this));
+    }
+
+    public void navegarRutinaSemanalCliente() {
+        mostrarPantalla(new RutinaSemanalClienteFORM(this));
+    }
+
+    public void navegarMenuAdministrador() {
+        mostrarPantalla(new MenuAdministradorFORM(this));
+    }
+
+    public void navegarBuscadorCliente() {
+        mostrarPantalla(new BuscadorClienteFORM(this));
+    }
+
+    public void navegarAdministrarCliente() {
+        mostrarPantalla(new AdministrarCliente(this));
+    }
+
+    public void navegarRutinaSemanalAdmin() {
+        mostrarPantalla(new RutinaSemanalAdministradorFORM(this));
+    }
 
     //Dialogs
     public void navegarRegistrarseCliente() {
@@ -81,6 +108,24 @@ public class ControlNavegacion {
     public void navegarIniciarSesionPaypal(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
         mostrarDialogo(new IniciarSesionPaypalFORM(this.frameActual, true, this, controlRegistroInicioSesion, membresia, cliente));
     }
+
+    public void navegarRegistrarseAdministrador() {
+        mostrarDialogo(new RegistrarseAdministradorFORM(frameActual, true, this));
+    }
+
+    public void navegarIniciarSesionAdministrador() {
+        mostrarDialogo(new IniciarSesionAdministradorFORM(frameActual, true, this));
+    }
+
+    public void navegarVerNotasCliente() {
+        mostrarDialogo(new VerNotasClienteFORM(frameActual, true, this));
+    }
+
+    public void navegarConsultarRegistroFisico() {
+        mostrarDialogo(new ConsultarRegistroFisicoFORM(frameActual, true, this));
+    }
     
-    
+    public void navegarAgregarNotasAdmin() {
+        mostrarDialogo(new AgregarNotasAdministradorFORM(frameActual, true, this));
+    }
 }

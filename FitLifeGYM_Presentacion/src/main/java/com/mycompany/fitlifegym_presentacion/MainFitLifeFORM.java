@@ -18,6 +18,7 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
         this.setTitle("Main Fit Life");
         initComponents();
         this.setLocationRelativeTo(null);
+        tipoComboBox.setFocusable(false);
     }
 
     /**
@@ -82,8 +83,9 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
         lblTitulo3.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo3.setText("Fit Life GYM");
 
-        tipoComboBox.setBackground(new java.awt.Color(44, 44, 44));
+        tipoComboBox.setBackground(new java.awt.Color(102, 102, 102));
         tipoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tipoComboBox.setForeground(new java.awt.Color(255, 255, 255));
         tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CLIENTE", "ADMINISTRADOR" }));
         tipoComboBox.addActionListener(this::tipoComboBoxActionPerformed);
 
@@ -186,26 +188,21 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
         String tipoUsuario = (String) tipoComboBox.getSelectedItem();
-
-        if (tipoUsuario == "CLIENTE") {
+        if (tipoUsuario.equals("CLIENTE")) {
             controlNavegacion.navegarRegistrarseCliente();
         } else {
-
+            controlNavegacion.navegarRegistrarseAdministrador();
         }
-
-
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        String tipoUsuario = (String) tipoComboBox.getSelectedItem();
 
-        if (tipoUsuario == "CLIENTE") {
+        String tipoUsuario = (String) tipoComboBox.getSelectedItem();
+        if (tipoUsuario.equals("CLIENTE")) {
             controlNavegacion.navegarIniciarSesionCliente();
         } else {
-
+            controlNavegacion.navegarIniciarSesionAdministrador();
         }
-
-
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void tipoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoComboBoxActionPerformed

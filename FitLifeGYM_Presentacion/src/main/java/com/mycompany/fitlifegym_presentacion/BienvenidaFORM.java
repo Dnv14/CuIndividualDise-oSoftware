@@ -24,8 +24,8 @@ public class BienvenidaFORM extends javax.swing.JFrame {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.cliente = controlForms.getClienteActual();
-
         this.setTitle("Bienvenida");
+        
         initComponents();
         this.setLocationRelativeTo(null);
         configiracionPorMembresia();
@@ -230,7 +230,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAmbienteMusicalActionPerformed
 
     private void btnProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgresoActionPerformed
-        // TODO add your handling code here:
+        controlNavegacion.navegarRegistroFisico();
     }//GEN-LAST:event_btnProgresoActionPerformed
 
     private void btnBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeneficiosActionPerformed

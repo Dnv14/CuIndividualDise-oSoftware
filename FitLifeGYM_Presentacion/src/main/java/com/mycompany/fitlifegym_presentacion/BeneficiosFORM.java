@@ -29,7 +29,7 @@ public class BeneficiosFORM extends javax.swing.JFrame {
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;
         this.cliente = cliente;
-
+        
         this.setTitle("Beneficios");
         initComponents();
         ComboBoxMembresia.setFocusable(false);
