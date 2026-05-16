@@ -17,10 +17,10 @@ import javax.swing.JFrame;
 public class ControlNavegacion {
 
     private JFrame frameActual;
-    private ControlRegistroInicioSesion controlForms;
+    private ControlRegistroInicioSesion controlRegistroInicioSesion;
 
     public ControlNavegacion(ControlRegistroInicioSesion controlForms) {
-        this.controlForms = controlForms;
+        this.controlRegistroInicioSesion = controlForms;
     }
 
     private void mostrarPantalla(JFrame nuevoFrame) {
@@ -41,39 +41,46 @@ public class ControlNavegacion {
 
     //frames
     public void navegarMenuPrincipal() {
-        mostrarPantalla(new MainFitLifeFORM(this, controlForms));
+        mostrarPantalla(new MainFitLifeFORM(this));
     }
 
     public void navegarBenificios(NuevoClienteDTO cliente) {
-        mostrarPantalla(new BeneficiosFORM(this, controlForms, cliente));
+        mostrarPantalla(new BeneficiosFORM(this, controlRegistroInicioSesion, cliente));
     }
 
     public void navegarBienvenida(NuevoClienteDTO cliente) {
-        mostrarPantalla(new BienvenidaFORM(this, controlForms, cliente));
+        mostrarPantalla(new BienvenidaFORM(this, controlRegistroInicioSesion, cliente));
     }
 
     public void navegarMetodosPago(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
-        mostrarPantalla(new SuscribirseFORM(this, controlForms, membresia, cliente));
+        mostrarPantalla(new SuscribirseFORM(this, controlRegistroInicioSesion, membresia, cliente));
     }
+    
+    public void navegarRegistroFisico(){
+        
+    }
+    
 
     //Dialogs
-    public void navegarRegistrarse() {
-        mostrarDialogo(new RegistrarseFORM(this.frameActual, true, this, controlForms));
+    public void navegarRegistrarseCliente() {
+        mostrarDialogo(new RegistrarseClienteFORM(this.frameActual, true, this, controlRegistroInicioSesion));
     }
 
-    public void navegarIniciarSesion() {
-        mostrarDialogo(new IniciarSesionFORM(this.frameActual, true, this, controlForms));
+    public void navegarIniciarSesionCliente() {
+        mostrarDialogo(new IniciarSesionClienteFORM(this.frameActual, true, this, controlRegistroInicioSesion));
     }
 
     public void navegarTransferenciaMetodo(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
-        mostrarDialogo(new TransferenciaFORM(this.frameActual, true, this, controlForms, membresia, cliente));
+        mostrarDialogo(new TransferenciaFORM(this.frameActual, true, this, controlRegistroInicioSesion, membresia, cliente));
     }
 
     public void navegarTarjetaMetodo(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
-        mostrarDialogo(new TarjetaFORM(this.frameActual, true, this, controlForms, membresia, cliente));
+        mostrarDialogo(new TarjetaFORM(this.frameActual, true, this, controlRegistroInicioSesion, membresia, cliente));
     }
 
     public void navegarIniciarSesionPaypal(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
-        mostrarDialogo(new IniciarSesionPaypalFORM(this.frameActual, true, this, controlForms, membresia, cliente));
+        mostrarDialogo(new IniciarSesionPaypalFORM(this.frameActual, true, this, controlRegistroInicioSesion, membresia, cliente));
     }
+    
+    
 }

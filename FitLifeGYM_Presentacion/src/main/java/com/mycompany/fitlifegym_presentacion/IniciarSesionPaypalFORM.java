@@ -145,7 +145,7 @@ public class IniciarSesionPaypalFORM extends javax.swing.JDialog {
         btnVolverAtras.setBackground(new java.awt.Color(255, 0, 51));
         btnVolverAtras.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnVolverAtras.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolverAtras.setText(">");
+        btnVolverAtras.setText("<");
         btnVolverAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnVolverAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

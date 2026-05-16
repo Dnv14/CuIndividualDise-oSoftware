@@ -11,12 +11,10 @@ package com.mycompany.fitlifegym_presentacion;
 public class MainFitLifeFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
-    private ControlRegistroInicioSesion controlForms;
-            
-    public MainFitLifeFORM(ControlNavegacion controlNavegacion,ControlRegistroInicioSesion controlForms) {
+
+    public MainFitLifeFORM(ControlNavegacion controlNavegacion) {
         this.controlNavegacion = controlNavegacion;
-        this.controlForms = controlForms;
-        
+
         this.setTitle("Main Fit Life");
         initComponents();
         this.setLocationRelativeTo(null);
@@ -40,6 +38,8 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         btnIniciarSesion = new javax.swing.JButton();
         lblTitulo3 = new javax.swing.JLabel();
+        tipoComboBox = new javax.swing.JComboBox<>();
+        jSeparator5 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
 
         popupMenu1.setLabel("popupMenu1");
@@ -82,6 +82,15 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
         lblTitulo3.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo3.setText("Fit Life GYM");
 
+        tipoComboBox.setBackground(new java.awt.Color(44, 44, 44));
+        tipoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CLIENTE", "ADMINISTRADOR" }));
+        tipoComboBox.addActionListener(this::tipoComboBoxActionPerformed);
+
+        jSeparator5.setBackground(new java.awt.Color(225, 6, 0));
+        jSeparator5.setForeground(new java.awt.Color(225, 6, 0));
+        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -103,6 +112,12 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelLayout.createSequentialGroup()
                     .addGap(10, 10, 10)
@@ -112,7 +127,10 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
@@ -167,14 +185,33 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-       controlNavegacion.navegarRegistrarse();
+        String tipoUsuario = (String) tipoComboBox.getSelectedItem();
+
+        if (tipoUsuario == "CLIENTE") {
+            controlNavegacion.navegarRegistrarseCliente();
+        } else {
+
+        }
+
+
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        controlNavegacion.navegarIniciarSesion();
+        String tipoUsuario = (String) tipoComboBox.getSelectedItem();
+
+        if (tipoUsuario == "CLIENTE") {
+            controlNavegacion.navegarIniciarSesionCliente();
+        } else {
+
+        }
+
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    
+    private void tipoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;
@@ -184,8 +221,10 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblTitulo2;
     private javax.swing.JLabel lblTitulo3;
     private java.awt.PopupMenu popupMenu1;
+    private javax.swing.JComboBox<String> tipoComboBox;
     // End of variables declaration//GEN-END:variables
 }

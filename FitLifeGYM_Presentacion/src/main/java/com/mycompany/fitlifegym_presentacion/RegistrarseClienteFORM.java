@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Diego
  */
-public class RegistrarseFORM extends javax.swing.JDialog {
+public class RegistrarseClienteFORM extends javax.swing.JDialog {
 
     private ControlRegistroInicioSesion controlForms;
     private ControlNavegacion controlNavegacion;
@@ -25,7 +25,7 @@ public class RegistrarseFORM extends javax.swing.JDialog {
     /**
      * Creates new form RegistrarseFORM
      */
-    public RegistrarseFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
+    public RegistrarseClienteFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
         super(parent, modal);
         this.controlForms = controlForms;
         this.controlNavegacion = controlNavegacion;
@@ -306,7 +306,7 @@ public class RegistrarseFORM extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        controlNavegacion.navegarIniciarSesion();
+        controlNavegacion.navegarIniciarSesionCliente();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void txtApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosActionPerformed

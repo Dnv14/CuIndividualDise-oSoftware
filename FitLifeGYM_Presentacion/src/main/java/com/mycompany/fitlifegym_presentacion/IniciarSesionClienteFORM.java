@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  *
  * @author Diego
  */
-public class IniciarSesionFORM extends javax.swing.JDialog {
+public class IniciarSesionClienteFORM extends javax.swing.JDialog {
 
-    private static final Logger LOGGER = Logger.getLogger(IniciarSesionFORM.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(IniciarSesionClienteFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
     private ControlRegistroInicioSesion controlForms;
 
-    public IniciarSesionFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
+    public IniciarSesionClienteFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
         this.controlForms = controlForms;

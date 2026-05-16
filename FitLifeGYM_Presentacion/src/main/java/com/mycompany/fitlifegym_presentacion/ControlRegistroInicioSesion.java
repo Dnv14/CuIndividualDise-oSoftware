@@ -46,14 +46,9 @@ import java.util.List;
 public class ControlRegistroInicioSesion {
 
     //actuales
-    private UsuarioDTO usuarioActual;
     private AdministradorDTO administradorActual;
     private NuevoClienteDTO clienteActual;
-
-    //registros
     private NuevaMembresiaCompradaDTO membresiaSeleccionada;
-    private UsuarioDTO usuarioRegistro;
-    private NuevoClienteDTO clienteRegistro;
 
     private IFuncionalidadRegistrarUsuario funcionalidadRegistrarUsuario;
     private IFuncionalidadIniciarSesionRenovarMembresia funcionalidadRenovarUsuario;
@@ -113,9 +108,6 @@ public class ControlRegistroInicioSesion {
             this.clienteActual.setCorreo(usuarioDTO.getCorreo());
         }
 
-        this.usuarioActual = null;
-        this.clienteRegistro = null;
-        this.usuarioRegistro = null;
     }
 
     public void procesarPagoTarjeta(String numeroTarjeta, String cvv, String fechaVencimiento, String nombreTitular) throws BOException, NegocioExceptionRegistrar {
@@ -199,14 +191,6 @@ public class ControlRegistroInicioSesion {
 
     public NuevoClienteDTO getClienteActual() {
         return clienteActual;
-    }
-
-    public UsuarioDTO getUsuarioActual() {
-        return usuarioActual;
-    }
-
-    public UsuarioDTO getUsuarioRegistro() {
-        return usuarioRegistro;
     }
 
 }

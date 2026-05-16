@@ -8,20 +8,15 @@ package com.mycompany.fitlifegym_presentacion;
  *
  * @author Diego
  */
-public class RegistroFisico extends javax.swing.JFrame {
+public class RegistroFisicoConfirmacion extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroFisicoConfirmacion.class.getName());
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroFisico.class.getName());
-
-    private ControlNavegacion controlNavegacion;
-    private ControlRegistroInicioSesion controlForms;
-
-    public RegistroFisico(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
-        this.controlNavegacion = controlNavegacion;
-        this.controlForms = controlForms;
-        this.setResizable(false);
-        this.setTitle("Registro Fisico");
+    /**
+     * Creates new form RegistroFisicoConfirmacion
+     */
+    public RegistroFisicoConfirmacion() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -39,13 +34,13 @@ public class RegistroFisico extends javax.swing.JFrame {
         lblLimitacionesFisicas = new javax.swing.JLabel();
         lblNivelCondicion = new javax.swing.JLabel();
         lblEnfermedades = new javax.swing.JLabel();
-        tipoComboBox = new javax.swing.JComboBox<>();
         jScrollPane = new javax.swing.JScrollPane();
         enfermedades = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         limitacionesFisicas = new javax.swing.JTable();
-        lblLeyendaCondicion = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
+        lblCondicionEditable = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +52,7 @@ public class RegistroFisico extends javax.swing.JFrame {
         lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
         lblTitulo.setFont(new java.awt.Font("Arial", 3, 48)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Registro Físico");
+        lblTitulo.setText("Confirmar Registro Físico");
 
         lblLimitacionesFisicas.setBackground(new java.awt.Color(255, 255, 255));
         lblLimitacionesFisicas.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -65,7 +60,7 @@ public class RegistroFisico extends javax.swing.JFrame {
         lblLimitacionesFisicas.setText("Limitaciones Físicas:");
 
         lblNivelCondicion.setBackground(new java.awt.Color(255, 255, 255));
-        lblNivelCondicion.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblNivelCondicion.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblNivelCondicion.setForeground(new java.awt.Color(255, 255, 255));
         lblNivelCondicion.setText("Nivel de Condición:");
 
@@ -73,11 +68,6 @@ public class RegistroFisico extends javax.swing.JFrame {
         lblEnfermedades.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         lblEnfermedades.setForeground(new java.awt.Color(255, 255, 255));
         lblEnfermedades.setText("Enfermedades:");
-
-        tipoComboBox.setBackground(new java.awt.Color(44, 44, 44));
-        tipoComboBox.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tipoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BAJA", "INTERMEDIA", "AVANZADA" }));
-        tipoComboBox.addActionListener(this::tipoComboBoxActionPerformed);
 
         jScrollPane.setPreferredSize(new java.awt.Dimension(703, 573));
 
@@ -135,50 +125,59 @@ public class RegistroFisico extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(limitacionesFisicas);
 
-        lblLeyendaCondicion.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lblLeyendaCondicion.setText("LEYENDAAAAAAAAAA");
+        btnConfirmar.setBackground(new java.awt.Color(255, 0, 51));
+        btnConfirmar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
 
-        btnGuardar.setBackground(new java.awt.Color(255, 0, 51));
-        btnGuardar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardar.setText("GUARDAR");
-        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
+        lblCondicionEditable.setBackground(new java.awt.Color(255, 255, 255));
+        lblCondicionEditable.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblCondicionEditable.setForeground(new java.awt.Color(255, 255, 255));
+        lblCondicionEditable.setText("Nivel de Condición:");
+
+        btnCancelar.setBackground(new java.awt.Color(255, 0, 51));
+        btnCancelar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(297, 297, 297))
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addGap(0, 54, Short.MAX_VALUE)
-                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(lblEnfermedades, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(67, 67, 67)
-                                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(lblLimitacionesFisicas, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(41, 41, 41))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(145, 145, 145))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelLayout.createSequentialGroup()
-                                .addComponent(lblNivelCondicion, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelLayout.createSequentialGroup()
+                                        .addComponent(lblLimitacionesFisicas, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                                        .addComponent(lblEnfermedades, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(67, 67, 67)
+                                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addComponent(lblNivelCondicion, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblLeyendaCondicion, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))))
+                                .addComponent(lblCondicionEditable, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(25, Short.MAX_VALUE))))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,27 +188,30 @@ public class RegistroFisico extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(12, 12, 12)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                        .addGap(126, 126, 126)
                         .addComponent(lblLimitacionesFisicas)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addComponent(lblEnfermedades)
+                        .addGap(208, 208, 208)))
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblEnfermedades)
-                        .addGap(180, 180, 180)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNivelCondicion)
-                            .addComponent(tipoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lblLeyendaCondicion, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))))
+                            .addComponent(lblCondicionEditable))
+                        .addGap(103, 103, 103))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,7 +226,7 @@ public class RegistroFisico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 863, Short.MAX_VALUE)
+            .addGap(0, 837, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -232,12 +234,7 @@ public class RegistroFisico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tipoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tipoComboBoxActionPerformed
-
     private void enfermedadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enfermedadesMouseClicked
-
 
     }//GEN-LAST:event_enfermedadesMouseClicked
 
@@ -245,26 +242,29 @@ public class RegistroFisico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_limitacionesFisicasMouseClicked
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JTable enfermedades;
     private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCondicionEditable;
     private javax.swing.JLabel lblEnfermedades;
-    private javax.swing.JLabel lblLeyendaCondicion;
     private javax.swing.JLabel lblLimitacionesFisicas;
     private javax.swing.JLabel lblNivelCondicion;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable limitacionesFisicas;
-    private javax.swing.JTable productosTABLE;
-    private javax.swing.JComboBox<String> tipoComboBox;
     // End of variables declaration//GEN-END:variables
 }
