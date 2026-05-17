@@ -4,13 +4,11 @@
  */
 package com.mycompany.funcionalidadiniciarsesionrenovarmembresia;
 
-import DTOS.LoginDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RenovarMembresiaDTO;
 import DTOsENUMs.TipoMembresiaDTO;
-import BOs.BOException;
+import DTOS.AdministradorDTO;
 import DTOS.NuevaMembresiaDTO;
-import Entidades.Membresia;
 import java.util.List;
 
 /**
@@ -19,7 +17,9 @@ import java.util.List;
  */
 public interface IFuncionalidadIniciarSesionRenovarMembresia {
 
-    public NuevoClienteDTO iniciarSesion(NuevoClienteDTO clienteDTO) throws NegocioExceptionRenovar;
+    public abstract NuevoClienteDTO iniciarSesionCliente(NuevoClienteDTO clienteDTO) throws NegocioExceptionRenovar;
+    
+    public abstract AdministradorDTO iniciarSesionAdministrador(AdministradorDTO administradorDTO)throws NegocioExceptionRenovar;
 
     public abstract List<NuevaMembresiaDTO> consultarMembresias() throws NegocioExceptionRenovar;
 

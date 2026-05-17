@@ -16,7 +16,9 @@ public class MenuAdministradorFORM extends javax.swing.JFrame {
 
     public MenuAdministradorFORM(ControlNavegacion controlNavegacion) {
         this.controlNavegacion = controlNavegacion;
+        this.setTitle("Menú de Administrador");
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

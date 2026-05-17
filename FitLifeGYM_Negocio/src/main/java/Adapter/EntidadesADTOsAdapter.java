@@ -4,6 +4,7 @@
  */
 package Adapter;
 
+import DTOS.AdministradorDTO;
 import DTOS.DetallesRutinaDTO;
 import DTOS.EjerciciosDTO;
 import DTOS.EjerciciosSeleccionadosDTO;
@@ -21,6 +22,7 @@ import DTOsENUMs.EstadoDTO;
 import DTOsENUMs.EstadoRutinaDTO;
 import DTOsENUMs.NivelCondicionDTO;
 import DTOsENUMs.TipoMembresiaDTO;
+import Entidades.Administrador;
 import Entidades.Cliente;
 import Entidades.DetallesRutina;
 import Entidades.Ejercicio;
@@ -298,5 +300,43 @@ public class EntidadesADTOsAdapter {
                 detallesRutina);
 
         return rutinaSinId;
+    }
+
+    public static AdministradorDTO adapatarAdministradorEntidad(Administrador administradorEntidad) {
+        if (administradorEntidad == null) {
+            return null;
+        }
+
+        if (administradorEntidad.getId() != null) {
+            AdministradorDTO administradoConId = new AdministradorDTO();
+            administradoConId.setId(administradorEntidad.getId());
+            administradoConId.setIdUsuario(administradorEntidad.getIdUsuario());
+
+            if (administradorEntidad.getNombre() != null) {
+                administradoConId.setNombre(administradorEntidad.getNombre());
+            }
+            if (administradorEntidad.getCorreo() != null) {
+                administradoConId.setCorreo(administradorEntidad.getCorreo());
+            }
+            if (administradorEntidad.getContrasenia() != null) {
+                administradoConId.setContrasenia(administradorEntidad.getContrasenia());
+            }
+            return administradoConId;
+        }
+
+        AdministradorDTO administradorSinId = new AdministradorDTO();
+        administradorSinId.setId(null);
+        administradorSinId.setIdUsuario(administradorEntidad.getIdUsuario());
+        if (administradorEntidad.getNombre() != null) {
+            administradorSinId.setNombre(administradorEntidad.getNombre());
+        }
+        if (administradorEntidad.getCorreo() != null) {
+            administradorSinId.setCorreo(administradorEntidad.getCorreo());
+        }
+        if (administradorEntidad.getContrasenia() != null) {
+            administradorSinId.setContrasenia(administradorEntidad.getContrasenia());
+        }
+        return administradorSinId;
+
     }
 }

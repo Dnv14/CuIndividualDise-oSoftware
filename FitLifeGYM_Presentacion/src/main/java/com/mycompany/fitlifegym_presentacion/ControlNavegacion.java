@@ -89,6 +89,10 @@ public class ControlNavegacion {
     public void navegarRutinaSemanalAdmin() {
         mostrarPantalla(new RutinaSemanalAdministradorFORM(this));
     }
+    
+    public void navegarBienvenidaAdministrador() {
+        mostrarPantalla(new BienvenidaAdministradorFORM(this,controlRegistroInicioSesion));
+    }
 
     //Dialogs
     public void navegarRegistrarseCliente() {
@@ -112,11 +116,11 @@ public class ControlNavegacion {
     }
 
     public void navegarRegistrarseAdministrador() {
-        mostrarDialogo(new RegistrarseAdministradorFORM(frameActual, true, this));
+        mostrarDialogo(new RegistrarseAdministradorFORM(frameActual, true, this,controlRegistroInicioSesion));
     }
 
     public void navegarIniciarSesionAdministrador() {
-        mostrarDialogo(new IniciarSesionAdministradorFORM(frameActual, true, this));
+        mostrarDialogo(new IniciarSesionAdministradorFORM(frameActual, true, this,controlRegistroInicioSesion));
     }
 
     public void navegarVerNotasCliente() {

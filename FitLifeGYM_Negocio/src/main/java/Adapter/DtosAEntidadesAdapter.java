@@ -4,6 +4,7 @@
  */
 package Adapter;
 
+import DTOS.AdministradorDTO;
 import DTOS.DetallesRutinaDTO;
 import DTOS.EjerciciosSeleccionadosDTO;
 import DTOS.EnfermedadesSeleccionadasDTO;
@@ -18,6 +19,7 @@ import DTOS.UsuarioDTO;
 import DTOsENUMs.EstadoRutinaDTO;
 import DTOsENUMs.NivelCondicionDTO;
 import DTOsENUMs.TipoMembresiaDTO;
+import Entidades.Administrador;
 import Entidades.Cliente;
 import Entidades.DetallesRutina;
 import Entidades.EjerciciosSeleccionados;
@@ -232,5 +234,45 @@ public class DtosAEntidadesAdapter {
                 detallesRutina);
 
         return rutinaSinId;
+    }
+
+    public static Administrador adaptarAdministradorDTO(AdministradorDTO administradorDTO) {
+        if (administradorDTO == null) {
+            return null;
+        }
+
+        if (administradorDTO.getId() != null) {
+            Administrador administradoConId = new Administrador();
+            administradoConId.setId(administradorDTO.getId());
+            administradoConId.setIdUsuario(administradorDTO.getIdUsuario());
+
+            if (administradorDTO.getNombre() != null) {
+                administradoConId.setNombre(administradorDTO.getNombre());
+            }
+
+            if (administradorDTO.getCorreo() != null) {
+                administradoConId.setCorreo(administradorDTO.getCorreo());
+            }
+            if (administradorDTO.getContrasenia() != null) {
+                administradoConId.setContrasenia(administradorDTO.getContrasenia());
+            }
+
+            return administradoConId;
+        }
+
+        Administrador administradorSinId = new Administrador();
+        administradorSinId.setIdUsuario(administradorDTO.getIdUsuario());
+        administradorSinId.setId(null);
+        if (administradorDTO.getNombre() != null) {
+            administradorSinId.setNombre(administradorDTO.getNombre());
+        }
+        if (administradorDTO.getCorreo() != null) {
+            administradorSinId.setCorreo(administradorDTO.getCorreo());
+        }
+        if (administradorDTO.getContrasenia() != null) {
+            administradorSinId.setContrasenia(administradorDTO.getContrasenia());
+        }
+
+        return administradorSinId;
     }
 }

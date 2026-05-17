@@ -6,6 +6,7 @@ package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 
 import DTOS.NuevoClienteDTO;
 import BOs.BOException;
+import DTOS.AdministradorDTO;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.UsuarioDTO;
 import Entidades.Cliente;
@@ -19,6 +20,8 @@ import java.util.List;
 public interface IFuncionalidadRegistrarUsuario {
 
     public abstract NuevoClienteDTO RegistrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioExceptionRegistrar;
+    
+    public abstract AdministradorDTO RegistrarAdministrador(AdministradorDTO administradorDTO, UsuarioDTO usuarioDTO) throws NegocioExceptionRegistrar;
     
     public abstract List<NuevoClienteDTO> obtenerTodosLosClientes() throws NegocioExceptionRegistrar;
     

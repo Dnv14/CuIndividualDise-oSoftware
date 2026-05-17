@@ -5,6 +5,7 @@
 package Fachada;
 
 import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import Entidades.Administrador;
 import Entidades.Cliente;
 import Entidades.Ejercicio;
 import Entidades.Enfermedades;
@@ -163,6 +164,17 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     @Override
     public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException {
         return usuariosDAO.registrarUsuario(usuario);
+    }
+
+    //administrador
+    @Override
+    public Administrador iniciarSesionAdministrador(String correo, String contrasenia) throws PersistenciaException {
+        return administradorDAO.iniciarSesionAdmin(correo, contrasenia);
+    }
+
+    @Override
+    public Administrador registrarAdministrador(Administrador administrador) throws PersistenciaException {
+        return administradorDAO.registrarAdministrador(administrador);
     }
 
 }

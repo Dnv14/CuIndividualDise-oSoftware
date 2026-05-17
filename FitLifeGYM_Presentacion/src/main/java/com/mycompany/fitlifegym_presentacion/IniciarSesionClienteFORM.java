@@ -19,13 +19,13 @@ public class IniciarSesionClienteFORM extends javax.swing.JDialog {
     private static final Logger LOGGER = Logger.getLogger(IniciarSesionClienteFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
-    private ControlRegistroInicioSesion controlForms;
+    private ControlRegistroInicioSesion controlInicioSesionRegistro;
 
-    public IniciarSesionClienteFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms) {
+    public IniciarSesionClienteFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlInicioSesionRegistro) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
 
-        this.controlForms = controlForms;
+        this.controlInicioSesionRegistro = controlInicioSesionRegistro;
         this.setResizable(false);
         this.setTitle("Iniciar Sesión Cliente");
         initComponents();
@@ -197,7 +197,7 @@ public class IniciarSesionClienteFORM extends javax.swing.JDialog {
 
         try {
 
-            NuevoClienteDTO cliente = controlForms.iniciarSesion(correo, contrasenia);
+            NuevoClienteDTO cliente = controlInicioSesionRegistro.iniciarSesionCliente(correo, contrasenia);
 
             if (cliente != null && cliente.getId() != null) {
                 dispose();

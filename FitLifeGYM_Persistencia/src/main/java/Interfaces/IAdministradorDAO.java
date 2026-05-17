@@ -13,5 +13,7 @@ import Excepciones.PersistenciaException;
  */
 public interface IAdministradorDAO {
     
-    public Administrador iniciarSesionAdmin(String correo, String password) throws PersistenciaException;
+    public Administrador iniciarSesionAdmin(String correo, String contrasenia) throws PersistenciaException;
+    
+    public Administrador registrarAdministrador(Administrador administrador) throws PersistenciaException;
 }

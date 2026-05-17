@@ -5,6 +5,7 @@
 package Fachada;
 
 import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import Entidades.Administrador;
 import Entidades.Cliente;
 import Entidades.Ejercicio;
 import Entidades.Enfermedades;
@@ -31,8 +32,8 @@ public interface IPersistenciaFachada {
     public abstract Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException;
 
     public abstract Cliente consultarClientePorId(String id) throws PersistenciaException;
-    
-    public abstract List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO)throws PersistenciaException;
+
+    public abstract List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException;
 
     public abstract List<Cliente> consultarClientes() throws PersistenciaException;
 
@@ -71,4 +72,9 @@ public interface IPersistenciaFachada {
 
     //usuarios
     public abstract Usuario registrarUsuario(Usuario usuario) throws PersistenciaException;
+
+    //administradores
+    public abstract Administrador iniciarSesionAdministrador(String correo, String contrasenia) throws PersistenciaException;
+
+    public abstract Administrador registrarAdministrador(Administrador administrador) throws PersistenciaException;
 }

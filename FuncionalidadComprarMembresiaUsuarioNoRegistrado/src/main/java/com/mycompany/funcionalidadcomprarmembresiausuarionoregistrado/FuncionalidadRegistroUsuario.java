@@ -4,13 +4,16 @@
  */
 package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 
+import BOs.AdministradorBO;
 import DTOS.NuevoClienteDTO;
 import Interfaces.IClientesBO;
 import BOs.BOException;
 import BOs.ClientesBO;
 import BOs.UsuarioBO;
+import DTOS.AdministradorDTO;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.UsuarioDTO;
+import Interfaces.IAdministradorBO;
 
 import Interfaces.IUsuarioBO;
 import java.util.List;
@@ -23,10 +26,12 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
 
     private final IClientesBO clientesBO;
     private final IUsuarioBO usuariosBO;
+    private final IAdministradorBO administradorBO;
 
     public FuncionalidadRegistroUsuario() {
         this.clientesBO = new ClientesBO();
         this.usuariosBO = new UsuarioBO();
+        this.administradorBO = new AdministradorBO();
     }
 
     @Override
@@ -45,7 +50,22 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
         } catch (BOException ex) {
             throw new NegocioExceptionRegistrar("Error al registrar el cliente.", ex);
         }
+    }
 
+    @Override
+    public AdministradorDTO RegistrarAdministrador(AdministradorDTO administradorDTO, UsuarioDTO usuarioDTO) throws NegocioExceptionRegistrar {
+        try {
+            UsuarioDTO usuarioRegistrado = usuariosBO.registrarUsuario(usuarioDTO);
+            administradorDTO.setIdUsuario(usuarioRegistrado.getId());
+
+            AdministradorDTO administradorRegistrado = administradorBO.registrarAdministrador(administradorDTO);
+            System.out.println(administradorRegistrado);
+            System.out.println(administradorDTO);
+
+            return administradorRegistrado;
+        } catch (BOException ex) {
+            throw new NegocioExceptionRegistrar("Error al registrar al administrador.", ex);
+        }
     }
 
     @Override

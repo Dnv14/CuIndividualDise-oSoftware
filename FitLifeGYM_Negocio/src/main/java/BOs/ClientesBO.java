@@ -52,10 +52,7 @@ public class ClientesBO implements IClientesBO {
     @Override
     public NuevoClienteDTO iniciarSesion(NuevoClienteDTO clienteDTO) throws BOException {
         try {
-            Cliente clienteEntidad = persistenciaFachada.iniciarSesionCliente(
-                    clienteDTO.getCorreo(),
-                    clienteDTO.getContrasenia()
-            );
+            Cliente clienteEntidad = persistenciaFachada.iniciarSesionCliente(clienteDTO.getCorreo(),clienteDTO.getContrasenia());
 
             return adaptarClienteInicioSesionEntidad(clienteEntidad);
         } catch (PersistenciaException ex) {

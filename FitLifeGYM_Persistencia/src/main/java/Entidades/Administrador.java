@@ -13,11 +13,17 @@ import org.bson.codecs.pojo.annotations.BsonRepresentation;
  * @author Diego
  */
 public class Administrador {
-    
+
     @BsonId
     @BsonRepresentation(BsonType.OBJECT_ID)
     private String id;
+    @BsonRepresentation(BsonType.OBJECT_ID)
     private String idUsuario;
+
+    //para el inicio de sesion
+    private String nombre;
+    private String correo;
+    private String contrasenia;
 
     public Administrador() {
     }
@@ -33,6 +39,32 @@ public class Administrador {
 
     public String getId() {
         return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+    
+    
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setId(String id) {
@@ -52,5 +84,4 @@ public class Administrador {
         return "Administrador{" + "id=" + id + ", idUsuario=" + idUsuario + '}';
     }
 
-    
 }

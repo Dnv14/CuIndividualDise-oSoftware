@@ -4,6 +4,7 @@
  */
 package com.mycompany.funcionalidadiniciarsesionrenovarmembresia;
 
+import BOs.AdministradorBO;
 import DTOS.LoginDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RenovarMembresiaDTO;
@@ -16,7 +17,9 @@ import BOs.ClientesBO;
 import BOs.LoginBO;
 import BOs.MembresiaBO;
 import BOs.RenovarMembresiaBO;
+import DTOS.AdministradorDTO;
 import DTOS.NuevaMembresiaDTO;
+import Interfaces.IAdministradorBO;
 import Interfaces.IClientesBO;
 import java.util.List;
 
@@ -26,20 +29,20 @@ import java.util.List;
  */
 public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalidadIniciarSesionRenovarMembresia {
 
-    private final ILoginBO loginBO;
+    private final IAdministradorBO administradorBO;
     private final IMembresiaBO membresiaBO;
     private final IRenovarMembresiaBO renovarMembresiaBO;
     private final IClientesBO clientesBO;
 
     public FuncionalidadIniciarSesionRenovarMembresia() {
-        this.loginBO = new LoginBO();
+        this.administradorBO = new AdministradorBO();
         this.membresiaBO = new MembresiaBO();
         this.renovarMembresiaBO = new RenovarMembresiaBO();
         this.clientesBO = new ClientesBO();
     }
 
     @Override
-    public NuevoClienteDTO iniciarSesion(NuevoClienteDTO clienteDTO) throws NegocioExceptionRenovar {
+    public NuevoClienteDTO iniciarSesionCliente(NuevoClienteDTO clienteDTO) throws NegocioExceptionRenovar {
         if (clienteDTO == null) {
             throw new NegocioExceptionRenovar("Los datos de inicio de sesion no pueden ser nulos.");
         }
@@ -54,6 +57,15 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
 
         try {
             return clientesBO.iniciarSesion(clienteDTO);
+        } catch (BOException ex) {
+            throw new NegocioExceptionRenovar("No se pudo procesar el inicio de sesion: " + ex.getMessage());
+        }
+    }
+
+    @Override
+    public AdministradorDTO iniciarSesionAdministrador(AdministradorDTO administradorDTO) throws NegocioExceptionRenovar {
+        try {
+            return administradorBO.iniciarSesionAdministrador(administradorDTO);
         } catch (BOException ex) {
             throw new NegocioExceptionRenovar("No se pudo procesar el inicio de sesion: " + ex.getMessage());
         }

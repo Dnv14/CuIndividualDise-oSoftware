@@ -4,6 +4,14 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import BOs.BOException;
+import DTOS.AdministradorDTO;
+import DTOS.UsuarioDTO;
+import com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado.NegocioExceptionRegistrar;
+import com.mycompany.funcionalidadiniciarsesionrenovarmembresia.NegocioExceptionRenovar;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Diego
@@ -13,9 +21,11 @@ public class RegistrarseAdministradorFORM extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistrarseAdministradorFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
+    private ControlRegistroInicioSesion controlRegistroInicioSesion;
 
-    public RegistrarseAdministradorFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion) {
+    public RegistrarseAdministradorFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlRegistroInicioSesion) {
         super(parent, modal);
+        this.controlRegistroInicioSesion = controlRegistroInicioSesion;
         this.controlNavegacion = controlNavegacion;
         this.setTitle("Registrarse como Administrador");
         initComponents();
@@ -231,8 +241,24 @@ public class RegistrarseAdministradorFORM extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        String nombre = txtNombreCompleto.getText();
+        String apellidos = txtApellidos.getText();
+        String correo = txtCorreoElectronico.getText();
+        String contrasenia = txtContrasenia.getText();
 
+        try {
+            UsuarioDTO nuevoUsuario = new UsuarioDTO(nombre, apellidos, correo, contrasenia);
+            AdministradorDTO administrador = new AdministradorDTO(correo, contrasenia);
 
+            controlRegistroInicioSesion.registrarAdministrador(administrador, nuevoUsuario);
+            JOptionPane.showMessageDialog(this, "Datos personales guardados");
+
+            controlNavegacion.navegarBienvenidaAdministrador();
+            this.dispose();
+
+        } catch (BOException | NegocioExceptionRegistrar | NegocioExceptionRenovar ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed

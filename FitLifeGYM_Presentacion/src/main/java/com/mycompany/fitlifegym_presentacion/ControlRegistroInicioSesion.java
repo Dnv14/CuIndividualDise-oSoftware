@@ -93,6 +93,16 @@ public class ControlRegistroInicioSesion {
         this.membresiaSeleccionada = membresiaCompradaDTO;
     }
 
+    public void registrarAdministrador(AdministradorDTO administradorDTO, UsuarioDTO usuarioDTO) throws BOException, NegocioExceptionRenovar, NegocioExceptionRegistrar {
+
+        this.administradorActual = funcionalidadRegistrarUsuario.RegistrarAdministrador(administradorDTO, usuarioDTO);
+
+        if (this.administradorActual != null) {
+            this.administradorActual.setNombre(usuarioDTO.getNombre());
+            this.administradorActual.setCorreo(usuarioDTO.getCorreo());
+        }
+    }
+
     public void registrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws BOException, NegocioExceptionRenovar, NegocioExceptionRegistrar {
         funcionalidadRegistrarUsuario.validarDatosUsuarioCliente(clienteDTO);
         this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(clienteDTO, usuarioDTO);
@@ -102,7 +112,6 @@ public class ControlRegistroInicioSesion {
             this.clienteActual.setApellidos(usuarioDTO.getApellidos());
             this.clienteActual.setCorreo(usuarioDTO.getCorreo());
         }
-
     }
 
     public void procesarPagoTarjeta(String numeroTarjeta, String cvv, String fechaVencimiento, String nombreTitular) throws BOException, NegocioExceptionRegistrar {
@@ -135,13 +144,22 @@ public class ControlRegistroInicioSesion {
         return funcionalidadRegistrarUsuario.obtenerTodosLosClientes();
     }
 
-    //Modificado
-    public NuevoClienteDTO iniciarSesion(String correo, String contrasenia) throws BOException, NegocioExceptionRenovar {
+    public AdministradorDTO iniciarSesionAdministrador(String correo, String contrasenia) throws BOException, NegocioExceptionRenovar {
+        AdministradorDTO loginDTO = new AdministradorDTO();
+        loginDTO.setCorreo(correo);
+        loginDTO.setContrasenia(contrasenia);
+
+        this.administradorActual = funcionalidadRenovarUsuario.iniciarSesionAdministrador(loginDTO);
+
+        return this.administradorActual;
+    }
+
+    public NuevoClienteDTO iniciarSesionCliente(String correo, String contrasenia) throws BOException, NegocioExceptionRenovar {
         NuevoClienteDTO loginDTO = new NuevoClienteDTO();
         loginDTO.setCorreo(correo);
         loginDTO.setContrasenia(contrasenia);
 
-        this.clienteActual = funcionalidadRenovarUsuario.iniciarSesion(loginDTO);
+        this.clienteActual = funcionalidadRenovarUsuario.iniciarSesionCliente(loginDTO);
 
         return this.clienteActual;
     }
@@ -186,6 +204,10 @@ public class ControlRegistroInicioSesion {
 
     public NuevoClienteDTO getClienteActual() {
         return clienteActual;
+    }
+
+    public AdministradorDTO getAdministradorActual() {
+        return administradorActual;
     }
 
 }
