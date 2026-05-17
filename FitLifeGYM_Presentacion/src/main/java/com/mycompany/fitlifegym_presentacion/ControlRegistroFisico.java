@@ -5,8 +5,12 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
+import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import com.mycompany.funcionalidadregistrofisico.FuncionalidadRegistroFisico;
 import com.mycompany.funcionalidadregistrofisico.IFuncionalidadRegistroFisico;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -20,8 +24,12 @@ public class ControlRegistroFisico {
     private IFuncionalidadRegistroFisico funcionalidadRegistroFisico;
 
     public ControlRegistroFisico(ControlRegistroInicioSesion controlRegistroFisico) {
-        this.controlInicio = controlRegistroFisico;       
+        this.controlInicio = controlRegistroFisico;
         this.clienteLogueado = controlRegistroFisico.getClienteActual();
         this.funcionalidadRegistroFisico = new FuncionalidadRegistroFisico();
+    }
+
+    public List<NuevoClienteDTO> buscarClientesPorFiltro(filtrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.consultarClientesFiltros(filtros);
     }
 }

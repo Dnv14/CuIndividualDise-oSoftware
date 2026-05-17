@@ -4,6 +4,15 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.NuevoClienteDTO;
+import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Diego
@@ -13,12 +22,17 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuscadorClienteFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
+    private ControlRegistroFisico controlRegistroFisico;
 
-    public BuscadorClienteFORM(ControlNavegacion controlNavegacion) {
+    public BuscadorClienteFORM(ControlNavegacion controlNavegacion, ControlRegistroFisico controlRegistroFisico) {
         this.controlNavegacion = controlNavegacion;
+        this.controlRegistroFisico = controlRegistroFisico;
         this.setTitle("Buscador de Clientes");
         initComponents();
         this.setLocationRelativeTo(null);
+        this.diseñoTabla();
+        this.ejecutarBusqueda();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -47,9 +61,13 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Buscador Clientes");
 
+        filtrosComboBox.setBackground(new java.awt.Color(102, 102, 102));
+        filtrosComboBox.setForeground(new java.awt.Color(255, 255, 255));
         filtrosComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SIN_ASIGNAR", "ASIGNADA", "NOMBRE" }));
         filtrosComboBox.addActionListener(this::filtrosComboBoxActionPerformed);
 
+        busquedaTextField.setBackground(new java.awt.Color(102, 102, 102));
+        busquedaTextField.setForeground(new java.awt.Color(255, 255, 255));
         busquedaTextField.addActionListener(this::busquedaTextFieldActionPerformed);
 
         btnBuscar.setBackground(new java.awt.Color(255, 0, 51));
@@ -66,7 +84,7 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Estado Rutina"
+                "ID", "Nombre", "Días Rutinas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -164,7 +182,7 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_busquedaTextFieldActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        ejecutarBusqueda();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void buscadorClientesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscadorClientesTableMouseClicked
@@ -175,6 +193,54 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
         controlNavegacion.navegarMenuAdministrador();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
+    public void mostrarResultados(List<NuevoClienteDTO> clientes) {
+
+        DefaultTableModel modelo = (DefaultTableModel) buscadorClientesTable.getModel();
+        modelo.setRowCount(0);
+        for (NuevoClienteDTO c : clientes) {
+
+            String diasRutina = "Sin asignar";
+
+            modelo.addRow(new Object[]{
+                c.getId(),
+                c.getNombre(),
+                diasRutina
+            });
+        }
+    }
+
+    private void ejecutarBusqueda() {
+        try {
+            String textoBusqueda = busquedaTextField.getText().trim();
+            String filtroSeleccionado = filtrosComboBox.getSelectedItem().toString();
+
+            filtrosBusquedaClientesDTO filtros = new filtrosBusquedaClientesDTO();
+            filtros.setNombreCliente(textoBusqueda);
+            filtros.setEstadoRutina(filtroSeleccionado);
+
+            List<NuevoClienteDTO> listaResultados = controlRegistroFisico.buscarClientesPorFiltro(filtros);
+
+            this.mostrarResultados(listaResultados);
+
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void diseñoTabla() {
+        buscadorClientesTable.setRowHeight(30);
+        buscadorClientesTable.setBackground(new java.awt.Color(30, 30, 30));
+        buscadorClientesTable.setForeground(java.awt.Color.WHITE);
+        buscadorClientesTable.setGridColor(new java.awt.Color(225, 6, 0));
+        buscadorClientesTable.getTableHeader().setBackground(new java.awt.Color(30, 30, 30));
+        buscadorClientesTable.getTableHeader().setForeground(java.awt.Color.WHITE);
+        buscadorClientesTable.getTableHeader().setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 16));
+        DefaultTableCellRenderer renderCentrado = new DefaultTableCellRenderer();
+        renderCentrado.setHorizontalAlignment(JLabel.CENTER);
+        buscadorClientesTable.getColumnModel().getColumn(0).setCellRenderer(renderCentrado);
+        buscadorClientesTable.getColumnModel().getColumn(1).setCellRenderer(renderCentrado);
+        buscadorClientesTable.getColumnModel().getColumn(2).setCellRenderer(renderCentrado);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -183,10 +249,8 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
     private javax.swing.JTextField busquedaTextField;
     private javax.swing.JComboBox<String> filtrosComboBox;
     private javax.swing.JPanel jPanel;
-    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTable tablaDetallesRutina;
     // End of variables declaration//GEN-END:variables
 }

@@ -71,9 +71,9 @@
                   <Component id="btnProgreso" min="-2" pref="158" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="btnCursos" min="-2" pref="158" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="btnNutricion" min="-2" pref="158" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="btnAmbienteMusical" min="-2" pref="158" max="-2" attributes="0"/>
                   <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Component id="btnQuejaSugerencia" min="-2" pref="158" max="-2" attributes="0"/>
@@ -147,6 +147,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextArea" name="textAreaInstalaciones">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="12" green="12" red="12" type="rgb"/>
                 </Property>

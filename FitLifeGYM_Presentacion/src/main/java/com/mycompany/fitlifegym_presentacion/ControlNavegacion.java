@@ -79,7 +79,7 @@ public class ControlNavegacion {
     }
 
     public void navegarBuscadorCliente() {
-        mostrarPantalla(new BuscadorClienteFORM(this));
+        mostrarPantalla(new BuscadorClienteFORM(this,controlRegistroFisico));
     }
 
     public void navegarAdministrarCliente() {
