@@ -18,6 +18,7 @@ public class ControlNavegacion {
     private JFrame frameActual;
     private ControlRegistroInicioSesion controlRegistroInicioSesion;
     private ControlRegistroFisico controlRegistroFisico;
+    private NuevoClienteDTO clienteSeleccionado;
 
     public ControlNavegacion() {
         this.controlRegistroInicioSesion = new ControlRegistroInicioSesion();
@@ -83,7 +84,7 @@ public class ControlNavegacion {
     }
 
     public void navegarAdministrarCliente() {
-        mostrarPantalla(new AdministrarCliente(this));
+        mostrarPantalla(new AdministrarCliente(this,controlRegistroFisico));
     }
 
     public void navegarRutinaSemanalAdmin() {

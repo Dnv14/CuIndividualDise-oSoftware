@@ -32,4 +32,17 @@ public class ControlRegistroFisico {
     public List<NuevoClienteDTO> buscarClientesPorFiltro(filtrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
         return funcionalidadRegistroFisico.consultarClientesFiltros(filtros);
     }
+
+    public void asignarClienteSeleccionado(String id) throws RegistroFisicoException {
+        this.clienteSeleccionado = funcionalidadRegistroFisico.buscarClientePorId(id);
+    }
+
+    public NuevoClienteDTO getClienteSeleccionado() {
+        return clienteSeleccionado;
+    }
+
+    public void limpiarClienteSeleccionado() {
+        this.clienteSeleccionado = null;
+    }
+
 }

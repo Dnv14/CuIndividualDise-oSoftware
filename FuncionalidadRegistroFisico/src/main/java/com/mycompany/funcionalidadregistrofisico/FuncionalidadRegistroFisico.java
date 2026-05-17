@@ -97,4 +97,13 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
         }
     }
 
+    @Override
+    public NuevoClienteDTO buscarClientePorId(String id) throws RegistroFisicoException {
+        try {
+            return clientesBO.buscarClientePorId(id);
+        } catch (BOException ex) {
+            throw new RegistroFisicoException("Error al editar la rutina ", ex);
+        }
+    }
+
 }

@@ -269,6 +269,7 @@ public class RegistroFisico extends javax.swing.JFrame {
         DefaultTableCellRenderer renderEnfermedades = new DefaultTableCellRenderer();
         renderEnfermedades.setHorizontalAlignment(JLabel.CENTER);
         enfermedadesTable.getColumnModel().getColumn(0).setCellRenderer(renderEnfermedades);
+        jScrollPane.getViewport().setBackground(new java.awt.Color(30, 30, 30));
 
         limitacionesFisicasTable.setRowHeight(40);
         limitacionesFisicasTable.setBackground(new java.awt.Color(30, 30, 30));
@@ -282,6 +283,7 @@ public class RegistroFisico extends javax.swing.JFrame {
         DefaultTableCellRenderer renderLimitaciones = new DefaultTableCellRenderer();
         renderLimitaciones.setHorizontalAlignment(JLabel.CENTER);
         limitacionesFisicasTable.getColumnModel().getColumn(0).setCellRenderer(renderLimitaciones);
+        jScrollPane2.getViewport().setBackground(new java.awt.Color(30, 30, 30));
 
     }
 

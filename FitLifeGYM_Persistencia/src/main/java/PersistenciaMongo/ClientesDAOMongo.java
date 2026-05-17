@@ -27,6 +27,7 @@ import static com.mongodb.client.model.Filters.gt;
 import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Projections.computed;
 import static com.mongodb.client.model.Projections.fields;
+import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Updates.set;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -125,7 +126,18 @@ public class ClientesDAOMongo implements IClientesDAO {
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<Cliente> coleccionClientes = db.getCollection(NOMBRE_COLECCION, Cliente.class);
 
-            Cliente cliente = coleccionClientes.find(eq("_id", new ObjectId(_id))).first();
+            List<Bson> pipeline = new LinkedList<>();
+
+            pipeline.add(match(eq("_id", new ObjectId(_id))));
+            pipeline.add(lookup("usuarios", "idUsuario", "_id", "datosUsuario"));
+            pipeline.add(unwind("$datosUsuario"));
+            pipeline.add(project(fields(computed("idCliente", "$_id"),
+                    include("idUsuario", "telefono", "fechaNacimiento"),
+                    computed("nombre", "$datosUsuario.nombre"),
+                    computed("apellidos", "$datosUsuario.apellidos"),
+                    computed("correoElectronico", "$datosUsuario.correoElectronico"))));
+
+            Cliente cliente = coleccionClientes.aggregate(pipeline).first();
 
             return cliente;
         } catch (MongoException ex) {

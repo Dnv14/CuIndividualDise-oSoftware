@@ -186,7 +186,14 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void buscadorClientesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscadorClientesTableMouseClicked
-        // TODO add your handling code here:
+        int fila = buscadorClientesTable.getSelectedRow();
+        String idCliente = (String) buscadorClientesTable.getValueAt(fila, 0);
+        try {
+            controlRegistroFisico.asignarClienteSeleccionado(idCliente);
+            controlNavegacion.navegarAdministrarCliente();
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_buscadorClientesTableMouseClicked
 
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
@@ -240,6 +247,7 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
         buscadorClientesTable.getColumnModel().getColumn(0).setCellRenderer(renderCentrado);
         buscadorClientesTable.getColumnModel().getColumn(1).setCellRenderer(renderCentrado);
         buscadorClientesTable.getColumnModel().getColumn(2).setCellRenderer(renderCentrado);
+        jScrollPane1.getViewport().setBackground(new java.awt.Color(30, 30, 30));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

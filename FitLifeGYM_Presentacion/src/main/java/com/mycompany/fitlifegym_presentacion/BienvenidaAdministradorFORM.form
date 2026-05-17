@@ -159,7 +159,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="&#xa1;Bienvenido a Fit Life GYM!&#xa;Administrar un &#xe1;rea del gimnasio!!."/>
+                <Property name="text" type="java.lang.String" value="&#xa1;Bienvenido a Fit Life GYM!&#xa;Empieza a administrar un &#xe1;rea del gimnasio!!."/>
               </Properties>
             </Component>
           </SubComponents>

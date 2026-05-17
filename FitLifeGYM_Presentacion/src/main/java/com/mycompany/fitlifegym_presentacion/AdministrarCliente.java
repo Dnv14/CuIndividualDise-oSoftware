@@ -4,6 +4,8 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.NuevoClienteDTO;
+
 /**
  *
  * @author Diego
@@ -13,11 +15,17 @@ public class AdministrarCliente extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdministrarCliente.class.getName());
 
     private ControlNavegacion controlNavegacion;
+    private NuevoClienteDTO clienteSeleccionado;
+    private ControlRegistroFisico controlRegistroFisico;
 
-    public AdministrarCliente(ControlNavegacion controlNavegacion) {
+    public AdministrarCliente(ControlNavegacion controlNavegacion, ControlRegistroFisico controlRegistroFisico) {
+        this.controlRegistroFisico = controlRegistroFisico;
         this.controlNavegacion = controlNavegacion;
+        this.clienteSeleccionado = this.controlRegistroFisico.getClienteSeleccionado();
+        this.setTitle("Administrar a Cliente");
         initComponents();
         this.setLocationRelativeTo(null);
+        clienteNombreLabel();
     }
 
     @SuppressWarnings("unchecked")
@@ -26,7 +34,7 @@ public class AdministrarCliente extends javax.swing.JFrame {
 
         jPanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        lblNombreCLiente = new javax.swing.JLabel();
+        lblNombreCliente = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         lblAdministrarRutina = new javax.swing.JLabel();
         btnSeleccionarAdministrarRutina = new javax.swing.JButton();
@@ -57,11 +65,11 @@ public class AdministrarCliente extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(225, 6, 0));
         jPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 1080, 10));
 
-        lblNombreCLiente.setBackground(new java.awt.Color(255, 255, 255));
-        lblNombreCLiente.setFont(new java.awt.Font("Arial", 3, 48)); // NOI18N
-        lblNombreCLiente.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombreCLiente.setText("Nombre Cliente......");
-        jPanel.add(lblNombreCLiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 730, -1));
+        lblNombreCliente.setBackground(new java.awt.Color(255, 255, 255));
+        lblNombreCliente.setFont(new java.awt.Font("Arial", 3, 48)); // NOI18N
+        lblNombreCliente.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreCliente.setText("Nombre Cliente......");
+        jPanel.add(lblNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 730, -1));
 
         jSeparator5.setBackground(new java.awt.Color(225, 6, 0));
         jSeparator5.setForeground(new java.awt.Color(225, 6, 0));
@@ -196,7 +204,7 @@ public class AdministrarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarAdministrarRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarAdministrarRutinaActionPerformed
-        controlNavegacion.navegarRegistrarseAdministrador();
+        controlNavegacion.navegarRutinaSemanalAdmin();
     }//GEN-LAST:event_btnSeleccionarAdministrarRutinaActionPerformed
 
     private void btnRegistroFisicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroFisicoActionPerformed
@@ -208,9 +216,13 @@ public class AdministrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
-
+        controlRegistroFisico.limpiarClienteSeleccionado();
+        controlNavegacion.navegarBuscadorCliente();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
+    public void clienteNombreLabel() {
+        lblNombreCliente.setText(clienteSeleccionado.getNombre() + clienteSeleccionado.getApellidos());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistroFisico;
@@ -232,7 +244,7 @@ public class AdministrarCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel lblAdministrarRutina;
-    private javax.swing.JLabel lblNombreCLiente;
+    private javax.swing.JLabel lblNombreCliente;
     private javax.swing.JLabel lblRegistroFisico;
     private javax.swing.JLabel lblReportes;
     private javax.swing.JLabel lblTitulo1;

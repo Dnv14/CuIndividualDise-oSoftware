@@ -65,7 +65,7 @@ public class BienvenidaAdministradorFORM extends javax.swing.JFrame {
         textAreaInstalaciones.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         textAreaInstalaciones.setForeground(new java.awt.Color(255, 255, 255));
         textAreaInstalaciones.setRows(5);
-        textAreaInstalaciones.setText("¡Bienvenido a Fit Life GYM!\nAdministrar un área del gimnasio!!.");
+        textAreaInstalaciones.setText("¡Bienvenido a Fit Life GYM!\nEmpieza a administrar un área del gimnasio!!.");
         jScrollPane5.setViewportView(textAreaInstalaciones);
 
         btnCursos.setBackground(new java.awt.Color(44, 44, 44));

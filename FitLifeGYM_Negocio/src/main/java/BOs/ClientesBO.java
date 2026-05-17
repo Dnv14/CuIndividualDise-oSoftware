@@ -52,7 +52,7 @@ public class ClientesBO implements IClientesBO {
     @Override
     public NuevoClienteDTO iniciarSesion(NuevoClienteDTO clienteDTO) throws BOException {
         try {
-            Cliente clienteEntidad = persistenciaFachada.iniciarSesionCliente(clienteDTO.getCorreo(),clienteDTO.getContrasenia());
+            Cliente clienteEntidad = persistenciaFachada.iniciarSesionCliente(clienteDTO.getCorreo(), clienteDTO.getContrasenia());
 
             return adaptarClienteInicioSesionEntidad(clienteEntidad);
         } catch (PersistenciaException ex) {
@@ -92,7 +92,7 @@ public class ClientesBO implements IClientesBO {
 
         try {
             Cliente clienteConsultado = persistenciaFachada.consultarClientePorId(id);
-            return adaptarClienteEntidad(clienteConsultado);
+            return adaptarClienteInicioSesionEntidad(clienteConsultado);
 
         } catch (PersistenciaException ex) {
             throw new BOException("Error al consultar los cliente", ex);

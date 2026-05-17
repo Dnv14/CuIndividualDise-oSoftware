@@ -34,7 +34,6 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         DiasSemanaTable = new javax.swing.JTable();
-        btnGuardarRutinaSemanal = new javax.swing.JButton();
         btnVolverAtras3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,6 +48,8 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Rutina Semanal");
 
+        jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setPreferredSize(new java.awt.Dimension(703, 573));
 
         DiasSemanaTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -81,13 +82,6 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
         });
         jScrollPane.setViewportView(DiasSemanaTable);
 
-        btnGuardarRutinaSemanal.setBackground(new java.awt.Color(255, 0, 51));
-        btnGuardarRutinaSemanal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnGuardarRutinaSemanal.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarRutinaSemanal.setText("Guardar Rutina Semanal");
-        btnGuardarRutinaSemanal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnGuardarRutinaSemanal.addActionListener(this::btnGuardarRutinaSemanalActionPerformed);
-
         btnVolverAtras3.setBackground(new java.awt.Color(255, 0, 51));
         btnVolverAtras3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btnVolverAtras3.setForeground(new java.awt.Color(255, 255, 255));
@@ -102,10 +96,6 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGuardarRutinaSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addGap(0, 78, Short.MAX_VALUE)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,9 +118,7 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(btnGuardarRutinaSemanal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,12 +147,8 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_DiasSemanaTableMouseClicked
 
-    private void btnGuardarRutinaSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRutinaSemanalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarRutinaSemanalActionPerformed
-
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
-
+        controlNavegacion.navegarAdministrarCliente();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
     private void diseñoTabla() {
@@ -178,11 +162,11 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
         DiasSemanaTable.setBackground(new java.awt.Color(30, 30, 30));
         DiasSemanaTable.setForeground(java.awt.Color.WHITE);
         DiasSemanaTable.setGridColor(new java.awt.Color(225, 6, 0));
+        jScrollPane.getViewport().setBackground(new java.awt.Color(30, 30, 30));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable DiasSemanaTable;
-    private javax.swing.JButton btnGuardarRutinaSemanal;
     private javax.swing.JButton btnVolverAtras3;
     private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane;

@@ -4,7 +4,6 @@
  */
 package com.mycompany.funcionalidadregistrofisico;
 
-import DTOS.DetallesRutinaDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import DTOS.RutinaDTO;
@@ -33,5 +32,7 @@ public interface IFuncionalidadRegistroFisico {
     public abstract void eliminarRutina(String idCliente, String diaSemana) throws RegistroFisicoException;
 
     public abstract RutinaDTO editarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException;
+    
+    public abstract NuevoClienteDTO buscarClientePorId(String id) throws RegistroFisicoException;
 
 }
