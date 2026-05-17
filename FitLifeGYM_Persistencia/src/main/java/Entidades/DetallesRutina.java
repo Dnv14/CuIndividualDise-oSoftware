@@ -11,28 +11,40 @@ import java.util.List;
  * @author MrGam
  */
 public class DetallesRutina {
+
     private String id;
     private List<EjerciciosSeleccionados> ejerciciosSeleccionados;
     private Integer pesoRecomendado;
     private Integer repeticionesRecomendadas;
     private Integer seriesRecomendadas;
+    private String notas;
 
-    public DetallesRutina() {   
+    public DetallesRutina() {
     }
 
-    public DetallesRutina(String id, List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+    public DetallesRutina(String id, List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas, String notas) {
         this.id = id;
         this.ejerciciosSeleccionados = ejercicios;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
+        this.notas = notas;
     }
 
-    public DetallesRutina(List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+    public DetallesRutina(List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas, String notas) {
         this.ejerciciosSeleccionados = ejercicios;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
+        this.notas = notas;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
     }
 
     public String getId() {
@@ -75,12 +87,9 @@ public class DetallesRutina {
         this.seriesRecomendadas = seriesRecomendadas;
     }
 
-    
-
     @Override
     public String toString() {
         return "DetallesRutina{" + "id=" + id + ", ejercicios=" + ejerciciosSeleccionados + ", pesoRecomendado=" + pesoRecomendado + ", repeticionesRecomendadas=" + repeticionesRecomendadas + ", seriesRecomendadas=" + seriesRecomendadas + '}';
     }
 
-    
 }

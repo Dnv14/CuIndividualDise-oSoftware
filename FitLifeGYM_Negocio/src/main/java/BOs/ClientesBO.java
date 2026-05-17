@@ -12,6 +12,7 @@ import static Adapter.EntidadesADTOsAdapter.adaptarClienteInicioSesionEntidad;
 import static Adapter.EntidadesADTOsAdapter.adaptarMembresiaCompradaEntidad;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevoClienteDTO;
+import DTOsPersistencia.filtrosBusquedaClientesDTO;
 
 import Excepciones.PersistenciaException;
 import Entidades.Cliente;
@@ -21,6 +22,7 @@ import Fachada.PersistenciaFachada;
 import java.util.LinkedList;
 
 import java.util.List;
+import org.bson.Document;
 
 /**
  *
@@ -58,6 +60,30 @@ public class ClientesBO implements IClientesBO {
             return adaptarClienteInicioSesionEntidad(clienteEntidad);
         } catch (PersistenciaException ex) {
             throw new BOException("Error al registrar el cliente", ex);
+        }
+    }
+
+    @Override
+    public List<NuevoClienteDTO> filtrosBarraBusquedaCliente(filtrosBusquedaClientesDTO filtrosDTO) throws BOException {
+        try {
+            List<Document> documentos = persistenciaFachada.barraBusquedaConsultarClientes(filtrosDTO);
+
+            List<NuevoClienteDTO> listaClientesDTO = new LinkedList<>();
+
+            for (Document d : documentos) {
+                NuevoClienteDTO clienteDTO = new NuevoClienteDTO();
+
+                if (d.getObjectId("idCliente") != null) {
+                    clienteDTO.setId(d.getObjectId("idCliente").toHexString());
+                }
+                clienteDTO.setNombre(d.getString("nombreCompleto"));
+                clienteDTO.setDiasRutina(d.getInteger("diasRutina", 0));
+                listaClientesDTO.add(clienteDTO);
+            }
+
+            return listaClientesDTO;
+        } catch (PersistenciaException ex) {
+            throw new BOException("Error al consultar los clientes", ex);
         }
     }
 

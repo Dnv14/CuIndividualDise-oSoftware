@@ -12,6 +12,10 @@ import Interfaces.ILoginBO;
 import Interfaces.IMembresiaBO;
 import Interfaces.IRenovarMembresiaBO;
 import BOs.BOException;
+import BOs.ClientesBO;
+import BOs.LoginBO;
+import BOs.MembresiaBO;
+import BOs.RenovarMembresiaBO;
 import DTOS.NuevaMembresiaDTO;
 import Interfaces.IClientesBO;
 import java.util.List;
@@ -27,11 +31,11 @@ public class FuncionalidadIniciarSesionRenovarMembresia implements IFuncionalida
     private final IRenovarMembresiaBO renovarMembresiaBO;
     private final IClientesBO clientesBO;
 
-    public FuncionalidadIniciarSesionRenovarMembresia(ILoginBO loginBO, IMembresiaBO membresiaBO, IRenovarMembresiaBO renovarMembresiaBO, IClientesBO clientesBO) {
-        this.loginBO = loginBO;
-        this.membresiaBO = membresiaBO;
-        this.renovarMembresiaBO = renovarMembresiaBO;
-        this.clientesBO = clientesBO;
+    public FuncionalidadIniciarSesionRenovarMembresia() {
+        this.loginBO = new LoginBO();
+        this.membresiaBO = new MembresiaBO();
+        this.renovarMembresiaBO = new RenovarMembresiaBO();
+        this.clientesBO = new ClientesBO();
     }
 
     @Override

@@ -18,10 +18,14 @@ public class NuevoClienteDTO {
     private LocalDate fechaNacimiento;
     private NuevaMembresiaCompradaDTO membresíaComprada;
 
+    //se utiliza para el inicio de sesion
     private String nombre;
     private String apellidos;
     private String correo;
     private String contrasenia;
+
+    //tabla de busqueda de clientes
+    private Integer diasRutina;
 
     public NuevoClienteDTO() {
     }
@@ -120,6 +124,14 @@ public class NuevoClienteDTO {
 
     public void setMembresíaComprada(NuevaMembresiaCompradaDTO membresíaComprada) {
         this.membresíaComprada = membresíaComprada;
+    }
+
+    public Integer getDiasRutina() {
+        return diasRutina;
+    }
+
+    public void setDiasRutina(Integer diasRutina) {
+        this.diasRutina = diasRutina;
     }
 
     @Override

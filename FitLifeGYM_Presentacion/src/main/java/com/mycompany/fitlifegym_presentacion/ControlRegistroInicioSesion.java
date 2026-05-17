@@ -54,14 +54,9 @@ public class ControlRegistroInicioSesion {
     private IFuncionalidadIniciarSesionRenovarMembresia funcionalidadRenovarUsuario;
 
     public ControlRegistroInicioSesion() {
-        IClientesBO clientesBO = new ClientesBO();
-        IUsuarioBO usuariosBO = new UsuarioBO();
-        IMembresiaBO membresiaBO = new MembresiaBO();
-        ILoginBO loginBO = new LoginBO();
-        IRenovarMembresiaBO renovarBO = new RenovarMembresiaBO();
 
-        this.funcionalidadRegistrarUsuario = new FuncionalidadRegistroUsuario(clientesBO, usuariosBO);
-        this.funcionalidadRenovarUsuario = new FuncionalidadIniciarSesionRenovarMembresia(loginBO, membresiaBO, renovarBO, clientesBO);
+        this.funcionalidadRegistrarUsuario = new FuncionalidadRegistroUsuario();
+        this.funcionalidadRenovarUsuario = new FuncionalidadIniciarSesionRenovarMembresia();
     }
 
     //control

@@ -17,9 +17,11 @@ public class ControlNavegacion {
 
     private JFrame frameActual;
     private ControlRegistroInicioSesion controlRegistroInicioSesion;
+    private ControlRegistroFisico controlRegistroFisico;
 
-    public ControlNavegacion(ControlRegistroInicioSesion controlRegistroInicioSesion) {
-        this.controlRegistroInicioSesion = controlRegistroInicioSesion;
+    public ControlNavegacion() {
+        this.controlRegistroInicioSesion = new ControlRegistroInicioSesion();
+        this.controlRegistroFisico = new ControlRegistroFisico(this.controlRegistroInicioSesion);
     }
 
     private void mostrarPantalla(JFrame nuevoFrame) {
@@ -124,7 +126,7 @@ public class ControlNavegacion {
     public void navegarConsultarRegistroFisico() {
         mostrarDialogo(new ConsultarRegistroFisicoFORM(frameActual, true, this));
     }
-    
+
     public void navegarAgregarNotasAdmin() {
         mostrarDialogo(new AgregarNotasAdministradorFORM(frameActual, true, this));
     }

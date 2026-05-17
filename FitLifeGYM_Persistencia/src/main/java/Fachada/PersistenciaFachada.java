@@ -4,6 +4,7 @@
  */
 package Fachada;
 
+import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import Entidades.Cliente;
 import Entidades.Ejercicio;
 import Entidades.Enfermedades;
@@ -28,6 +29,7 @@ import Interfaces.IRegistroFisicoDAO;
 import Interfaces.IRutinasDAO;
 import Interfaces.IUsuariosDAO;
 import java.util.List;
+import org.bson.Document;
 
 /**
  *
@@ -64,10 +66,16 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     public Cliente registrarCliente(Cliente cliente) throws PersistenciaException {
         return clientesDAO.registrarCliente(cliente);
     }
-    
+
     @Override
     public Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException {
         return clientesDAO.iniciarSesionCliente(correo, contrasenia);
+    }
+    
+    
+    @Override
+    public List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
+        return clientesDAO.barraBusquedaConsultarClientes(filtrosDTO);
     }
 
     @Override
@@ -156,7 +164,5 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     public Usuario registrarUsuario(Usuario usuario) throws PersistenciaException {
         return usuariosDAO.registrarUsuario(usuario);
     }
-
-    
 
 }

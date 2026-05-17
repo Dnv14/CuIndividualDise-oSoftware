@@ -17,11 +17,11 @@ import Interfaces.IRegistroFisicoBO;
  *
  * @author Diego
  */
-public class IRegistroFisico implements IRegistroFisicoBO {
+public class RegistroFisicoBO implements IRegistroFisicoBO {
 
     private IPersistenciaFachada persistenciaFachada;
 
-    public IRegistroFisico() {
+    public RegistroFisicoBO() {
         this.persistenciaFachada = new PersistenciaFachada();
     }
 

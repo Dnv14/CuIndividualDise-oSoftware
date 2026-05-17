@@ -4,10 +4,24 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.NuevoClienteDTO;
+import com.mycompany.funcionalidadregistrofisico.FuncionalidadRegistroFisico;
+import com.mycompany.funcionalidadregistrofisico.IFuncionalidadRegistroFisico;
+
 /**
  *
  * @author Diego
  */
 public class ControlRegistroFisico {
-    
+
+    private NuevoClienteDTO clienteLogueado;
+    private NuevoClienteDTO clienteSeleccionado;
+    private ControlRegistroInicioSesion controlInicio;
+    private IFuncionalidadRegistroFisico funcionalidadRegistroFisico;
+
+    public ControlRegistroFisico(ControlRegistroInicioSesion controlRegistroFisico) {
+        this.controlInicio = controlRegistroFisico;       
+        this.clienteLogueado = controlRegistroFisico.getClienteActual();
+        this.funcionalidadRegistroFisico = new FuncionalidadRegistroFisico();
+    }
 }

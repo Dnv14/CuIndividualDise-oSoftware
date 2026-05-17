@@ -213,6 +213,7 @@ public class DtosAEntidadesAdapter {
                 detalleRutina.setPesoRecomendado(dt.getPesoRecomendado());
                 detalleRutina.setRepeticionesRecomendadas(dt.getRepeticionesRecomendadas());
                 detalleRutina.setSeriesRecomendadas(dt.getSeriesRecomendadas());
+                detalleRutina.setNotas(dt.getNotas());
                 detallesRutina.add(detalleRutina);
             }
         }

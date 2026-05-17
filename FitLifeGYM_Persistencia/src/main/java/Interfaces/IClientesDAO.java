@@ -1,10 +1,12 @@
 package Interfaces;
 
+import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import Entidades.Cliente;
 import Entidades.MembresiaComprada;
 import Entidades.TipoMembresia;
 import Excepciones.PersistenciaException;
 import java.util.List;
+import org.bson.Document;
 
 /**
  *
@@ -19,7 +21,10 @@ public interface IClientesDAO {
     public abstract Cliente consultarClientePorId(String id) throws PersistenciaException;
 
     public abstract List<Cliente> consultarClientes() throws PersistenciaException;
+    
+    public abstract List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO)throws PersistenciaException;
 
+   
     public abstract Cliente buscarPorPin(String pin) throws PersistenciaException;
 
     public abstract void actualizarMembresia(String idCliente, TipoMembresia nuevaMembresia) throws PersistenciaException;

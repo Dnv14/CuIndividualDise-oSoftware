@@ -50,7 +50,7 @@ public class RutinasDAOMongo implements IRutinasDAO {
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<Rutina> coleccionRutinas = db.getCollection(NOMBRE_COLECCION, Rutina.class);
 
-            coleccionRutinas.updateOne(and(eq("idCliente", idCliente), eq("diaSemana", diaSemana)), combine(set("detallesRutina", new ArrayList<DetallesRutina>()), set("estadoRutina", EstadoRutina.SIN_ASIGNAR)));
+            coleccionRutinas.deleteOne(and(eq("idCliente", new ObjectId(idCliente)), eq("diaSemana", diaSemana)));
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al eliminar la rutina ");
         }
@@ -69,7 +69,9 @@ public class RutinasDAOMongo implements IRutinasDAO {
             throw new PersistenciaException("Error al editar la rutina");
         }
     }
-
+    
+    
+    //cliente
     @Override
     public Rutina consultarRutina(String idCliente, String diaSemana) throws PersistenciaException {
         try (MongoClient client = CreadorConexiones.crearConexion()) {

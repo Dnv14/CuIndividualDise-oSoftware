@@ -7,6 +7,8 @@ package com.mycompany.funcionalidadcomprarmembresiausuarionoregistrado;
 import DTOS.NuevoClienteDTO;
 import Interfaces.IClientesBO;
 import BOs.BOException;
+import BOs.ClientesBO;
+import BOs.UsuarioBO;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.UsuarioDTO;
 
@@ -22,9 +24,9 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
     private final IClientesBO clientesBO;
     private final IUsuarioBO usuariosBO;
 
-    public FuncionalidadRegistroUsuario(IClientesBO clientesBO, IUsuarioBO usuariosBO) {
-        this.clientesBO = clientesBO;
-        this.usuariosBO = usuariosBO;
+    public FuncionalidadRegistroUsuario() {
+        this.clientesBO = new ClientesBO();
+        this.usuariosBO = new UsuarioBO();
     }
 
     @Override

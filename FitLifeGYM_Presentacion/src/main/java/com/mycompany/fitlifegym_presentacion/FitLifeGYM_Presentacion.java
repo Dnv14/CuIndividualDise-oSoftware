@@ -10,8 +10,8 @@ package com.mycompany.fitlifegym_presentacion;
 public class FitLifeGYM_Presentacion {
 
     public static void main(String[] args) {
-        ControlRegistroInicioSesion controlRegistroInicioSesion = new ControlRegistroInicioSesion();
-        ControlNavegacion controlNavegacion = new ControlNavegacion(controlRegistroInicioSesion);
+
+        ControlNavegacion controlNavegacion = new ControlNavegacion();
 
         controlNavegacion.navegarMenuPrincipal();
     }

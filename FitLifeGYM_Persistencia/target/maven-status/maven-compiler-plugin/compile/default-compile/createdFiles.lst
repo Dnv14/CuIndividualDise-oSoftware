@@ -21,6 +21,7 @@ Entidades\Rutina.class
 Entidades\Ejercicio.class
 Entidades\LesionesSeleccionadas.class
 Entidades\DetallesRutina.class
+DTOsPersistencia\filtrosBusquedaClientesDTO.class
 Interfaces\IClientesDAO.class
 Interfaces\IEjerciciosDAO.class
 PersistenciaMongo\ClientesDAOMongo.class

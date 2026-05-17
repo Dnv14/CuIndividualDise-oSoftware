@@ -14,6 +14,8 @@ public class Cliente {
     @BsonId
     @BsonRepresentation(BsonType.OBJECT_ID)
     private String id;
+
+    @BsonRepresentation(BsonType.OBJECT_ID)
     private String idUsuario;
     private String telefono;
     private LocalDate fechaNacimiento;
@@ -50,8 +52,6 @@ public class Cliente {
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-    
-    
 
     public String getNombre() {
         return nombre;

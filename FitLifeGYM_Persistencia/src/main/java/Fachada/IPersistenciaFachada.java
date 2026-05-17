@@ -4,6 +4,7 @@
  */
 package Fachada;
 
+import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import Entidades.Cliente;
 import Entidades.Ejercicio;
 import Entidades.Enfermedades;
@@ -16,6 +17,7 @@ import Entidades.TipoMembresia;
 import Entidades.Usuario;
 import Excepciones.PersistenciaException;
 import java.util.List;
+import org.bson.Document;
 
 /**
  *
@@ -29,6 +31,8 @@ public interface IPersistenciaFachada {
     public abstract Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException;
 
     public abstract Cliente consultarClientePorId(String id) throws PersistenciaException;
+    
+    public abstract List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO)throws PersistenciaException;
 
     public abstract List<Cliente> consultarClientes() throws PersistenciaException;
 

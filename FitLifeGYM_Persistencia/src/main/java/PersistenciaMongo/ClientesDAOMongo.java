@@ -4,6 +4,7 @@
  */
 package PersistenciaMongo;
 
+import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import Entidades.Cliente;
 import Entidades.Estado;
 import Entidades.Membresia;
@@ -16,18 +17,21 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Aggregates;
+import static com.mongodb.client.model.Aggregates.lookup;
+import static com.mongodb.client.model.Aggregates.match;
+import static com.mongodb.client.model.Aggregates.project;
+import static com.mongodb.client.model.Aggregates.unwind;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import com.mongodb.client.model.Projections;
+import static com.mongodb.client.model.Filters.gt;
+import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Projections.computed;
 import static com.mongodb.client.model.Projections.fields;
-import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Updates.set;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
@@ -61,6 +65,33 @@ public class ClientesDAOMongo implements IClientesDAO {
 
     @Override
     public Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException {
+//        try (MongoClient client = CreadorConexiones.crearConexion()) {
+//            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
+//
+//            MongoCollection<Usuario> coleccionUsuarios = db.getCollection("usuarios", Usuario.class);
+//            Usuario usuario = coleccionUsuarios.find(and(eq("correo", correo), eq("contrasenia", contrasenia))).first();
+//
+//            if (usuario == null) {
+//                return null;
+//            }
+//
+//            MongoCollection<Cliente> coleccionClientes = db.getCollection("clientes", Cliente.class);
+//            Cliente cliente = coleccionClientes.find(eq("idUsuario", usuario.getId())).first();
+//
+//            if (cliente != null) {
+//                cliente.setNombre(usuario.getNombre());
+//                cliente.setApellidos(usuario.getApellidos());
+//                cliente.setCorreo(usuario.getCorreo());
+//                cliente.setIdUsuario(usuario.getId());
+//                return cliente;
+//            }
+//
+//            return null;
+//
+//        } catch (MongoException ex) {
+//            throw new PersistenciaException("Error al iniciar sesión");
+//        }
+
         try (MongoClient client = CreadorConexiones.crearConexion()) {
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
 
@@ -72,7 +103,7 @@ public class ClientesDAOMongo implements IClientesDAO {
             }
 
             MongoCollection<Cliente> coleccionClientes = db.getCollection("clientes", Cliente.class);
-            Cliente cliente = coleccionClientes.find(eq("idUsuario", usuario.getId())).first();
+            Cliente cliente = coleccionClientes.find(eq("idUsuario", new ObjectId(usuario.getId()))).first();
 
             if (cliente != null) {
                 cliente.setNombre(usuario.getNombre());
@@ -81,37 +112,10 @@ public class ClientesDAOMongo implements IClientesDAO {
                 cliente.setIdUsuario(usuario.getId());
                 return cliente;
             }
-
             return null;
-
         } catch (MongoException ex) {
-            throw new PersistenciaException("Error al iniciar sesión" );
+            throw new PersistenciaException("Error al iniciar sesión");
         }
-
-//        try (MongoClient client = CreadorConexiones.crearConexion()) {
-//            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
-//
-//            MongoCollection<Cliente> coleccionUsuarios = db.getCollection("usuarios", Cliente.class);
-//
-//            Bson matcher = Aggregates.match(and(eq("correo", correo), eq("contrasenia", contrasenia)));
-//
-//            Bson lookup = Aggregates.lookup("clientes", "_id", "idUsuario", "datosCliente");
-//            Bson unwind = Aggregates.unwind("$datosCliente");
-//
-//            Bson project = Aggregates.project(fields(
-//                    include("nombre", "apellidos", "correo"),
-//                    computed("idUsuario", "$_id"),
-//                    computed("id", "$datosCliente._id"),
-//                    computed("telefono", "$datosCliente.telefono"),
-//                    computed("membresiaComprada", "$datosCliente.membresiaComprada")
-//            ));
-//            List<Bson> consultaAvanzada = Arrays.asList(matcher, lookup, unwind, project);
-//
-//            return coleccionUsuarios.aggregate(consultaAvanzada).first();
-//
-//        } catch (MongoException ex) {
-//            throw new PersistenciaException("Error al iniciar sesión");
-//        }
     }
 
     @Override
@@ -216,6 +220,54 @@ public class ClientesDAOMongo implements IClientesDAO {
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al anidar membresía");
 
+        }
+    }
+
+    @Override
+    public List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
+        try (MongoClient client = CreadorConexiones.crearConexion()) {
+
+            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
+            MongoCollection<Document> coleccionClientes = db.getCollection("clientes", Document.class);
+
+            List<Bson> pipeline = new LinkedList<>();
+            pipeline.add(lookup("usuarios", "idUsuario", "_id", "datosUsuario"));
+            pipeline.add(unwind("$datosUsuario"));
+
+            pipeline.add(lookup("rutinas", "_id", "idCliente", "datosRutina"));
+
+            pipeline.add(project(fields(
+                    computed("idCliente", "$_id"),
+                    computed("nombreCompleto", new Document("$concat", List.of("$datosUsuario.nombre", " ", "$datosUsuario.apellidos"))),
+                    computed("diasRutina", new Document("$size", "$datosRutina"))
+            )));
+
+            List<Bson> filtros = new LinkedList<>();
+
+            if (filtrosDTO.getNombreCliente() != null && !filtrosDTO.getNombreCliente().trim().isEmpty()) {
+                filtros.add(regex("nombreCompleto", filtrosDTO.getNombreCliente(), "i"));
+            }
+
+            if (filtrosDTO.getEstadoRutina() != null) {
+                if (filtrosDTO.getEstadoRutina().equals("ASIGNADA")) {
+                    filtros.add(gt("diasRutina", 0));
+                } else if (filtrosDTO.getEstadoRutina().equals("SIN_ASIGNAR")) {
+                    filtros.add(eq("diasRutina", 0));
+                }
+            }
+            if (!filtros.isEmpty()) {
+                pipeline.add(match(and(filtros)));
+            }
+
+            List<Document> resultadoDocs = new LinkedList<>();
+            for (Document document : coleccionClientes.aggregate(pipeline)) {
+                resultadoDocs.add(document);
+            }
+
+            return resultadoDocs;
+
+        } catch (Exception ex) {
+            throw new PersistenciaException("Error en consultar la tabla: " + ex.getMessage());
         }
     }
 

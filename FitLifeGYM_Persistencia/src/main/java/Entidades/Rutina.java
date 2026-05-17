@@ -19,6 +19,8 @@ public class Rutina {
     @BsonId
     @BsonRepresentation(BsonType.OBJECT_ID)
     private String id;
+    
+    @BsonRepresentation(BsonType.OBJECT_ID)
     private String idCliente;
     private String diaSemana;
     private Date fechaAsignada;
@@ -44,8 +46,6 @@ public class Rutina {
         this.estadoRutina = estadoRutina;
         this.detallesRutina = detallesRutina;
     }
-    
-    
 
     public String getId() {
         return id;
@@ -100,5 +100,4 @@ public class Rutina {
         return "Rutina{" + "id=" + id + ", idCliente=" + idCliente + ", diaSemana=" + diaSemana + ", fechaAsignada=" + fechaAsignada + ", estadoRutina=" + estadoRutina + ", detallesRutina=" + detallesRutina + '}';
     }
 
-    
 }

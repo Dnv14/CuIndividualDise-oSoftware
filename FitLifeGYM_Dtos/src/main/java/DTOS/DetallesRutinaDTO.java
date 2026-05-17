@@ -17,23 +17,26 @@ public class DetallesRutinaDTO {
     private Integer pesoRecomendado;
     private Integer repeticionesRecomendadas;
     private Integer seriesRecomendadas;
+    private String notas;
 
     public DetallesRutinaDTO() {
     }
 
-    public DetallesRutinaDTO(String id, List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+    public DetallesRutinaDTO(String id, List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas, String notas) {
         this.id = id;
         this.ejerciciosSeleccionados = ejerciciosSeleccionados;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
+        this.notas = notas;
     }
 
-    public DetallesRutinaDTO(List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+    public DetallesRutinaDTO(List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas, String notas) {
         this.ejerciciosSeleccionados = ejerciciosSeleccionados;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
+        this.notas = notas;
     }
 
     public List<EjerciciosSeleccionadosDTO> getEjerciciosSeleccionados() {
@@ -50,6 +53,14 @@ public class DetallesRutinaDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
     }
 
     public Integer getPesoRecomendado() {
