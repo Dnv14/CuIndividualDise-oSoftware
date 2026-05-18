@@ -53,7 +53,7 @@ public class ControlNavegacion {
     }
 
     public void navegarBienvenida(NuevoClienteDTO cliente) {
-        mostrarPantalla(new BienvenidaFORM(this, controlRegistroInicioSesion, cliente,controlRegistroFisico));
+        mostrarPantalla(new BienvenidaFORM(this, controlRegistroInicioSesion, cliente, controlRegistroFisico));
     }
 
     public void navegarMetodosPago(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
@@ -65,7 +65,7 @@ public class ControlNavegacion {
     }
 
     public void navegarMenuRutinasCliente() {
-        mostrarPantalla(new MenuRutinasClienteFORM(this,controlRegistroInicioSesion));
+        mostrarPantalla(new MenuRutinasClienteFORM(this, controlRegistroInicioSesion));
     }
 
     public void navegarRutinaSemanalCliente() {
@@ -85,7 +85,7 @@ public class ControlNavegacion {
     }
 
     public void navegarRutinaSemanalAdmin() {
-        mostrarPantalla(new RutinaSemanalAdministradorFORM(this));
+        mostrarPantalla(new RutinaSemanalAdministradorFORM(this,controlRegistroFisico));
     }
 
     public void navegarBienvenidaAdministrador() {
@@ -93,11 +93,15 @@ public class ControlNavegacion {
     }
 
     public void navegarDetallesRutinaAdmin(String diaSemana) {
-        mostrarPantalla(new DetalleRutinaDiaAdministradorFORM(this, diaSemana));
+        mostrarPantalla(new DetalleRutinaDiaAdministradorFORM(this, controlRegistroFisico, diaSemana));
     }
-    
+
     public void navegarDetallesRutinaCliente(String diaSemana) {
-        mostrarPantalla(new DetalleRutinaDiaClienteFORM(this, controlRegistroInicioSesion , controlRegistroFisico ,diaSemana));
+        mostrarPantalla(new DetalleRutinaDiaClienteFORM(this, controlRegistroInicioSesion, controlRegistroFisico, diaSemana));
+    }
+
+    public void navegarEditarOEliminarRutina(String diaSemana) {
+        mostrarPantalla(new DetallesRutinaEliminarOEditarFORM(this, controlRegistroFisico, diaSemana));
     }
 
     //Dialogs
@@ -134,7 +138,7 @@ public class ControlNavegacion {
     }
 
     public void navegarConsultarRegistroFisico() {
-        mostrarDialogo(new ConsultarRegistroFisicoFORM(frameActual, true, this));
+        mostrarDialogo(new ConsultarRegistroFisicoFORM(frameActual, true, this,controlRegistroFisico));
     }
 
     public void navegarAgregarNotasAdmin() {
@@ -142,6 +146,6 @@ public class ControlNavegacion {
     }
 
     public void navegarRegistroFisicoConfirmar(RegistroFisicoDTO registroSinConfirmar) {
-        mostrarDialogo(new RegistroFisicoConfirmarFORM(frameActual, true, this, controlRegistroFisico,registroSinConfirmar));
+        mostrarDialogo(new RegistroFisicoConfirmarFORM(frameActual, true, this, controlRegistroFisico, registroSinConfirmar));
     }
 }

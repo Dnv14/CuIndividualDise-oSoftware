@@ -5,6 +5,7 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.DetallesRutinaDTO;
+import DTOS.EjerciciosDTO;
 import DTOS.EnfermedadesDTO;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
@@ -53,12 +54,28 @@ public class ControlRegistroFisico {
         return funcionalidadRegistroFisico.traerLesiones();
     }
 
+    public List<EjerciciosDTO> traerEjercicios() throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.traerEjercicios();
+    }
+
     public RegistroFisicoDTO guardarRegistroFisico(RegistroFisicoDTO registroFisicoDTO) throws RegistroFisicoException {
         return funcionalidadRegistroFisico.guardarRegistroFisico(registroFisicoDTO);
     }
 
     public RutinaDTO consultarDetallesRutina(String idCliente, String diaSemana) throws RegistroFisicoException {
-        return funcionalidadRegistroFisico.consultarRutina(idCliente,diaSemana);
+        return funcionalidadRegistroFisico.consultarRutina(idCliente, diaSemana);
+    }
+
+    public RutinaDTO guardarRutinaACliente(RutinaDTO ruutinaDTO) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.guardarRutina(ruutinaDTO);
+    }
+
+    public void eliminarRutina(String idCliente, String diaSemana) throws RegistroFisicoException {
+        funcionalidadRegistroFisico.eliminarRutina(idCliente, diaSemana);
+    }
+
+    public RutinaDTO editarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.editarRutina(rutinaDTO);
     }
 
     public NuevoClienteDTO getClienteSeleccionado() {

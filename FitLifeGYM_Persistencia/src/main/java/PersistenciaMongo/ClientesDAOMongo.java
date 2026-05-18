@@ -66,33 +66,6 @@ public class ClientesDAOMongo implements IClientesDAO {
 
     @Override
     public Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException {
-//        try (MongoClient client = CreadorConexiones.crearConexion()) {
-//            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
-//
-//            MongoCollection<Usuario> coleccionUsuarios = db.getCollection("usuarios", Usuario.class);
-//            Usuario usuario = coleccionUsuarios.find(and(eq("correo", correo), eq("contrasenia", contrasenia))).first();
-//
-//            if (usuario == null) {
-//                return null;
-//            }
-//
-//            MongoCollection<Cliente> coleccionClientes = db.getCollection("clientes", Cliente.class);
-//            Cliente cliente = coleccionClientes.find(eq("idUsuario", usuario.getId())).first();
-//
-//            if (cliente != null) {
-//                cliente.setNombre(usuario.getNombre());
-//                cliente.setApellidos(usuario.getApellidos());
-//                cliente.setCorreo(usuario.getCorreo());
-//                cliente.setIdUsuario(usuario.getId());
-//                return cliente;
-//            }
-//
-//            return null;
-//
-//        } catch (MongoException ex) {
-//            throw new PersistenciaException("Error al iniciar sesión");
-//        }
-
         try (MongoClient client = CreadorConexiones.crearConexion()) {
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
 

@@ -4,8 +4,25 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.DetallesRutinaDTO;
+import DTOS.EjerciciosDTO;
+import DTOS.EjerciciosSeleccionadosDTO;
+import DTOS.NuevoClienteDTO;
+import DTOS.RutinaDTO;
+import DTOsENUMs.EstadoRutinaDTO;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import javax.crypto.AEADBadTagException;
+import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -16,16 +33,23 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DetalleRutinaDiaAdministradorFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
+    private ControlRegistroFisico controlRegistroFisico;
     private String diaSemana;
+    private JComboBox<EjerciciosDTO> comboboxEjercicios;
+    private NuevoClienteDTO clienteSeleccionado;
+    private String notasRutina = "";
 
-    public DetalleRutinaDiaAdministradorFORM(ControlNavegacion controlNavegacion,String diaSemana) {
+    public DetalleRutinaDiaAdministradorFORM(ControlNavegacion controlNavegacion, ControlRegistroFisico controlRegistroFisico, String diaSemana) {
         this.controlNavegacion = controlNavegacion;
+        this.controlRegistroFisico = controlRegistroFisico;
         this.diaSemana = diaSemana;
+        this.clienteSeleccionado = controlRegistroFisico.getClienteSeleccionado();
         this.setTitle("Detalles de Rutina");
+        cargarEjerciciosComboBox();
         initComponents();
-        this.setLocationRelativeTo(null);
+        configurarEditorTabla();
         agregarDiaSemana();
-        diseñoTabla();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,9 +62,9 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
         jScrollPane = new javax.swing.JScrollPane();
         tablaDetallesRutina = new javax.swing.JTable();
         btnGuardarRutinaDetalles = new javax.swing.JButton();
-        btnEliminarRutina = new javax.swing.JButton();
         btnVerRegistroFisico = new javax.swing.JButton();
         btnNotas = new javax.swing.JButton();
+        btnVolverAtras3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,11 +82,7 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
 
         tablaDetallesRutina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nombre Ejercicio", "Peso Recomendado", "Repeticiones Recomendadas", "Series Recomendadas"
@@ -85,13 +105,6 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
         btnGuardarRutinaDetalles.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnGuardarRutinaDetalles.addActionListener(this::btnGuardarRutinaDetallesActionPerformed);
 
-        btnEliminarRutina.setBackground(new java.awt.Color(255, 0, 51));
-        btnEliminarRutina.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnEliminarRutina.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarRutina.setText("Eliminar Rutina");
-        btnEliminarRutina.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnEliminarRutina.addActionListener(this::btnEliminarRutinaActionPerformed);
-
         btnVerRegistroFisico.setBackground(new java.awt.Color(255, 0, 51));
         btnVerRegistroFisico.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         btnVerRegistroFisico.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,38 +119,46 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
         btnNotas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnNotas.addActionListener(this::btnNotasActionPerformed);
 
+        btnVolverAtras3.setBackground(new java.awt.Color(255, 0, 51));
+        btnVolverAtras3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnVolverAtras3.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverAtras3.setText("<");
+        btnVolverAtras3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnVolverAtras3.addActionListener(this::btnVolverAtras3ActionPerformed);
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(106, 106, 106)
                 .addComponent(btnVerRegistroFisico, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(170, 170, 170)
-                .addComponent(btnEliminarRutina, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(121, 121, 121)
                 .addComponent(btnGuardarRutinaDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(89, 89, 89))
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205))))
+                .addComponent(jSeparator1))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 929, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addComponent(btnVolverAtras3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(205, 205, 205))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTitulo)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTitulo))
+                    .addComponent(btnVolverAtras3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -146,7 +167,6 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerRegistroFisico, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminarRutina, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardarRutinaDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -174,12 +194,65 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_tablaDetallesRutinaMouseClicked
 
     private void btnGuardarRutinaDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRutinaDetallesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarRutinaDetallesActionPerformed
+        try {
+            if (validarTablaRutina() == false) {
+                return;
+            }
 
-    private void btnEliminarRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRutinaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarRutinaActionPerformed
+            List<DetallesRutinaDTO> listaDetalles = new LinkedList<>();
+            DefaultTableModel modeloTabla = (DefaultTableModel) tablaDetallesRutina.getModel();
+            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+                Object objetoEjericico = modeloTabla.getValueAt(i, 0);
+
+                if (objetoEjericico instanceof EjerciciosDTO) {
+                    List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados = new LinkedList<>();
+                    EjerciciosDTO ejercicio = (EjerciciosDTO) objetoEjericico;
+                    int peso = Integer.parseInt(modeloTabla.getValueAt(i, 1).toString().trim());
+                    int repes = Integer.parseInt(modeloTabla.getValueAt(i, 2).toString().trim());
+                    int series = Integer.parseInt(modeloTabla.getValueAt(i, 3).toString().trim());
+
+                    EjerciciosSeleccionadosDTO ejercicioSeleccionado = new EjerciciosSeleccionadosDTO();
+                    ejercicioSeleccionado.setId(ejercicio.getId());
+                    ejercicioSeleccionado.setNombre(ejercicio.getNombre());
+
+                    ejerciciosSeleccionados.add(ejercicioSeleccionado);
+
+                    DetallesRutinaDTO detalleFila = new DetallesRutinaDTO();
+                    detalleFila.setPesoRecomendado(peso);
+                    detalleFila.setRepeticionesRecomendadas(repes);
+                    detalleFila.setSeriesRecomendadas(series);
+                    detalleFila.setEjerciciosSeleccionados(ejerciciosSeleccionados);
+
+                    listaDetalles.add(detalleFila);
+                }
+            }
+            Date fechaActual = new Date();
+            RutinaDTO rutinaDTO = new RutinaDTO();
+            rutinaDTO.setIdCliente(clienteSeleccionado.getId());
+            rutinaDTO.setDiaSemana(diaSemana);
+            rutinaDTO.setFechaAsignada(fechaActual);
+            rutinaDTO.setEstadoRutina(EstadoRutinaDTO.ASIGNADA);
+            rutinaDTO.setNotas(notasRutina);
+            rutinaDTO.setDetallesRutina(listaDetalles);
+
+            RutinaDTO rutinaExistente = controlRegistroFisico.consultarDetallesRutina(clienteSeleccionado.getId(), diaSemana);
+            if (rutinaExistente != null) {
+                rutinaDTO.setId(rutinaExistente.getId());
+                controlRegistroFisico.editarRutina(rutinaDTO);
+                JOptionPane.showMessageDialog(this, "Rutina editada y guardada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                controlNavegacion.navegarRutinaSemanalAdmin();
+                this.dispose();
+            } else {
+                controlRegistroFisico.guardarRutinaACliente(rutinaDTO);
+                JOptionPane.showMessageDialog(this, "Rutina asignada y guardada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                controlNavegacion.navegarRutinaSemanalAdmin();
+                this.dispose();
+            }
+
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGuardarRutinaDetallesActionPerformed
 
     private void btnVerRegistroFisicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRegistroFisicoActionPerformed
         controlNavegacion.navegarConsultarRegistroFisico();
@@ -189,11 +262,16 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
         controlNavegacion.navegarAgregarNotasAdmin();
     }//GEN-LAST:event_btnNotasActionPerformed
 
-    public void agregarDiaSemana(){
+    private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
+        controlNavegacion.navegarRutinaSemanalAdmin();
+    }//GEN-LAST:event_btnVolverAtras3ActionPerformed
+
+    public void agregarDiaSemana() {
         lblTitulo.setText("Día: " + diaSemana);
     }
-    
+
     private void diseñoTabla() {
+        tablaDetallesRutina.setFocusable(false);
         tablaDetallesRutina.setRowHeight(60);
         tablaDetallesRutina.setBackground(new java.awt.Color(30, 30, 30));
         tablaDetallesRutina.setForeground(java.awt.Color.WHITE);
@@ -206,14 +284,98 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
         tablaDetallesRutina.getColumnModel().getColumn(0).setCellRenderer(renderCentrado);
         tablaDetallesRutina.getColumnModel().getColumn(1).setCellRenderer(renderCentrado);
         tablaDetallesRutina.getColumnModel().getColumn(2).setCellRenderer(renderCentrado);
+        tablaDetallesRutina.getColumnModel().getColumn(3).setCellRenderer(renderCentrado);
         jScrollPane.getViewport().setBackground(new java.awt.Color(30, 30, 30));
     }
 
+    public void cargarEjerciciosComboBox() {
+        try {
+            List<EjerciciosDTO> listaEjercicios = controlRegistroFisico.traerEjercicios();
+            DefaultComboBoxModel<EjerciciosDTO> modeloCombo = new DefaultComboBoxModel<>();
+
+            EjerciciosDTO opcionDefault = new EjerciciosDTO();
+            opcionDefault.setNombre("Selecciona un Ejercicio");
+            modeloCombo.addElement(opcionDefault);
+            for (EjerciciosDTO edto : listaEjercicios) {
+                modeloCombo.addElement(edto);
+            }
+            comboboxEjercicios = new JComboBox<>(modeloCombo);
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void configurarEditorTabla() {
+        TableColumn columnaEjercicio = tablaDetallesRutina.getColumnModel().getColumn(0);
+        columnaEjercicio.setCellEditor(new DefaultCellEditor(comboboxEjercicios));
+        DefaultTableModel modeloTabla = (DefaultTableModel) tablaDetallesRutina.getModel();
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        modeloTabla.addRow(new Object[]{"Selecciona un Ejercicio", "", "", ""});
+        diseñoTabla();
+    }
+
+    private boolean validarTablaRutina() {
+        DefaultTableModel modelo = (DefaultTableModel) tablaDetallesRutina.getModel();
+
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Object ejercicio = modelo.getValueAt(i, 0);
+            Object pesoRecomendado = modelo.getValueAt(i, 1);
+            Object repeticionesRecomendadas = modelo.getValueAt(i, 2);
+            Object seriesRecomendadas = modelo.getValueAt(i, 3);
+            String ejercicioString = "";
+            String pesoString = "";
+            String repesString = "";
+            String seriesString = "";
+            if (ejercicio != null) {
+                ejercicioString = ejercicio.toString().trim();
+            }
+            if (pesoRecomendado != null) {
+                pesoString = pesoRecomendado.toString().trim();
+            }
+            if (repeticionesRecomendadas != null) {
+                repesString = repeticionesRecomendadas.toString().trim();
+            }
+            if (seriesRecomendadas != null) {
+                seriesString = seriesRecomendadas.toString().trim();
+            }
+
+            boolean comprobarTieneEjercicio = false;
+            if (!ejercicioString.contains("Selecciona un Ejercicio")) {
+                comprobarTieneEjercicio = true;
+            }
+
+            if (comprobarTieneEjercicio == true) {
+                if (pesoString.isEmpty() || repesString.isEmpty() || seriesString.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, " Si selecciono un ejercicio favor de llenar la fila completa", "Error", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            } else {
+                if (!pesoString.isEmpty() || !repesString.isEmpty() || !seriesString.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Favor de seleccionar un ejercicio para completar la fila", "Error", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void setNotasGlobales(String notas) {
+        this.notasRutina = notas;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEliminarRutina;
     private javax.swing.JButton btnGuardarRutinaDetalles;
     private javax.swing.JButton btnNotas;
     private javax.swing.JButton btnVerRegistroFisico;
+    private javax.swing.JButton btnVolverAtras3;
     private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JSeparator jSeparator1;

@@ -63,7 +63,7 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
 
         filtrosComboBox.setBackground(new java.awt.Color(102, 102, 102));
         filtrosComboBox.setForeground(new java.awt.Color(255, 255, 255));
-        filtrosComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SIN_ASIGNAR", "ASIGNADA", "NOMBRE" }));
+        filtrosComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOMBRE", "SIN_ASIGNAR", "ASIGNADA" }));
         filtrosComboBox.addActionListener(this::filtrosComboBoxActionPerformed);
 
         busquedaTextField.setBackground(new java.awt.Color(102, 102, 102));
@@ -84,7 +84,7 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Días Rutinas"
+                "ID", "Nombre", "Días Rutinas Asignadas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -206,12 +206,11 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
         modelo.setRowCount(0);
         for (NuevoClienteDTO c : clientes) {
 
-            String diasRutina = "Sin asignar";
-
+            
             modelo.addRow(new Object[]{
                 c.getId(),
                 c.getNombre(),
-                diasRutina
+                c.getDiasRutina()
             });
         }
     }

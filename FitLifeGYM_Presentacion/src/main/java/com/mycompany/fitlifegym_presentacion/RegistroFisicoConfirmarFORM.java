@@ -318,6 +318,7 @@ public class RegistroFisicoConfirmarFORM extends javax.swing.JDialog {
         limitacionesFisicasTable.setBackground(new java.awt.Color(30, 30, 30));
         limitacionesFisicasTable.setForeground(java.awt.Color.WHITE);
         limitacionesFisicasTable.setGridColor(new java.awt.Color(225, 6, 0));
+        jScrollPane2.getViewport().setBackground(new java.awt.Color(30, 30, 30));
 
         limitacionesFisicasTable.getTableHeader().setBackground(new java.awt.Color(30, 30, 30));
         limitacionesFisicasTable.getTableHeader().setForeground(java.awt.Color.WHITE);
@@ -326,6 +327,7 @@ public class RegistroFisicoConfirmarFORM extends javax.swing.JDialog {
         DefaultTableCellRenderer renderLimitaciones = new DefaultTableCellRenderer();
         renderLimitaciones.setHorizontalAlignment(JLabel.CENTER);
         limitacionesFisicasTable.getColumnModel().getColumn(0).setCellRenderer(renderLimitaciones);
+        jScrollPane.getViewport().setBackground(new java.awt.Color(30, 30, 30));
     }
 
     public void llenarTablas() {

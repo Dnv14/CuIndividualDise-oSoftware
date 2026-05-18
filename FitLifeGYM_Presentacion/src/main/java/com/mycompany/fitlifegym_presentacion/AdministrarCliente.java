@@ -5,6 +5,10 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
+import DTOS.RegistroFisicoDTO;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -208,7 +212,19 @@ public class AdministrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarAdministrarRutinaActionPerformed
 
     private void btnRegistroFisicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroFisicoActionPerformed
-        controlNavegacion.navegarConsultarRegistroFisico();
+        try {
+            RegistroFisicoDTO registroFisico = controlRegistroFisico.consultarRegistroFisicoDTO(clienteSeleccionado.getId());
+            if (registroFisico == null) {
+                JOptionPane.showMessageDialog(this, "Este cliente no tiene registro fisico", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            } else {
+                controlNavegacion.navegarConsultarRegistroFisico();
+            }
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_btnRegistroFisicoActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
@@ -221,7 +237,7 @@ public class AdministrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
     public void clienteNombreLabel() {
-        lblNombreCliente.setText(clienteSeleccionado.getNombre() +" "+ clienteSeleccionado.getApellidos());
+        lblNombreCliente.setText(clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellidos());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,17 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.EnfermedadesSeleccionadasDTO;
+import DTOS.LesionesSeleccionadasDTO;
+import DTOS.NuevoClienteDTO;
+import DTOS.RegistroFisicoDTO;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Diego
@@ -13,15 +24,20 @@ public class ConsultarRegistroFisicoFORM extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ConsultarRegistroFisicoFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
+    private ControlRegistroFisico controlRegistroFisco;
+    private RegistroFisicoDTO registroFisico;
+    private NuevoClienteDTO clienteActual;
 
-    public ConsultarRegistroFisicoFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion) {
+    public ConsultarRegistroFisicoFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroFisico controlRegistroFisco) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
+        this.controlRegistroFisco = controlRegistroFisco;
+        this.clienteActual = controlRegistroFisco.getClienteSeleccionado();
         this.setLocationRelativeTo(null);
         this.setTitle("Consulta de Registro Físico");
         initComponents();
+        llenarTablas();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -232,10 +248,71 @@ public class ConsultarRegistroFisicoFORM extends javax.swing.JDialog {
     }//GEN-LAST:event_limitacionesFisicasSeleccionadasMouseClicked
 
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
-
+        this.dispose();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
+    private void diseñoTablas() {
+        enfermedadesSeleccionadas.setRowHeight(40);
+        enfermedadesSeleccionadas.setBackground(new java.awt.Color(30, 30, 30));
+        enfermedadesSeleccionadas.setForeground(java.awt.Color.WHITE);
+        enfermedadesSeleccionadas.setGridColor(new java.awt.Color(225, 6, 0));
 
+        enfermedadesSeleccionadas.getTableHeader().setBackground(new java.awt.Color(30, 30, 30));
+        enfermedadesSeleccionadas.getTableHeader().setForeground(java.awt.Color.WHITE);
+        enfermedadesSeleccionadas.getTableHeader().setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 16));
+
+        DefaultTableCellRenderer renderEnfermedades = new DefaultTableCellRenderer();
+        renderEnfermedades.setHorizontalAlignment(JLabel.CENTER);
+        enfermedadesSeleccionadas.getColumnModel().getColumn(0).setCellRenderer(renderEnfermedades);
+        jScrollPane2.getViewport().setBackground(new java.awt.Color(30, 30, 30));
+
+        limitacionesFisicasSeleccionadas.setRowHeight(40);
+        limitacionesFisicasSeleccionadas.setBackground(new java.awt.Color(30, 30, 30));
+        limitacionesFisicasSeleccionadas.setForeground(java.awt.Color.WHITE);
+        limitacionesFisicasSeleccionadas.setGridColor(new java.awt.Color(225, 6, 0));
+
+        limitacionesFisicasSeleccionadas.getTableHeader().setBackground(new java.awt.Color(30, 30, 30));
+        limitacionesFisicasSeleccionadas.getTableHeader().setForeground(java.awt.Color.WHITE);
+        limitacionesFisicasSeleccionadas.getTableHeader().setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 16));
+
+        DefaultTableCellRenderer renderLimitaciones = new DefaultTableCellRenderer();
+        renderLimitaciones.setHorizontalAlignment(JLabel.CENTER);
+        limitacionesFisicasSeleccionadas.getColumnModel().getColumn(0).setCellRenderer(renderLimitaciones);
+        jScrollPane.getViewport().setBackground(new java.awt.Color(30, 30, 30));
+    }
+
+    public void llenarTablas() {
+        try {
+            this.registroFisico = controlRegistroFisco.consultarRegistroFisicoDTO(clienteActual.getId());
+            List<EnfermedadesSeleccionadasDTO> enfermedadesSeleccionadasDTO = this.registroFisico.getEnfermedades();
+            List<LesionesSeleccionadasDTO> lesionesSeleccionadasDTO = registroFisico.getLesiones();
+
+            DefaultTableModel modeloEnfermedades = (DefaultTableModel) this.enfermedadesSeleccionadas.getModel();
+            modeloEnfermedades.setRowCount(0);
+
+            for (EnfermedadesSeleccionadasDTO e : enfermedadesSeleccionadasDTO) {
+                modeloEnfermedades.addRow(new Object[]{
+                    e.getNombre()
+                });
+            }
+
+            DefaultTableModel modeloLesiones = (DefaultTableModel) limitacionesFisicasSeleccionadas.getModel();
+            modeloLesiones.setRowCount(0);
+            for (LesionesSeleccionadasDTO l : lesionesSeleccionadasDTO) {
+                modeloLesiones.addRow(new Object[]{
+                    l.getNombre()
+                });
+            }
+            diseñoTablas();
+            lblTitulo.setText(clienteActual.getNombre() + clienteActual.getApellidos());
+
+            lblCondicionSeleccionada.setText(this.registroFisico.getNivelCondicion().toString());
+
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolverAtras3;
     private javax.swing.JTable enfermedadesSeleccionadas;

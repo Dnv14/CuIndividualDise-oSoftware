@@ -4,6 +4,7 @@
  */
 package com.mycompany.funcionalidadregistrofisico;
 
+import DTOS.EjerciciosDTO;
 import DTOS.EnfermedadesDTO;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
@@ -25,10 +26,10 @@ public interface IFuncionalidadRegistroFisico {
     public abstract RegistroFisicoDTO guardarRegistroFisico(RegistroFisicoDTO registroFisicoDTO) throws RegistroFisicoException;
 
     public abstract RutinaDTO consultarRutina(String idCliente, String diaSemana) throws RegistroFisicoException;
-    
-    public abstract List<EnfermedadesDTO> traerEnfermedades()throws RegistroFisicoException;
-    
-    public abstract List<LesionesDTO> traerLesiones()throws RegistroFisicoException;
+
+    public abstract List<EnfermedadesDTO> traerEnfermedades() throws RegistroFisicoException;
+
+    public abstract List<LesionesDTO> traerLesiones() throws RegistroFisicoException;
 
     //admin
     public abstract List<NuevoClienteDTO> consultarClientesFiltros(filtrosBusquedaClientesDTO filtros) throws RegistroFisicoException;
@@ -38,9 +39,9 @@ public interface IFuncionalidadRegistroFisico {
     public abstract void eliminarRutina(String idCliente, String diaSemana) throws RegistroFisicoException;
 
     public abstract RutinaDTO editarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException;
-    
+
     public abstract NuevoClienteDTO buscarClientePorId(String id) throws RegistroFisicoException;
-    
-    
+
+    public abstract List<EjerciciosDTO> traerEjercicios() throws RegistroFisicoException;
 
 }

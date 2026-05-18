@@ -9,6 +9,7 @@ package DTOS;
  * @author Diego
  */
 public class EjerciciosDTO {
+
     private String id;
     private String nombre;
 
@@ -35,4 +36,14 @@ public class EjerciciosDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        if (this.nombre != null) {
+            return this.nombre;
+        } else {
+            return "";
+        }
+    }
+
 }

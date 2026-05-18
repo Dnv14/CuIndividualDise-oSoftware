@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.LesionesDAOTest" time="0.089" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="Test.LesionesDAOTest" time="0.07" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="419"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="D:\Netbeans\Apache NetBeans\jdk\bin"/>
-    <property name="sun.java.command" value="C:\Users\Diego\AppData\Local\Temp\surefire5640869036655669336\surefirebooter-20260517232225157_3.jar C:\Users\Diego\AppData\Local\Temp\surefire5640869036655669336 2026-05-17T23-22-24_963-jvmRun1 surefire-20260517232225157_1tmp surefire_0-20260517232225157_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Diego\AppData\Local\Temp\surefire17183223102909165669\surefirebooter-20260518115415964_3.jar C:\Users\Diego\AppData\Local\Temp\surefire17183223102909165669 2026-05-18T11-54-15_777-jvmRun1 surefire-20260518115415964_1tmp surefire_0-20260518115415964_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\target\test-classes;C:\Users\Diego\Documents\GitHub\CuIndividualDise-oSoftware\FitLifeGYM_Persistencia\target\classes;C:\Users\Diego\.m2\repository\org\mongodb\mongodb-driver-sync\5.6.5\mongodb-driver-sync-5.6.5.jar;C:\Users\Diego\.m2\repository\org\mongodb\bson\5.6.5\bson-5.6.5.jar;C:\Users\Diego\.m2\repository\org\mongodb\mongodb-driver-core\5.6.5\mongodb-driver-core-5.6.5.jar;C:\Users\Diego\.m2\repository\org\mongodb\bson-record-codec\5.6.5\bson-record-codec-5.6.5.jar;C:\Users\Diego\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\Diego\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\Diego\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Diego\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\Diego\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\Diego\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;C:\Users\Diego\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Diego\AppData\Local\Temp\surefire5640869036655669336\surefirebooter-20260517232225157_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Diego\AppData\Local\Temp\surefire17183223102909165669\surefirebooter-20260518115415964_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.1+8-LTS"/>
@@ -61,7 +61,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="precargarLesioneSiLasPrecarga" classname="Test.LesionesDAOTest" time="0.087">
+  <testcase name="precargarLesioneSiLasPrecarga" classname="Test.LesionesDAOTest" time="0.069">
     <system-out><![CDATA[Lesiones{id=6a02c23434f87614b0504d88, nombre=Hernia Discal}
 
 Lesiones{id=6a02c23434f87614b0504d89, nombre=Desgarre en Manguito Rotador}

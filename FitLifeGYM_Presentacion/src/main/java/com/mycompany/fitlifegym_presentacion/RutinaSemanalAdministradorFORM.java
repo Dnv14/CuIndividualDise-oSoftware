@@ -4,7 +4,7 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import DTOS.RutinaDTO;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -16,9 +16,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
+    private ControlRegistroFisico controlRegistroFisico;
 
-    public RutinaSemanalAdministradorFORM(ControlNavegacion controlNavegacion) {
+    public RutinaSemanalAdministradorFORM(ControlNavegacion controlNavegacion, ControlRegistroFisico controlRegistroFisico) {
         this.controlNavegacion = controlNavegacion;
+        this.controlRegistroFisico = controlRegistroFisico;
         this.setTitle("Rutina Semanal Administrar");
         initComponents();
         diseñoTabla();
@@ -147,8 +149,12 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
         int fila = DiasSemanaTable.getSelectedRow();
         String diaSemana = (String) DiasSemanaTable.getValueAt(fila, 0);
         try {
-
-            controlNavegacion.navegarDetallesRutinaAdmin(diaSemana);
+            RutinaDTO rutinaExistente = controlRegistroFisico.consultarDetallesRutina(controlRegistroFisico.getClienteSeleccionado().getId(), diaSemana);
+            if (rutinaExistente != null) {
+                controlNavegacion.navegarEditarOEliminarRutina(diaSemana);
+            } else {
+                controlNavegacion.navegarDetallesRutinaAdmin(diaSemana);
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

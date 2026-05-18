@@ -9,8 +9,6 @@ import DTOS.EjerciciosSeleccionadosDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RutinaDTO;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
-import java.util.LinkedList;
-import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -20,29 +18,27 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Diego
  */
-public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
+public class DetallesRutinaEliminarOEditarFORM extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DetalleRutinaDiaClienteFORM.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DetallesRutinaEliminarOEditarFORM.class.getName());
 
     private NuevoClienteDTO clienteActual;
-    private ControlRegistroInicioSesion controlRegistroInicioSesion;
+
     private ControlNavegacion controlNavegacion;
     private ControlRegistroFisico controlRegistroFisico;
     private RutinaDTO rutinaDTO;
     private String diaSemana;
 
-    public DetalleRutinaDiaClienteFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlRegistroInicioSesion, ControlRegistroFisico controlRegistroFisico, String diaSemana) {
+    public DetallesRutinaEliminarOEditarFORM(ControlNavegacion controlNavegacion, ControlRegistroFisico controlRegistroFisico, String diaSemana) {
         this.controlNavegacion = controlNavegacion;
-        this.controlRegistroInicioSesion = controlRegistroInicioSesion;
         this.controlRegistroFisico = controlRegistroFisico;
         this.diaSemana = diaSemana;
-        this.clienteActual = controlRegistroInicioSesion.getClienteActual();
-        this.setTitle("Detalles de Rutina");
+        this.clienteActual = controlRegistroFisico.getClienteSeleccionado();
+        this.setTitle("Día con Rutina ya Asignada!!");
         initComponents();
         this.setLocationRelativeTo(null);
-        agregarDiaSemana();
-        diseñoTabla();
         llenarTablas();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -54,8 +50,10 @@ public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         tablaDetallesRutina = new javax.swing.JTable();
-        btnNotas = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnVolverAtras = new javax.swing.JButton();
+        btnNotas = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,12 +99,12 @@ public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
         });
         jScrollPane.setViewportView(tablaDetallesRutina);
 
-        btnNotas.setBackground(new java.awt.Color(255, 0, 51));
-        btnNotas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnNotas.setForeground(new java.awt.Color(255, 255, 255));
-        btnNotas.setText("Ver notas");
-        btnNotas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnNotas.addActionListener(this::btnNotasActionPerformed);
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 51));
+        btnEliminar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Eliminar Rutina");
+        btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnEliminar.addActionListener(this::btnEliminarActionPerformed);
 
         btnVolverAtras.setBackground(new java.awt.Color(255, 0, 51));
         btnVolverAtras.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -114,6 +112,20 @@ public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
         btnVolverAtras.setText("<");
         btnVolverAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnVolverAtras.addActionListener(this::btnVolverAtrasActionPerformed);
+
+        btnNotas.setBackground(new java.awt.Color(255, 0, 51));
+        btnNotas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnNotas.setForeground(new java.awt.Color(255, 255, 255));
+        btnNotas.setText("Ver notas");
+        btnNotas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnNotas.addActionListener(this::btnNotasActionPerformed);
+
+        btnEditar.setBackground(new java.awt.Color(255, 0, 51));
+        btnEditar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setText("Editar Rutina");
+        btnEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnEditar.addActionListener(this::btnEditarActionPerformed);
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
@@ -129,12 +141,15 @@ public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
                 .addGap(171, 171, 171))
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(153, 153, 153)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 57, Short.MAX_VALUE))
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(320, 320, 320)
-                .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +164,10 @@ public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52))
         );
 
@@ -179,21 +197,39 @@ public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tablaDetallesRutinaMouseClicked
 
-    private void btnNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotasActionPerformed
-        if (this.rutinaDTO == null) {
-            JOptionPane.showMessageDialog(this, "No hay notas porque no hay una rutina asignada para este día.", "Notas de la Rutina", JOptionPane.INFORMATION_MESSAGE);
-            return;
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this,
+                "¿Deseas Eliminar la rutina?", "Confirmar Selección", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            try {
+                controlRegistroFisico.eliminarRutina(clienteActual.getId(), diaSemana);
+                JOptionPane.showMessageDialog(this, "Rutina eliminada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                controlNavegacion.navegarRutinaSemanalAdmin();
+                this.dispose();
+            } catch (RegistroFisicoException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Operación cancelada", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-        controlNavegacion.navegarVerNotasCliente(rutinaDTO.getNotas());
-    }//GEN-LAST:event_btnNotasActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
-        controlNavegacion.navegarRutinaSemanalCliente();
+        controlNavegacion.navegarRutinaSemanalAdmin();
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
-    public void agregarDiaSemana() {
-        lblTitulo.setText("Día: " + diaSemana);
-    }
+    private void btnNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotasActionPerformed
+        try {
+            this.rutinaDTO = controlRegistroFisico.consultarDetallesRutina(clienteActual.getId(), diaSemana);
+            controlNavegacion.navegarVerNotasCliente(rutinaDTO.getNotas());
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, "Operación cancelada", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnNotasActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        controlNavegacion.navegarDetallesRutinaAdmin(diaSemana);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void diseñoTabla() {
         tablaDetallesRutina.setRowHeight(60);
@@ -232,11 +268,15 @@ public class DetalleRutinaDiaClienteFORM extends javax.swing.JFrame {
                     });
                 }
             }
+            diseñoTabla();
         } catch (RegistroFisicoException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNotas;
     private javax.swing.JButton btnVolverAtras;
     private javax.swing.JPanel jPanel;

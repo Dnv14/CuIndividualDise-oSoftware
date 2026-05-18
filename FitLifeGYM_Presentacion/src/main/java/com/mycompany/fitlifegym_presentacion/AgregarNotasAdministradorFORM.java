@@ -4,6 +4,8 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Diego
@@ -13,10 +15,12 @@ public class AgregarNotasAdministradorFORM extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AgregarNotasAdministradorFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
+    private DetalleRutinaDiaAdministradorFORM detallesAdministradorFORM;
 
     public AgregarNotasAdministradorFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
+        this.detallesAdministradorFORM = (DetalleRutinaDiaAdministradorFORM) parent;
         initComponents();
     }
 
@@ -57,13 +61,11 @@ public class AgregarNotasAdministradorFORM extends javax.swing.JDialog {
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        textAreaInstalaciones.setEditable(false);
         textAreaInstalaciones.setBackground(new java.awt.Color(51, 51, 51));
         textAreaInstalaciones.setColumns(20);
         textAreaInstalaciones.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         textAreaInstalaciones.setForeground(new java.awt.Color(255, 255, 255));
         textAreaInstalaciones.setRows(5);
-        textAreaInstalaciones.setText("AAAAA");
         textAreaInstalaciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         textAreaInstalaciones.setCaretColor(new java.awt.Color(0, 0, 0));
         textAreaInstalaciones.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -151,7 +153,10 @@ public class AgregarNotasAdministradorFORM extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
     private void btnGuardarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarNotasActionPerformed
-        // TODO add your handling code here:
+        String notas = textAreaInstalaciones.getText().trim();
+        this.detallesAdministradorFORM.setNotasGlobales(notas);
+        JOptionPane.showMessageDialog(this, "Notas puestas correctamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
     }//GEN-LAST:event_btnGuardarNotasActionPerformed
 
     private void btnCancelarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarNotasActionPerformed
@@ -162,8 +167,6 @@ public class AgregarNotasAdministradorFORM extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarNotas;
     private javax.swing.JButton btnGuardarNotas;
-    private javax.swing.JButton btnRegistroFisico;
-    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnVolverAtras;
     private javax.swing.Box.Filler filler3;
     private javax.swing.JPanel jPanel4;

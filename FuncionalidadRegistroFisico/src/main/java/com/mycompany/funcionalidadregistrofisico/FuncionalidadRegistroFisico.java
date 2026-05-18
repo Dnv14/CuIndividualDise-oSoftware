@@ -6,10 +6,12 @@ package com.mycompany.funcionalidadregistrofisico;
 
 import BOs.BOException;
 import BOs.ClientesBO;
+import BOs.EjerciciosBO;
 import BOs.EnfermedadesBO;
 import BOs.LesionesBO;
 import BOs.RegistroFisicoBO;
 import BOs.RutinasBO;
+import DTOS.EjerciciosDTO;
 import DTOS.EnfermedadesDTO;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
@@ -17,6 +19,7 @@ import DTOS.RegistroFisicoDTO;
 import DTOS.RutinaDTO;
 import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import Interfaces.IClientesBO;
+import Interfaces.IEjerciciosBO;
 import Interfaces.IEnfermedadesBO;
 import Interfaces.ILesionesBO;
 import Interfaces.IRegistroFisicoBO;
@@ -34,6 +37,7 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
     private IClientesBO clientesBO;
     private IEnfermedadesBO enfermedadesBO;
     private ILesionesBO lesionesBO;
+    private IEjerciciosBO ejerciciosBO;
 
     public FuncionalidadRegistroFisico() {
         rutinasBO = new RutinasBO();
@@ -41,6 +45,7 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
         clientesBO = new ClientesBO();
         enfermedadesBO = new EnfermedadesBO();
         lesionesBO = new LesionesBO();
+        ejerciciosBO = new EjerciciosBO();
     }
 
     //TODOOOO validaciones
@@ -132,10 +137,17 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
         try {
             return clientesBO.buscarClientePorId(id);
         } catch (BOException ex) {
-            throw new RegistroFisicoException("Error al editar la rutina ", ex);
+            throw new RegistroFisicoException("Error al buscar el cliente por id", ex);
         }
     }
 
-   
+    @Override
+    public List<EjerciciosDTO> traerEjercicios() throws RegistroFisicoException {
+        try {
+            return ejerciciosBO.consultarEjercicios();
+        } catch (BOException ex) {
+            throw new RegistroFisicoException("Error al editar la rutina ", ex);
+        }
+    }
 
 }
