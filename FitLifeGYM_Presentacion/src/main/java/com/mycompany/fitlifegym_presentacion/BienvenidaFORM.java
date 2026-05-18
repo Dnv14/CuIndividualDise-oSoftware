@@ -6,8 +6,10 @@ package com.mycompany.fitlifegym_presentacion;
 
 import DTOsENUMs.EstadoDTO;
 import DTOS.NuevoClienteDTO;
+import DTOS.RegistroFisicoDTO;
 import DTOS.UsuarioDTO;
 import DTOsENUMs.TipoMembresiaDTO;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,15 +19,17 @@ import javax.swing.JOptionPane;
 public class BienvenidaFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
+    private ControlRegistroFisico controlRegistroFisico;
     private ControlRegistroInicioSesion controlForms;
     private NuevoClienteDTO cliente;
 
-    public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms, NuevoClienteDTO cliente) {
+    public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms, NuevoClienteDTO cliente, ControlRegistroFisico controlRegistroFisico) {
         this.controlNavegacion = controlNavegacion;
+        this.controlRegistroFisico = controlRegistroFisico;
         this.controlForms = controlForms;
         this.cliente = controlForms.getClienteActual();
         this.setTitle("Bienvenida");
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
         configiracionPorMembresia();
@@ -231,7 +235,17 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAmbienteMusicalActionPerformed
 
     private void btnProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgresoActionPerformed
-        controlNavegacion.navegarRegistroFisico();
+        try {
+            RegistroFisicoDTO registroFisico = controlRegistroFisico.consultarRegistroFisicoDTO(cliente.getId());
+            
+            if (registroFisico == null || registroFisico.getId() == null || registroFisico.getId().trim().isEmpty()) {
+                controlNavegacion.navegarRegistroFisico();
+            } else {
+                controlNavegacion.navegarMenuRutinasCliente();
+            }
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnProgresoActionPerformed
 
     private void btnBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeneficiosActionPerformed

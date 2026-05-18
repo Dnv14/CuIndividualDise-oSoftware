@@ -13,33 +13,45 @@ import java.util.List;
  * @author Diego
  */
 public class RutinaDTO {
+
     private String id;
     private String idCliente;
     private String diaSemana;
     private Date fechaAsignada;
     private EstadoRutinaDTO estadoRutina;
     private List<DetallesRutinaDTO> detallesRutina;
+    private String notas;
 
     public RutinaDTO() {
     }
 
-    public RutinaDTO(String id, String idCliente, String diaSemana, Date fechaAsignada, EstadoRutinaDTO estadoRutina, List<DetallesRutinaDTO> detallesRutina) {
+    public RutinaDTO(String id, String idCliente, String diaSemana, Date fechaAsignada, EstadoRutinaDTO estadoRutina, List<DetallesRutinaDTO> detallesRutina, String notas) {
         this.id = id;
         this.idCliente = idCliente;
         this.diaSemana = diaSemana;
         this.fechaAsignada = fechaAsignada;
         this.estadoRutina = estadoRutina;
         this.detallesRutina = detallesRutina;
+        this.notas = notas;
     }
 
-    public RutinaDTO(String idCliente, String diaSemana, Date fechaAsignada, EstadoRutinaDTO estadoRutina, List<DetallesRutinaDTO> detallesRutina) {
+    public RutinaDTO(String idCliente, String diaSemana, Date fechaAsignada, EstadoRutinaDTO estadoRutina, List<DetallesRutinaDTO> detallesRutina, String notas) {
         this.idCliente = idCliente;
         this.diaSemana = diaSemana;
         this.fechaAsignada = fechaAsignada;
         this.estadoRutina = estadoRutina;
         this.detallesRutina = detallesRutina;
+        this.notas = notas;
     }
-    
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+
     
 
     public String getId() {
@@ -91,5 +103,3 @@ public class RutinaDTO {
     }
 
 }
-
-

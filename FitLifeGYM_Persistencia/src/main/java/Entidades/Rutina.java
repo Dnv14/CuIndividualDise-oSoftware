@@ -19,32 +19,51 @@ public class Rutina {
     @BsonId
     @BsonRepresentation(BsonType.OBJECT_ID)
     private String id;
-    
+
     @BsonRepresentation(BsonType.OBJECT_ID)
     private String idCliente;
     private String diaSemana;
     private Date fechaAsignada;
     private EstadoRutina estadoRutina;
     private List<DetallesRutina> detallesRutina;
+    private String notas;
 
     public Rutina() {
     }
 
-    public Rutina(String id, String idCliente, String diaSemana, Date fechaAsignada, EstadoRutina estadoRutina, List<DetallesRutina> detallesRutina) {
+    public Rutina(String idCliente, String diaSemana, Date fechaAsignada, EstadoRutina estadoRutina, List<DetallesRutina> detallesRutina, String notas) {
+        this.idCliente = idCliente;
+        this.diaSemana = diaSemana;
+        this.fechaAsignada = fechaAsignada;
+        this.estadoRutina = estadoRutina;
+        this.detallesRutina = detallesRutina;
+        this.notas = notas;
+    }
+
+    public Rutina(String id, String idCliente, String diaSemana, Date fechaAsignada, EstadoRutina estadoRutina, List<DetallesRutina> detallesRutina, String notas) {
         this.id = id;
         this.idCliente = idCliente;
         this.diaSemana = diaSemana;
         this.fechaAsignada = fechaAsignada;
         this.estadoRutina = estadoRutina;
         this.detallesRutina = detallesRutina;
+        this.notas = notas;
     }
 
-    public Rutina(String idCliente, String diaSemana, Date fechaAsignada, EstadoRutina estadoRutina, List<DetallesRutina> detallesRutina) {
-        this.idCliente = idCliente;
+    public Rutina(String diaSemana, Date fechaAsignada, EstadoRutina estadoRutina, List<DetallesRutina> detallesRutina, String notas) {
         this.diaSemana = diaSemana;
         this.fechaAsignada = fechaAsignada;
         this.estadoRutina = estadoRutina;
         this.detallesRutina = detallesRutina;
+        this.notas = notas;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
     }
 
     public String getId() {

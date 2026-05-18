@@ -19,6 +19,11 @@ public class RegistroFisicoDTO {
     private List<LesionesSeleccionadasDTO> lesiones;
     private List<EnfermedadesSeleccionadasDTO> enfermedades;
 
+    public RegistroFisicoDTO() {
+    }
+
+    
+    
     public RegistroFisicoDTO(String id, String idCliente, NivelCondicionDTO nivelCondicion, List<LesionesSeleccionadasDTO> lesiones, List<EnfermedadesSeleccionadasDTO> enfermedades) {
         this.id = id;
         this.idCliente = idCliente;

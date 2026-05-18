@@ -177,4 +177,5 @@ public class PersistenciaFachada implements IPersistenciaFachada {
         return administradorDAO.registrarAdministrador(administrador);
     }
 
+
 }

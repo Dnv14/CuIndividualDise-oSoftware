@@ -5,6 +5,7 @@
 package com.mycompany.fitlifegym_presentacion;
 
 import DTOS.NuevoClienteDTO;
+import DTOS.RegistroFisicoDTO;
 import DTOsENUMs.TipoMembresiaDTO;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -52,7 +53,7 @@ public class ControlNavegacion {
     }
 
     public void navegarBienvenida(NuevoClienteDTO cliente) {
-        mostrarPantalla(new BienvenidaFORM(this, controlRegistroInicioSesion, cliente));
+        mostrarPantalla(new BienvenidaFORM(this, controlRegistroInicioSesion, cliente,controlRegistroFisico));
     }
 
     public void navegarMetodosPago(TipoMembresiaDTO membresia, NuevoClienteDTO cliente) {
@@ -60,15 +61,11 @@ public class ControlNavegacion {
     }
 
     public void navegarRegistroFisico() {
-        mostrarPantalla(new RegistroFisico(this));
-    }
-
-    public void navegarRegistroFisicoConfirmar() {
-        mostrarPantalla(new RegistroFisicoConfirmacion(this));
+        mostrarPantalla(new RegistroFisicoFORM(this, controlRegistroFisico, controlRegistroInicioSesion));
     }
 
     public void navegarMenuRutinasCliente() {
-        mostrarPantalla(new MenuRutinasClienteFORM(this));
+        mostrarPantalla(new MenuRutinasClienteFORM(this,controlRegistroInicioSesion));
     }
 
     public void navegarRutinaSemanalCliente() {
@@ -80,23 +77,27 @@ public class ControlNavegacion {
     }
 
     public void navegarBuscadorCliente() {
-        mostrarPantalla(new BuscadorClienteFORM(this,controlRegistroFisico));
+        mostrarPantalla(new BuscadorClienteFORM(this, controlRegistroFisico));
     }
 
     public void navegarAdministrarCliente() {
-        mostrarPantalla(new AdministrarCliente(this,controlRegistroFisico));
+        mostrarPantalla(new AdministrarCliente(this, controlRegistroFisico));
     }
 
     public void navegarRutinaSemanalAdmin() {
         mostrarPantalla(new RutinaSemanalAdministradorFORM(this));
     }
-    
+
     public void navegarBienvenidaAdministrador() {
-        mostrarPantalla(new BienvenidaAdministradorFORM(this,controlRegistroInicioSesion));
+        mostrarPantalla(new BienvenidaAdministradorFORM(this, controlRegistroInicioSesion));
+    }
+
+    public void navegarDetallesRutinaAdmin(String diaSemana) {
+        mostrarPantalla(new DetalleRutinaDiaAdministradorFORM(this, diaSemana));
     }
     
-    public void navegarDetallesRutinaAdmin(String diaSemana) {
-        mostrarPantalla(new DetalleRutinaDiaAdministradorFORM(this,diaSemana));
+    public void navegarDetallesRutinaCliente(String diaSemana) {
+        mostrarPantalla(new DetalleRutinaDiaClienteFORM(this, controlRegistroInicioSesion , controlRegistroFisico ,diaSemana));
     }
 
     //Dialogs
@@ -121,15 +122,15 @@ public class ControlNavegacion {
     }
 
     public void navegarRegistrarseAdministrador() {
-        mostrarDialogo(new RegistrarseAdministradorFORM(frameActual, true, this,controlRegistroInicioSesion));
+        mostrarDialogo(new RegistrarseAdministradorFORM(frameActual, true, this, controlRegistroInicioSesion));
     }
 
     public void navegarIniciarSesionAdministrador() {
-        mostrarDialogo(new IniciarSesionAdministradorFORM(frameActual, true, this,controlRegistroInicioSesion));
+        mostrarDialogo(new IniciarSesionAdministradorFORM(frameActual, true, this, controlRegistroInicioSesion));
     }
 
-    public void navegarVerNotasCliente() {
-        mostrarDialogo(new VerNotasClienteFORM(frameActual, true, this));
+    public void navegarVerNotasCliente(String notas) {
+        mostrarDialogo(new VerNotasClienteFORM(frameActual, true, this, notas));
     }
 
     public void navegarConsultarRegistroFisico() {
@@ -138,5 +139,9 @@ public class ControlNavegacion {
 
     public void navegarAgregarNotasAdmin() {
         mostrarDialogo(new AgregarNotasAdministradorFORM(frameActual, true, this));
+    }
+
+    public void navegarRegistroFisicoConfirmar(RegistroFisicoDTO registroSinConfirmar) {
+        mostrarDialogo(new RegistroFisicoConfirmarFORM(frameActual, true, this, controlRegistroFisico,registroSinConfirmar));
     }
 }

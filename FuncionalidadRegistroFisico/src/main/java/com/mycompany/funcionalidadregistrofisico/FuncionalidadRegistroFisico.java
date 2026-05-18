@@ -6,13 +6,21 @@ package com.mycompany.funcionalidadregistrofisico;
 
 import BOs.BOException;
 import BOs.ClientesBO;
+import BOs.EnfermedadesBO;
+import BOs.LesionesBO;
 import BOs.RegistroFisicoBO;
 import BOs.RutinasBO;
-import DTOS.DetallesRutinaDTO;
+import DTOS.EnfermedadesDTO;
+import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import DTOS.RutinaDTO;
 import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import Interfaces.IClientesBO;
+import Interfaces.IEnfermedadesBO;
+import Interfaces.ILesionesBO;
+import Interfaces.IRegistroFisicoBO;
+import Interfaces.IRutinasBO;
 import java.util.List;
 
 /**
@@ -21,14 +29,18 @@ import java.util.List;
  */
 public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico {
 
-    private RutinasBO rutinasBO;
-    private RegistroFisicoBO registroFisicoBO;
-    private ClientesBO clientesBO;
+    private IRutinasBO rutinasBO;
+    private IRegistroFisicoBO registroFisicoBO;
+    private IClientesBO clientesBO;
+    private IEnfermedadesBO enfermedadesBO;
+    private ILesionesBO lesionesBO;
 
     public FuncionalidadRegistroFisico() {
         rutinasBO = new RutinasBO();
         registroFisicoBO = new RegistroFisicoBO();
         clientesBO = new ClientesBO();
+        enfermedadesBO = new EnfermedadesBO();
+        lesionesBO = new LesionesBO();
     }
 
     //TODOOOO validaciones
@@ -52,11 +64,29 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
     }
 
     @Override
-    public RutinaDTO consultarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException {
+    public RutinaDTO consultarRutina(String idCliente, String diaSemana) throws RegistroFisicoException {
         try {
-            return rutinasBO.guardarRutina(rutinaDTO);
+            return rutinasBO.consultarRutina(idCliente, diaSemana);
         } catch (BOException ex) {
             throw new RegistroFisicoException("Error al consultar rutina", ex);
+        }
+    }
+
+    @Override
+    public List<EnfermedadesDTO> traerEnfermedades() throws RegistroFisicoException {
+        try {
+            return enfermedadesBO.consultarEnfermedades();
+        } catch (BOException ex) {
+            throw new RegistroFisicoException("Error al consultar las enfermedades", ex);
+        }
+    }
+
+    @Override
+    public List<LesionesDTO> traerLesiones() throws RegistroFisicoException {
+        try {
+            return lesionesBO.consultarLesiones();
+        } catch (BOException ex) {
+            throw new RegistroFisicoException("Error al consultar las lesiones", ex);
         }
     }
 
@@ -105,5 +135,7 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
             throw new RegistroFisicoException("Error al editar la rutina ", ex);
         }
     }
+
+   
 
 }

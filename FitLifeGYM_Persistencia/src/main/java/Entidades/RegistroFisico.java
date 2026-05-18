@@ -18,6 +18,7 @@ public class RegistroFisico {
     @BsonId
     @BsonRepresentation(BsonType.OBJECT_ID)
     private String id;
+    @BsonRepresentation(BsonType.OBJECT_ID)
     private String idCliente;
     private NivelCondicion nivelCondicion;
     private List<LesionesSeleccionadas> lesionesSeleccionadas;

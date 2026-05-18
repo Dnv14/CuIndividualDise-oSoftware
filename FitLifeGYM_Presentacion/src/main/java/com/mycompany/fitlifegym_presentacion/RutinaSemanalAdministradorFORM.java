@@ -15,16 +15,14 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RutinaSemanalAdministradorFORM.class.getName());
-
     private ControlNavegacion controlNavegacion;
 
     public RutinaSemanalAdministradorFORM(ControlNavegacion controlNavegacion) {
         this.controlNavegacion = controlNavegacion;
         this.setTitle("Rutina Semanal Administrar");
         initComponents();
-        this.setLocationRelativeTo(null);
         diseñoTabla();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -149,7 +147,7 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
         int fila = DiasSemanaTable.getSelectedRow();
         String diaSemana = (String) DiasSemanaTable.getValueAt(fila, 0);
         try {
-            
+
             controlNavegacion.navegarDetallesRutinaAdmin(diaSemana);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

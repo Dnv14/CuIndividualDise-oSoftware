@@ -17,34 +17,23 @@ public class DetallesRutina {
     private Integer pesoRecomendado;
     private Integer repeticionesRecomendadas;
     private Integer seriesRecomendadas;
-    private String notas;
 
     public DetallesRutina() {
     }
 
-    public DetallesRutina(String id, List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas, String notas) {
+    public DetallesRutina(String id, List<EjerciciosSeleccionados> ejerciciosSeleccionados, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
         this.id = id;
-        this.ejerciciosSeleccionados = ejercicios;
+        this.ejerciciosSeleccionados = ejerciciosSeleccionados;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
-        this.notas = notas;
     }
 
-    public DetallesRutina(List<EjerciciosSeleccionados> ejercicios, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas, String notas) {
-        this.ejerciciosSeleccionados = ejercicios;
+    public DetallesRutina(List<EjerciciosSeleccionados> ejerciciosSeleccionados, Integer pesoRecomendado, Integer repeticionesRecomendadas, Integer seriesRecomendadas) {
+        this.ejerciciosSeleccionados = ejerciciosSeleccionados;
         this.pesoRecomendado = pesoRecomendado;
         this.repeticionesRecomendadas = repeticionesRecomendadas;
         this.seriesRecomendadas = seriesRecomendadas;
-        this.notas = notas;
-    }
-
-    public String getNotas() {
-        return notas;
-    }
-
-    public void setNotas(String notas) {
-        this.notas = notas;
     }
 
     public String getId() {

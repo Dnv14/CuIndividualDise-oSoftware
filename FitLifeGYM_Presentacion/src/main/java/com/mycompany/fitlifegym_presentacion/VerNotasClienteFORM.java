@@ -11,17 +11,20 @@ package com.mycompany.fitlifegym_presentacion;
 public class VerNotasClienteFORM extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VerNotasClienteFORM.class.getName());
-    
+
     private ControlNavegacion controlNavegacion;
-    
-    
-    public VerNotasClienteFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion) {
+    private String notas;
+
+    public VerNotasClienteFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, String notas) {
         super(parent, modal);
         this.controlNavegacion = controlNavegacion;
+        this.notas = notas;
+        this.setTitle("Notas de la Rutina");
         initComponents();
+        this.setLocationRelativeTo(null);
+        agregarNotas(notas);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -32,7 +35,7 @@ public class VerNotasClienteFORM extends javax.swing.JDialog {
         jSeparator3 = new javax.swing.JSeparator();
         btnVolverAtras = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        textAreaInstalaciones = new javax.swing.JTextArea();
+        textNotas = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,18 +60,19 @@ public class VerNotasClienteFORM extends javax.swing.JDialog {
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        textAreaInstalaciones.setEditable(false);
-        textAreaInstalaciones.setBackground(new java.awt.Color(51, 51, 51));
-        textAreaInstalaciones.setColumns(20);
-        textAreaInstalaciones.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        textAreaInstalaciones.setForeground(new java.awt.Color(255, 255, 255));
-        textAreaInstalaciones.setRows(5);
-        textAreaInstalaciones.setText("AAAAA");
-        textAreaInstalaciones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        textAreaInstalaciones.setCaretColor(new java.awt.Color(0, 0, 0));
-        textAreaInstalaciones.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        textAreaInstalaciones.setDragEnabled(true);
-        jScrollPane5.setViewportView(textAreaInstalaciones);
+        textNotas.setEditable(false);
+        textNotas.setBackground(new java.awt.Color(51, 51, 51));
+        textNotas.setColumns(20);
+        textNotas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        textNotas.setForeground(new java.awt.Color(255, 255, 255));
+        textNotas.setLineWrap(true);
+        textNotas.setRows(5);
+        textNotas.setText("AAAAA");
+        textNotas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        textNotas.setCaretColor(new java.awt.Color(0, 0, 0));
+        textNotas.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        textNotas.setDragEnabled(true);
+        jScrollPane5.setViewportView(textNotas);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -128,36 +132,21 @@ public class VerNotasClienteFORM extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
+    public void agregarNotas(String notas) {
+        if (notas == null || notas.isEmpty()) {
+            textNotas.setText("No hay notas para esta rutina");
+        } else {
+            textNotas.setText(notas);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTransferenciaRealizada;
-    private javax.swing.JButton btnTransferenciaRealizada1;
     private javax.swing.JButton btnVolverAtras;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTitulo1;
     private javax.swing.JLabel lblTitulo2;
-    private javax.swing.JTextArea textAreaInstalaciones;
-    private javax.swing.JTextArea textBanco;
-    private javax.swing.JTextArea textBanco1;
-    private javax.swing.JTextArea textBeneficiario;
-    private javax.swing.JTextArea textBeneficiario1;
-    private javax.swing.JTextArea textCuentaClabe;
-    private javax.swing.JTextArea textCuentaClabe1;
+    private javax.swing.JTextArea textNotas;
     // End of variables declaration//GEN-END:variables
 }

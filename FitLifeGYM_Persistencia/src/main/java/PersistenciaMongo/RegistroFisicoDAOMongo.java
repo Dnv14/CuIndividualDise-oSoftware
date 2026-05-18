@@ -52,24 +52,4 @@ public class RegistroFisicoDAOMongo implements IRegistroFisicoDAO {
         }
     }
 
-    @Override
-    public boolean comprobarRegistroFisicoCliente(String idCliente) throws PersistenciaException {
-        try (MongoClient client = CreadorConexiones.crearConexion()) {
-            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
-
-            MongoCollection<RegistroFisico> coleccionRegistroFisico = db.getCollection("NOMBRE_COLECCION", RegistroFisico.class);
-
-            RegistroFisico registroFisico = coleccionRegistroFisico.find(eq("idCliente", new ObjectId(idCliente))).first();
-
-            if (registroFisico == null) {
-                return false;
-            }
-
-            return true;
-
-        } catch (MongoException ex) {
-            throw new PersistenciaException("Error al verificar la existencia del registro físico: " + ex.getMessage());
-        }
-    }
-
 }

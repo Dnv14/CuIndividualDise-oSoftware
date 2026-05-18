@@ -215,7 +215,6 @@ public class DtosAEntidadesAdapter {
                 detalleRutina.setPesoRecomendado(dt.getPesoRecomendado());
                 detalleRutina.setRepeticionesRecomendadas(dt.getRepeticionesRecomendadas());
                 detalleRutina.setSeriesRecomendadas(dt.getSeriesRecomendadas());
-                detalleRutina.setNotas(dt.getNotas());
                 detallesRutina.add(detalleRutina);
             }
         }
@@ -224,14 +223,14 @@ public class DtosAEntidadesAdapter {
             Rutina rutinaConId = new Rutina(rutinaDTO.getId(), rutinaDTO.getIdCliente(),
                     rutinaDTO.getDiaSemana(), rutinaDTO.getFechaAsignada(),
                     adaptarEstadoRutinaDTO(rutinaDTO.getEstadoRutina()),
-                    detallesRutina);
+                    detallesRutina, rutinaDTO.getNotas());
             return rutinaConId;
         }
 
         Rutina rutinaSinId = new Rutina(rutinaDTO.getIdCliente(),
                 rutinaDTO.getDiaSemana(), rutinaDTO.getFechaAsignada(),
                 adaptarEstadoRutinaDTO(rutinaDTO.getEstadoRutina()),
-                detallesRutina);
+                detallesRutina, rutinaDTO.getNotas());
 
         return rutinaSinId;
     }

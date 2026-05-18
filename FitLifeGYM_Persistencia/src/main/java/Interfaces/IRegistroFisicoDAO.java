@@ -17,5 +17,5 @@ public interface IRegistroFisicoDAO {
 
     public abstract RegistroFisico consultarRegistroFisico(String idCliente)throws PersistenciaException;
     
-    public abstract boolean comprobarRegistroFisicoCliente(String idCliente)throws PersistenciaException;
+    
 }

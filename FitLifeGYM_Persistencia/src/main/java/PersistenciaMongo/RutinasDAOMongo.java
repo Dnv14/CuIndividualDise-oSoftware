@@ -78,7 +78,7 @@ public class RutinasDAOMongo implements IRutinasDAO {
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<Rutina> coleccion = db.getCollection(NOMBRE_COLECCION, Rutina.class);
 
-            Rutina consultaRutina = coleccion.find(and(eq("idCliente", idCliente), eq("diaSemana", diaSemana))).first();
+            Rutina consultaRutina = coleccion.find(and(eq("idCliente", new ObjectId(idCliente)), eq("diaSemana", diaSemana))).first();
 
             return consultaRutina;
         } catch (MongoException ex) {

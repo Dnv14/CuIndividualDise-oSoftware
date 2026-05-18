@@ -17,5 +17,5 @@ public interface IRegistroFisicoBO {
     
     public abstract RegistroFisicoDTO consultarRegistroFisico(String idCliente)throws BOException;
     
-    public abstract boolean confirmarConsultarRegistroFisicoCliente(String idCliente)throws BOException; 
+    
 }

@@ -281,7 +281,6 @@ public class EntidadesADTOsAdapter {
                 detalleRutina.setPesoRecomendado(dt.getPesoRecomendado());
                 detalleRutina.setRepeticionesRecomendadas(dt.getRepeticionesRecomendadas());
                 detalleRutina.setSeriesRecomendadas(dt.getSeriesRecomendadas());
-                detalleRutina.setNotas(dt.getNotas());
                 detallesRutina.add(detalleRutina);
             }
         }
@@ -290,14 +289,14 @@ public class EntidadesADTOsAdapter {
             RutinaDTO rutinaConId = new RutinaDTO(rutinaEntidad.getId(), rutinaEntidad.getIdCliente(),
                     rutinaEntidad.getDiaSemana(), rutinaEntidad.getFechaAsignada(),
                     adaptarEstadoRutinaEntidad(rutinaEntidad.getEstadoRutina()),
-                    detallesRutina);
+                    detallesRutina, rutinaEntidad.getNotas());
             return rutinaConId;
         }
 
         RutinaDTO rutinaSinId = new RutinaDTO(rutinaEntidad.getIdCliente(),
                 rutinaEntidad.getDiaSemana(), rutinaEntidad.getFechaAsignada(),
                 adaptarEstadoRutinaEntidad(rutinaEntidad.getEstadoRutina()),
-                detallesRutina);
+                detallesRutina, rutinaEntidad.getNotas());
 
         return rutinaSinId;
     }

@@ -49,9 +49,5 @@ public class RegistroFisicoBO implements IRegistroFisicoBO {
         }
     }
 
-    @Override
-    public boolean confirmarConsultarRegistroFisicoCliente(String idCliente) throws BOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
 }

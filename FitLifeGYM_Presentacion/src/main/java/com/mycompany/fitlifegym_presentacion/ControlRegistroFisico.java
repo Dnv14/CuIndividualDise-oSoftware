@@ -4,12 +4,16 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.DetallesRutinaDTO;
+import DTOS.EnfermedadesDTO;
+import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
+import DTOS.RegistroFisicoDTO;
+import DTOS.RutinaDTO;
 import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import com.mycompany.funcionalidadregistrofisico.FuncionalidadRegistroFisico;
 import com.mycompany.funcionalidadregistrofisico.IFuncionalidadRegistroFisico;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,6 +39,26 @@ public class ControlRegistroFisico {
 
     public void asignarClienteSeleccionado(String id) throws RegistroFisicoException {
         this.clienteSeleccionado = funcionalidadRegistroFisico.buscarClientePorId(id);
+    }
+
+    public RegistroFisicoDTO consultarRegistroFisicoDTO(String idCliente) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.consultarRegistroFisico(idCliente);
+    }
+
+    public List<EnfermedadesDTO> traerEnfermedades() throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.traerEnfermedades();
+    }
+
+    public List<LesionesDTO> traerLesiones() throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.traerLesiones();
+    }
+
+    public RegistroFisicoDTO guardarRegistroFisico(RegistroFisicoDTO registroFisicoDTO) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.guardarRegistroFisico(registroFisicoDTO);
+    }
+
+    public RutinaDTO consultarDetallesRutina(String idCliente, String diaSemana) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.consultarRutina(idCliente,diaSemana);
     }
 
     public NuevoClienteDTO getClienteSeleccionado() {

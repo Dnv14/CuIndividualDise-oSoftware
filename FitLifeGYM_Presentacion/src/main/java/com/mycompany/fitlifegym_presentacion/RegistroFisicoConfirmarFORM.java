@@ -1,29 +1,43 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.EnfermedadesDTO;
+import DTOS.EnfermedadesSeleccionadasDTO;
+import DTOS.LesionesDTO;
+import DTOS.LesionesSeleccionadasDTO;
+import DTOS.RegistroFisicoDTO;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Diego
  */
-public class RegistroFisicoConfirmacion extends javax.swing.JFrame {
+public class RegistroFisicoConfirmarFORM extends javax.swing.JDialog {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroFisicoConfirmacion.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroFisicoConfirmarFORM.class.getName());
 
     private ControlNavegacion controlNavegacion;
+    private ControlRegistroFisico controlRegistroFisico;
+    private RegistroFisicoDTO registroSinConfirmar;
 
-    public RegistroFisicoConfirmacion(ControlNavegacion controlNavegacion) {
+    public RegistroFisicoConfirmarFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion, ControlRegistroFisico controlRegistroFisico, RegistroFisicoDTO registroSinConfirmar) {
+        super(parent, modal);
         this.controlNavegacion = controlNavegacion;
+        this.controlRegistroFisico = controlRegistroFisico;
+        this.registroSinConfirmar = registroSinConfirmar;
         this.setResizable(false);
         this.setTitle("Confirmar Registro Fisico");
-        diseñoTablas();
         initComponents();
         this.setLocationRelativeTo(null);
+        llenarTablas();
     }
 
     /**
@@ -50,7 +64,7 @@ public class RegistroFisicoConfirmacion extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnVolverAtras3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel.setBackground(new java.awt.Color(18, 18, 18));
 
@@ -218,13 +232,13 @@ public class RegistroFisicoConfirmacion extends javax.swing.JFrame {
                         .addComponent(lblLimitacionesFisicas)))
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblEnfermedades)
                         .addGap(208, 208, 208))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)))
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -250,7 +264,7 @@ public class RegistroFisicoConfirmacion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 837, Short.MAX_VALUE)
+            .addGap(0, 840, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -267,16 +281,23 @@ public class RegistroFisicoConfirmacion extends javax.swing.JFrame {
     }//GEN-LAST:event_limitacionesFisicasTableMouseClicked
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        try {
+            controlRegistroFisico.guardarRegistroFisico(registroSinConfirmar);
+            controlNavegacion.navegarMenuRutinasCliente();
+        } catch (RegistroFisicoException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
         controlNavegacion.navegarMenuRutinasCliente();
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        controlNavegacion.navegarRegistroFisico();
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
 
-        controlNavegacion.navegarRegistroFisico();
+        this.dispose();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
     private void diseñoTablas() {
@@ -305,9 +326,30 @@ public class RegistroFisicoConfirmacion extends javax.swing.JFrame {
         DefaultTableCellRenderer renderLimitaciones = new DefaultTableCellRenderer();
         renderLimitaciones.setHorizontalAlignment(JLabel.CENTER);
         limitacionesFisicasTable.getColumnModel().getColumn(0).setCellRenderer(renderLimitaciones);
-
     }
 
+    public void llenarTablas() {
+        List<EnfermedadesSeleccionadasDTO> enfermedadesSeleccionadasDTO = registroSinConfirmar.getEnfermedades();
+        List<LesionesSeleccionadasDTO> lesionesSeleccionadasDTO = registroSinConfirmar.getLesiones();
+
+        DefaultTableModel modeloEnfermedades = (DefaultTableModel) enfermedadesTable.getModel();
+        modeloEnfermedades.setRowCount(0);
+        for (EnfermedadesSeleccionadasDTO e : enfermedadesSeleccionadasDTO) {
+            modeloEnfermedades.addRow(new Object[]{
+                e.getNombre()
+            });
+        }
+
+        DefaultTableModel modeloLesiones = (DefaultTableModel) limitacionesFisicasTable.getModel();
+        modeloLesiones.setRowCount(0);
+        for (LesionesSeleccionadasDTO l : lesionesSeleccionadasDTO) {
+            modeloLesiones.addRow(new Object[]{
+                l.getNombre()
+            });
+        }
+        diseñoTablas();
+        lblCondicionEditable.setText(registroSinConfirmar.getNivelCondicion().toString());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
