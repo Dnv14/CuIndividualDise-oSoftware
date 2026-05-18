@@ -94,6 +94,10 @@ public class ControlNavegacion {
     public void navegarBienvenidaAdministrador() {
         mostrarPantalla(new BienvenidaAdministradorFORM(this,controlRegistroInicioSesion));
     }
+    
+    public void navegarDetallesRutinaAdmin(String diaSemana) {
+        mostrarPantalla(new DetalleRutinaDiaAdministradorFORM(this,diaSemana));
+    }
 
     //Dialogs
     public void navegarRegistrarseCliente() {

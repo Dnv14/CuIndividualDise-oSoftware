@@ -221,7 +221,7 @@ public class AdministrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
     public void clienteNombreLabel() {
-        lblNombreCliente.setText(clienteSeleccionado.getNombre() + clienteSeleccionado.getApellidos());
+        lblNombreCliente.setText(clienteSeleccionado.getNombre() +" "+ clienteSeleccionado.getApellidos());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

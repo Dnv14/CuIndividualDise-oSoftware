@@ -4,7 +4,9 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -144,7 +146,14 @@ public class RutinaSemanalAdministradorFORM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DiasSemanaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DiasSemanaTableMouseClicked
-        // TODO add your handling code here:
+        int fila = DiasSemanaTable.getSelectedRow();
+        String diaSemana = (String) DiasSemanaTable.getValueAt(fila, 0);
+        try {
+            
+            controlNavegacion.navegarDetallesRutinaAdmin(diaSemana);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_DiasSemanaTableMouseClicked
 
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed

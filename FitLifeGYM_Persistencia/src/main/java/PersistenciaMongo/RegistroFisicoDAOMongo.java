@@ -12,6 +12,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -43,11 +44,31 @@ public class RegistroFisicoDAOMongo implements IRegistroFisicoDAO {
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
             MongoCollection<RegistroFisico> coleccionRegistroFisico = db.getCollection(NOMBRE_COLECCION, RegistroFisico.class);
 
-            RegistroFisico registroFisico = coleccionRegistroFisico.find(eq("idCliente", idCliente)).first();
+            RegistroFisico registroFisico = coleccionRegistroFisico.find(eq("idCliente", new ObjectId(idCliente))).first();
 
             return registroFisico;
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al consultar el registro fisico");
+        }
+    }
+
+    @Override
+    public boolean comprobarRegistroFisicoCliente(String idCliente) throws PersistenciaException {
+        try (MongoClient client = CreadorConexiones.crearConexion()) {
+            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
+
+            MongoCollection<RegistroFisico> coleccionRegistroFisico = db.getCollection("NOMBRE_COLECCION", RegistroFisico.class);
+
+            RegistroFisico registroFisico = coleccionRegistroFisico.find(eq("idCliente", new ObjectId(idCliente))).first();
+
+            if (registroFisico == null) {
+                return false;
+            }
+
+            return true;
+
+        } catch (MongoException ex) {
+            throw new PersistenciaException("Error al verificar la existencia del registro físico: " + ex.getMessage());
         }
     }
 
