@@ -8,6 +8,9 @@ import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
 import java.awt.HeadlessException;
+import java.awt.Image;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +33,7 @@ public class AdministrarCliente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         clienteNombreLabel();
+        cargarImagenesMenu();
     }
 
     @SuppressWarnings("unchecked")
@@ -59,6 +63,9 @@ public class AdministrarCliente extends javax.swing.JFrame {
         jSeparator16 = new javax.swing.JSeparator();
         btnVolverAtras3 = new javax.swing.JButton();
         lblTitulo1 = new javax.swing.JLabel();
+        lblImagen2 = new javax.swing.JLabel();
+        lblImagen = new javax.swing.JLabel();
+        lblImagen1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +80,7 @@ public class AdministrarCliente extends javax.swing.JFrame {
         lblNombreCliente.setFont(new java.awt.Font("Arial", 3, 48)); // NOI18N
         lblNombreCliente.setForeground(new java.awt.Color(255, 255, 255));
         lblNombreCliente.setText("Nombre Cliente......");
-        jPanel.add(lblNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 730, -1));
+        jPanel.add(lblNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 830, -1));
 
         jSeparator5.setBackground(new java.awt.Color(225, 6, 0));
         jSeparator5.setForeground(new java.awt.Color(225, 6, 0));
@@ -184,6 +191,9 @@ public class AdministrarCliente extends javax.swing.JFrame {
         lblTitulo1.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo1.setText("Administrar Cliente");
         jPanel.add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 730, 80));
+        jPanel.add(lblImagen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 190, 220, 180));
+        jPanel.add(lblImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 230, 180));
+        jPanel.add(lblImagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 220, 180));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -240,6 +250,31 @@ public class AdministrarCliente extends javax.swing.JFrame {
         lblNombreCliente.setText(clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellidos());
     }
 
+    private void cargarImagenesMenu() {
+        try {
+            URL pathImagen = getClass().getResource("/ImagenMenuRutinas.png");
+
+            if (pathImagen != null) {
+                ImageIcon imagen = new ImageIcon(pathImagen);
+                Image escalaImagen = imagen.getImage().getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH);
+                Image escalaImagen1 = imagen.getImage().getScaledInstance(lblImagen1.getWidth(), lblImagen1.getHeight(), Image.SCALE_SMOOTH);
+                Image escalaImagen2 = imagen.getImage().getScaledInstance(lblImagen2.getWidth(), lblImagen2.getHeight(), Image.SCALE_SMOOTH);
+
+                ImageIcon imagenFinal = new ImageIcon(escalaImagen);
+                ImageIcon imagenFinal1 = new ImageIcon(escalaImagen1);
+                ImageIcon imagenFinal2 = new ImageIcon(escalaImagen2);
+
+                lblImagen.setIcon(imagenFinal);
+                lblImagen1.setIcon(imagenFinal1);
+                lblImagen2.setIcon(imagenFinal2);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la imagen: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistroFisico;
     private javax.swing.JButton btnReportes;
@@ -260,6 +295,9 @@ public class AdministrarCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel lblAdministrarRutina;
+    private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblImagen1;
+    private javax.swing.JLabel lblImagen2;
     private javax.swing.JLabel lblNombreCliente;
     private javax.swing.JLabel lblRegistroFisico;
     private javax.swing.JLabel lblReportes;

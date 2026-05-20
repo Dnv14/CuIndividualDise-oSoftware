@@ -19,9 +19,11 @@ public class AgregarNotasAdministradorFORM extends javax.swing.JDialog {
 
     public AgregarNotasAdministradorFORM(java.awt.Frame parent, boolean modal, ControlNavegacion controlNavegacion) {
         super(parent, modal);
+        this.setTitle("Agregar Notas");
         this.controlNavegacion = controlNavegacion;
         this.detallesAdministradorFORM = (DetalleRutinaDiaAdministradorFORM) parent;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

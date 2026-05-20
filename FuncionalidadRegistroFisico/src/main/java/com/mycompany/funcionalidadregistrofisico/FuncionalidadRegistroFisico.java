@@ -12,7 +12,9 @@ import BOs.LesionesBO;
 import BOs.RegistroFisicoBO;
 import BOs.RutinasBO;
 import DTOS.DetalleRutinaReporteDTO;
+import DTOS.DetallesRutinaDTO;
 import DTOS.EjerciciosDTO;
+import DTOS.EjerciciosSeleccionadosDTO;
 import DTOS.EnfermedadesDTO;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
@@ -62,6 +64,9 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
     //TODOOOO validaciones
     @Override
     public RegistroFisicoDTO consultarRegistroFisico(String idCliente) throws RegistroFisicoException {
+        if (idCliente == null) {
+            throw new RegistroFisicoException("El ID del cliente no es valido o esta vacío.");
+        }
         try {
             return registroFisicoBO.consultarRegistroFisico(idCliente);
         } catch (BOException ex) {
@@ -81,6 +86,12 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     @Override
     public RutinaDTO consultarRutina(String idCliente, String diaSemana) throws RegistroFisicoException {
+        if (idCliente == null) {
+            throw new RegistroFisicoException("El ID del cliente no es valido o esta vacío.");
+        }
+        if (diaSemana == null) {
+            throw new RegistroFisicoException("El dia de la semana no puede estar vacío.");
+        }
         try {
             return rutinasBO.consultarRutina(idCliente, diaSemana);
         } catch (BOException ex) {
@@ -91,6 +102,7 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
     @Override
     public List<EnfermedadesDTO> traerEnfermedades() throws RegistroFisicoException {
         try {
+
             return enfermedadesBO.consultarEnfermedades();
         } catch (BOException ex) {
             throw new RegistroFisicoException("Error al consultar las enfermedades", ex);
@@ -108,6 +120,9 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     @Override
     public List<RutinaDTO> consultarTodasRutinaClientes(String idCliente) throws RegistroFisicoException {
+        if (idCliente == null) {
+            throw new RegistroFisicoException("El ID del cliente no es valido o esta vacío.");
+        }
         try {
             return rutinasBO.consultarTodasRutinaCliente(idCliente);
         } catch (BOException ex) {
@@ -127,6 +142,31 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     @Override
     public RutinaDTO guardarRutina(RutinaDTO rutina) throws RegistroFisicoException {
+        if (rutina.getDiaSemana() == null) {
+            throw new RegistroFisicoException("El dia de la semana no puede estar vacío.");
+        }
+        if (rutina.getDetallesRutina() == null || rutina.getDetallesRutina().isEmpty()) {
+            throw new RegistroFisicoException("La rutina debe contener al menos un ejercicio en los detalles.");
+        }
+        for (DetallesRutinaDTO r : rutina.getDetallesRutina()) {
+
+            if (r.getPesoRecomendado() > 300) {
+                throw new RegistroFisicoException("El peso no puede ser tan alto.");
+            }
+
+            if (r.getRepeticionesRecomendadas() > 16) {
+                throw new RegistroFisicoException("Las repeticiones no pueden ser tan altas.");
+            }
+
+            if (r.getSeriesRecomendadas() > 6) {
+                throw new RegistroFisicoException("Las repeticiones no pueden ser tan altas.");
+            }
+
+            if (r.getPesoRecomendado() < 0 || r.getRepeticionesRecomendadas() < 0 || r.getSeriesRecomendadas() < 0) {
+                throw new RegistroFisicoException("No se admiten numero negativos.");
+            }
+
+        }
         try {
             return rutinasBO.guardarRutina(rutina);
         } catch (BOException ex) {
@@ -136,6 +176,12 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     @Override
     public void eliminarRutina(String idCliente, String diaSemana) throws RegistroFisicoException {
+        if (idCliente == null) {
+            throw new RegistroFisicoException("El ID del cliente no es valido o esta vacío.");
+        }
+        if (diaSemana == null) {
+            throw new RegistroFisicoException("El dia de la semana no puede estar vacío.");
+        }
         try {
             rutinasBO.eliminarRutina(idCliente, diaSemana);
         } catch (BOException ex) {
@@ -166,13 +212,16 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
         try {
             return ejerciciosBO.consultarEjercicios();
         } catch (BOException ex) {
-            throw new RegistroFisicoException("Error al editar la rutina ", ex);
+            throw new RegistroFisicoException("Error al traer los ejercicios", ex);
         }
     }
 
     //reportesss
     @Override
     public byte[] ReporteRutinaPDF(ReporteRutinaClienteDTO datosReporte) throws RegistroFisicoException {
+        if (datosReporte == null) {
+            throw new RegistroFisicoException("No hay datos para imprimir ");
+        }
         try {
             ReporteRutinaClientePdfDTO reportePdf = new ReporteRutinaClientePdfDTO();
             reportePdf.setNombreCliente(datosReporte.getNombreCliente());

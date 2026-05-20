@@ -23,7 +23,10 @@ import static com.mongodb.client.model.Aggregates.project;
 import static com.mongodb.client.model.Aggregates.unwind;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.exists;
 import static com.mongodb.client.model.Filters.gt;
+import static com.mongodb.client.model.Filters.in;
+import static com.mongodb.client.model.Filters.ne;
 import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Projections.computed;
 import static com.mongodb.client.model.Projections.fields;
@@ -213,14 +216,17 @@ public class ClientesDAOMongo implements IClientesDAO {
         try (MongoClient client = CreadorConexiones.crearConexion()) {
 
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
-            MongoCollection<Document> coleccionClientes = db.getCollection("clientes", Document.class);
+            MongoCollection<Document> coleccionClientes = db.getCollection(NOMBRE_COLECCION, Document.class);
 
             List<Bson> pipeline = new LinkedList<>();
+
             pipeline.add(lookup("usuarios", "idUsuario", "_id", "datosUsuario"));
             pipeline.add(unwind("$datosUsuario"));
 
-            pipeline.add(lookup("rutinas", "_id", "idCliente", "datosRutina"));
+            pipeline.add(lookup("registroFisico", "_id", "idCliente", "datosRegistroFisico"));
+            pipeline.add(match(exists("datosRegistroFisico.0")));
 
+            pipeline.add(lookup("rutinas", "_id", "idCliente", "datosRutina"));
             pipeline.add(project(fields(
                     computed("idCliente", "$_id"),
                     computed("nombreCompleto", new Document("$concat", List.of("$datosUsuario.nombre", " ", "$datosUsuario.apellidos"))),

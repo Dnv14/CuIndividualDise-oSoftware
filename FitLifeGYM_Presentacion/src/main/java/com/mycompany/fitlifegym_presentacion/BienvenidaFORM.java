@@ -20,14 +20,14 @@ public class BienvenidaFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
     private ControlRegistroFisico controlRegistroFisico;
-    private ControlRegistroInicioSesion controlForms;
+    private ControlRegistroInicioSesion controlRegistroInicioSesion;
     private NuevoClienteDTO cliente;
 
-    public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlForms, NuevoClienteDTO cliente, ControlRegistroFisico controlRegistroFisico) {
+    public BienvenidaFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlRegistroInicioSesion, NuevoClienteDTO cliente, ControlRegistroFisico controlRegistroFisico) {
         this.controlNavegacion = controlNavegacion;
         this.controlRegistroFisico = controlRegistroFisico;
-        this.controlForms = controlForms;
-        this.cliente = controlForms.getClienteActual();
+        this.controlRegistroInicioSesion = controlRegistroInicioSesion;
+        this.cliente = controlRegistroInicioSesion.getClienteActual();
         this.setTitle("Bienvenida");
 
         initComponents();
@@ -45,7 +45,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
                 String plan = this.cliente.getMembresíaComprada().getMembresia().getTipoMembresia().name();
                 String estado = this.cliente.getMembresíaComprada().getEstado().name();
 
-                lblTitulo.setText("Bienvenido: " + nombre + " | Plan: " + plan);
+                lblTitulo.setText("Bienvenido: " + nombre + " " + " | Plan: " + plan);
                 LblEstadoMembresia.setText("ESTADO: " + estado);
             } else {
                 lblTitulo.setText("Bienvenido: " + nombre + " | Sin membresía");
@@ -72,6 +72,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
         lblTitulo1 = new javax.swing.JLabel();
         btnQuejaSugerencia = new javax.swing.JButton();
         LblEstadoMembresia = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,6 +149,13 @@ public class BienvenidaFORM extends javax.swing.JFrame {
         LblEstadoMembresia.setForeground(new java.awt.Color(255, 255, 255));
         LblEstadoMembresia.setText("ESTADO:");
 
+        btnSalir.setBackground(new java.awt.Color(255, 0, 51));
+        btnSalir.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("Salir");
+        btnSalir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnSalir.addActionListener(this::btnSalirActionPerformed);
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -170,17 +178,22 @@ public class BienvenidaFORM extends javax.swing.JFrame {
                                 .addComponent(LblEstadoMembresia, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(btnProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(btnNutricion, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(btnAmbienteMusical, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(btnQuejaSugerencia, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(btnProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnNutricion, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnAmbienteMusical, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(btnQuejaSugerencia, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         jPanelLayout.setVerticalGroup(
@@ -203,8 +216,10 @@ public class BienvenidaFORM extends javax.swing.JFrame {
                     .addComponent(btnQuejaSugerencia, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBeneficios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LblEstadoMembresia, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnBeneficios, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LblEstadoMembresia, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -237,7 +252,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     private void btnProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgresoActionPerformed
         try {
             RegistroFisicoDTO registroFisico = controlRegistroFisico.consultarRegistroFisicoDTO(cliente.getId());
-            
+
             if (registroFisico == null || registroFisico.getId() == null || registroFisico.getId().trim().isEmpty()) {
                 controlNavegacion.navegarRegistroFisico();
             } else {
@@ -250,7 +265,7 @@ public class BienvenidaFORM extends javax.swing.JFrame {
 
     private void btnBeneficiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeneficiosActionPerformed
 
-        NuevoClienteDTO cliente = controlForms.getClienteActual();
+        NuevoClienteDTO cliente = controlRegistroInicioSesion.getClienteActual();
 
         if (cliente.getMembresíaComprada() == null || cliente.getMembresíaComprada().getEstado() == EstadoDTO.INACTIVO) {
             controlNavegacion.navegarBenificios(cliente);
@@ -264,6 +279,11 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     private void btnQuejaSugerenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuejaSugerenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuejaSugerenciaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        controlRegistroInicioSesion.salirMenu();
+        controlNavegacion.navegarMenuPrincipal();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void configiracionPorMembresia() {
         if (cliente == null || cliente.getMembresíaComprada().getMembresia().getTipoMembresia() == null) {
@@ -301,6 +321,8 @@ public class BienvenidaFORM extends javax.swing.JFrame {
     private javax.swing.JButton btnNutricion;
     private javax.swing.JButton btnProgreso;
     private javax.swing.JButton btnQuejaSugerencia;
+    private javax.swing.JButton btnRegistroFisico;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;

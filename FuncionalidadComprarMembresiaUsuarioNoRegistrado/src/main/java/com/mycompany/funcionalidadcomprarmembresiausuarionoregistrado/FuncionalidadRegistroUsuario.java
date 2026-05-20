@@ -37,6 +37,7 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
     @Override
     public NuevoClienteDTO RegistrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioExceptionRegistrar {
         validarDatosUsuarioCliente(clienteDTO);
+        
 
         try {
             UsuarioDTO usuarioRegistrado = usuariosBO.registrarUsuario(usuarioDTO);
@@ -107,6 +108,10 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
 
         if (usuarioDTO.getCorreo() == null || !usuarioDTO.getCorreo().contains("@")) {
             throw new NegocioExceptionRegistrar("El formato del correo no es válido.");
+        }
+
+        if (usuarioDTO.getContrasenia().length() < 6) {
+            throw new NegocioExceptionRegistrar("La contraseña es muy corta, escriba una más larga");
         }
 
     }

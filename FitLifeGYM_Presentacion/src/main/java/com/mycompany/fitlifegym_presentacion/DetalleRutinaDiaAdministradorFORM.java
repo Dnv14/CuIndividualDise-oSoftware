@@ -207,9 +207,12 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
                 if (objetoEjericico instanceof EjerciciosDTO) {
                     List<EjerciciosSeleccionadosDTO> ejerciciosSeleccionados = new LinkedList<>();
                     EjerciciosDTO ejercicio = (EjerciciosDTO) objetoEjericico;
-                    int peso = Integer.parseInt(modeloTabla.getValueAt(i, 1).toString().trim());
-                    int repes = Integer.parseInt(modeloTabla.getValueAt(i, 2).toString().trim());
-                    int series = Integer.parseInt(modeloTabla.getValueAt(i, 3).toString().trim());
+                    if (ejercicio.getNombre().contains("Selecciona un Ejercicio")) {
+                        continue;
+                    }
+                    Integer pesoRecomendado = Integer.valueOf(modeloTabla.getValueAt(i, 1).toString().trim());
+                    Integer repeticionesRecomendadas = Integer.valueOf(modeloTabla.getValueAt(i, 2).toString().trim());
+                    Integer seriesRecomendadas = Integer.valueOf(modeloTabla.getValueAt(i, 3).toString().trim());
 
                     EjerciciosSeleccionadosDTO ejercicioSeleccionado = new EjerciciosSeleccionadosDTO();
                     ejercicioSeleccionado.setId(ejercicio.getId());
@@ -218,9 +221,9 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
                     ejerciciosSeleccionados.add(ejercicioSeleccionado);
 
                     DetallesRutinaDTO detalleFila = new DetallesRutinaDTO();
-                    detalleFila.setPesoRecomendado(peso);
-                    detalleFila.setRepeticionesRecomendadas(repes);
-                    detalleFila.setSeriesRecomendadas(series);
+                    detalleFila.setPesoRecomendado(pesoRecomendado);
+                    detalleFila.setRepeticionesRecomendadas(repeticionesRecomendadas);
+                    detalleFila.setSeriesRecomendadas(seriesRecomendadas);
                     detalleFila.setEjerciciosSeleccionados(ejerciciosSeleccionados);
 
                     listaDetalles.add(detalleFila);
@@ -324,6 +327,7 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
 
     private boolean validarTablaRutina() {
         DefaultTableModel modelo = (DefaultTableModel) tablaDetallesRutina.getModel();
+        String regex = "^[0-9]+$";
 
         for (int i = 0; i < modelo.getRowCount(); i++) {
             Object ejercicio = modelo.getValueAt(i, 0);
@@ -347,16 +351,20 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
                 seriesString = seriesRecomendadas.toString().trim();
             }
 
-            boolean comprobarTieneEjercicio = false;
-            if (!ejercicioString.contains("Selecciona un Ejercicio")) {
-                comprobarTieneEjercicio = true;
-            }
+            boolean tieneEjercicio = !ejercicioString.isEmpty() && !ejercicioString.contains("Selecciona un Ejercicio");
 
-            if (comprobarTieneEjercicio == true) {
+            if (tieneEjercicio == true) {
+
                 if (pesoString.isEmpty() || repesString.isEmpty() || seriesString.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, " Si selecciono un ejercicio favor de llenar la fila completa", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Si seleccionó un ejercicio favor de llenar la fila completa", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
+
+                if (!pesoString.matches(regex) || !repesString.matches(regex) || !seriesString.matches(regex)) {
+                    JOptionPane.showMessageDialog(this, "Solo números enteros en Peso, Repeticiones y Series", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+
             } else {
                 if (!pesoString.isEmpty() || !repesString.isEmpty() || !seriesString.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Favor de seleccionar un ejercicio para completar la fila", "Error", JOptionPane.ERROR_MESSAGE);

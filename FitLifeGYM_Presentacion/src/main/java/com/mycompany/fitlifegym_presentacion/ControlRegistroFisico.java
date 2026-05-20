@@ -24,14 +24,14 @@ import java.util.List;
  */
 public class ControlRegistroFisico {
 
-    private NuevoClienteDTO clienteLogueado;
+//    private NuevoClienteDTO clienteLogueado;
     private NuevoClienteDTO clienteSeleccionado;
     private ControlRegistroInicioSesion controlInicio;
     private IFuncionalidadRegistroFisico funcionalidadRegistroFisico;
 
     public ControlRegistroFisico(ControlRegistroInicioSesion controlRegistroFisico) {
         this.controlInicio = controlRegistroFisico;
-        this.clienteLogueado = controlRegistroFisico.getClienteActual();
+//        this.clienteLogueado = controlRegistroFisico.getClienteActual();
         this.funcionalidadRegistroFisico = new FuncionalidadRegistroFisico();
     }
 

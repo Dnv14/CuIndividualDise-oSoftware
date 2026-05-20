@@ -105,6 +105,8 @@ public class ControlRegistroInicioSesion {
 
     public void registrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws BOException, NegocioExceptionRenovar, NegocioExceptionRegistrar {
         funcionalidadRegistrarUsuario.validarDatosUsuarioCliente(clienteDTO);
+        funcionalidadRegistrarUsuario.validarDatosUsuarios(usuarioDTO);
+
         this.clienteActual = funcionalidadRegistrarUsuario.RegistrarCliente(clienteDTO, usuarioDTO);
 
         if (this.clienteActual != null) {
@@ -210,4 +212,8 @@ public class ControlRegistroInicioSesion {
         return administradorActual;
     }
 
+    public void salirMenu() {
+        this.clienteActual = null;
+        this.administradorActual = null;
+    }
 }

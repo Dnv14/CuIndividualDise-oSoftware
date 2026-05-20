@@ -12,13 +12,16 @@ import DTOS.RutinaDTO;
 import DTOS.RutinaSemanalReporteDTO;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -43,6 +46,7 @@ public class MenuRutinasClienteFORM extends javax.swing.JFrame {
         this.setTitle("Menú Rutinas");
         initComponents();
         this.setLocationRelativeTo(null);
+        cargarImagenesMenu();
     }
 
     @SuppressWarnings("unchecked")
@@ -65,6 +69,8 @@ public class MenuRutinasClienteFORM extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         btnVolverAtras = new javax.swing.JButton();
+        lblImagen1 = new javax.swing.JLabel();
+        lblImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -152,6 +158,8 @@ public class MenuRutinasClienteFORM extends javax.swing.JFrame {
         btnVolverAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnVolverAtras.addActionListener(this::btnVolverAtrasActionPerformed);
         jPanel.add(btnVolverAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel.add(lblImagen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 186, 220, 180));
+        jPanel.add(lblImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 186, 240, 180));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -248,6 +256,27 @@ public class MenuRutinasClienteFORM extends javax.swing.JFrame {
         controlNavegacion.navegarBienvenida(controlRegistroInicioSesion.getClienteActual());
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
+    private void cargarImagenesMenu() {
+        try {
+            URL pathImagen = getClass().getResource("/AdministrarRutina.png");
+
+            if (pathImagen != null) {
+                ImageIcon imagen = new ImageIcon(pathImagen);
+                Image escalaImagen = imagen.getImage().getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH);
+                Image escalaImagen2 = imagen.getImage().getScaledInstance(lblImagen1.getWidth(), lblImagen1.getHeight(), Image.SCALE_SMOOTH);
+
+                ImageIcon imagenFinal = new ImageIcon(escalaImagen);
+                ImageIcon imagenFinal2 = new ImageIcon(escalaImagen2);
+
+                lblImagen.setIcon(imagenFinal);
+                lblImagen1.setIcon(imagenFinal2);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró la imagen", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la imagen: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSeleccionarConsultarRutina;
@@ -265,6 +294,8 @@ public class MenuRutinasClienteFORM extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel lblConsultarRutina;
     private javax.swing.JLabel lblDescargar;
+    private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblImagen1;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }
