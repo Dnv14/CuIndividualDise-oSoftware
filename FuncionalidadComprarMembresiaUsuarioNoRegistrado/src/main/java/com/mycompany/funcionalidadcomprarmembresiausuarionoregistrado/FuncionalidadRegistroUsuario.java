@@ -37,15 +37,13 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
     @Override
     public NuevoClienteDTO RegistrarCliente(NuevoClienteDTO clienteDTO, UsuarioDTO usuarioDTO) throws NegocioExceptionRegistrar {
         validarDatosUsuarioCliente(clienteDTO);
-        
 
         try {
             UsuarioDTO usuarioRegistrado = usuariosBO.registrarUsuario(usuarioDTO);
             clienteDTO.setIdUsuario(usuarioRegistrado.getId());
 
             NuevoClienteDTO clienteRegistrado = clientesBO.registrarCliente(clienteDTO);
-            System.out.println(clienteRegistrado);
-            System.out.println(clienteDTO);
+            
 
             return clienteRegistrado;
         } catch (BOException ex) {
@@ -89,7 +87,9 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
 
     @Override
     public void validarDatosUsuarioCliente(NuevoClienteDTO clienteDTO) throws NegocioExceptionRegistrar {
-
+        if(clienteDTO.getFechaNacimiento() == null){
+            throw new NegocioExceptionRegistrar("La fecha de nacimiento no debe estar vacia..");
+        }
         if (clienteDTO.getTelefono().isEmpty() || !clienteDTO.getTelefono().matches("\\d{10}")) {
             throw new NegocioExceptionRegistrar("Ingrese el formato válido del teléfono.");
         }
@@ -106,10 +106,21 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
             throw new NegocioExceptionRegistrar("El appelido del cliente no puede ser nulo.");
         }
 
+        if (!usuarioDTO.getApellidos().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$") || !usuarioDTO.getNombre().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
+            throw new NegocioExceptionRegistrar("El nombre o apellido solo puede tener caracteres alfanumericos.");
+        }
+        
+        if (usuarioDTO.getNombre().length() > 25) {
+            throw new NegocioExceptionRegistrar("El nombre es demasiado largo.");
+        }
+        
+        if (usuarioDTO.getApellidos().length() > 25) {
+            throw new NegocioExceptionRegistrar("Los apellidos son demasiados largos.");
+        }
+
         if (usuarioDTO.getCorreo() == null || !usuarioDTO.getCorreo().contains("@")) {
             throw new NegocioExceptionRegistrar("El formato del correo no es válido.");
         }
-
         if (usuarioDTO.getContrasenia().length() < 6) {
             throw new NegocioExceptionRegistrar("La contraseña es muy corta, escriba una más larga");
         }

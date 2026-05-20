@@ -12,7 +12,7 @@ public class FitLifeGYM_Presentacion {
     public static void main(String[] args) {
 
         ControlNavegacion controlNavegacion = new ControlNavegacion();
-
+        
         controlNavegacion.navegarMenuPrincipal();
     }
 }

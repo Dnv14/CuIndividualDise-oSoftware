@@ -144,7 +144,12 @@ public class RutinaSemanalClienteFORM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void DiasSemanaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DiasSemanaTableMouseClicked
+
         int fila = DiasSemanaTable.getSelectedRow();
+        if (fila == -1) {
+            return;
+        }
+
         String diaSemana = (String) DiasSemanaTable.getValueAt(fila, 0);
         try {
             controlNavegacion.navegarDetallesRutinaCliente(diaSemana);

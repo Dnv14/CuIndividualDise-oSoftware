@@ -65,6 +65,7 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
         limitacionesFisicasTable = new javax.swing.JTable();
         lblLeyendaCondicion = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
+        btnVolverAtras3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,12 +171,20 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
         btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
+        btnVolverAtras3.setBackground(new java.awt.Color(255, 0, 51));
+        btnVolverAtras3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnVolverAtras3.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverAtras3.setText("<");
+        btnVolverAtras3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnVolverAtras3.addActionListener(this::btnVolverAtras3ActionPerformed);
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolverAtras3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(297, 297, 297))
             .addGroup(jPanelLayout.createSequentialGroup()
@@ -208,8 +217,11 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTitulo)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblTitulo))
+                    .addComponent(btnVolverAtras3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,6 +347,11 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
         controlNavegacion.navegarRegistroFisicoConfirmar(registroFisicoSinConfirmar);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
+        controlNavegacion.navegarBienvenida(clienteActual);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverAtras3ActionPerformed
+
     private void diseñoTablas() {
         if (enfermedadesTable == null) {
             System.out.println("  enfermedadesTable es NULL en este milisegundo!");
@@ -410,6 +427,7 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnVolverAtras3;
     private javax.swing.JTable enfermedadesTable;
     private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane;

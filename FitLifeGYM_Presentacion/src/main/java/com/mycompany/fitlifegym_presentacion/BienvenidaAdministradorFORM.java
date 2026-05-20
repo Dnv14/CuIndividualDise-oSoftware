@@ -20,6 +20,7 @@ public class BienvenidaAdministradorFORM extends javax.swing.JFrame {
 
     public BienvenidaAdministradorFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlRegistroInicioSesion) {
         this.controlNavegacion = controlNavegacion;
+        this.controlRegistroInicioSesion = controlRegistroInicioSesion;
         this.administrador = controlRegistroInicioSesion.getAdministradorActual();
         initComponents();
         this.setTitle("Bienvenido Administrador!");
