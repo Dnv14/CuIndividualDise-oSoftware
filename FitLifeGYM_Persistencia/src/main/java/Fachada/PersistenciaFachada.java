@@ -72,8 +72,7 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     public Cliente iniciarSesionCliente(String correo, String contrasenia) throws PersistenciaException {
         return clientesDAO.iniciarSesionCliente(correo, contrasenia);
     }
-    
-    
+
     @Override
     public List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
         return clientesDAO.barraBusquedaConsultarClientes(filtrosDTO);
@@ -150,6 +149,11 @@ public class PersistenciaFachada implements IPersistenciaFachada {
         return rutinasDAO.consultarRutina(idCliente, diaSemana);
     }
 
+    @Override
+    public List<Rutina> consultarTodasRutinasCliente(String idCliente) throws PersistenciaException {
+        return rutinasDAO.consultarTodasRutinaCliente(idCliente);
+    }
+
     //registro fisico
     @Override
     public RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico) throws PersistenciaException {
@@ -176,6 +180,5 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     public Administrador registrarAdministrador(Administrador administrador) throws PersistenciaException {
         return administradorDAO.registrarAdministrador(administrador);
     }
-
 
 }

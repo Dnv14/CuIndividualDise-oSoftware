@@ -202,6 +202,7 @@ public class MainFitLifeFORM extends javax.swing.JFrame {
             controlNavegacion.navegarIniciarSesionCliente();
         } else {
             controlNavegacion.navegarIniciarSesionAdministrador();
+            btnRegistrarse.setEnabled(false);
         }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 

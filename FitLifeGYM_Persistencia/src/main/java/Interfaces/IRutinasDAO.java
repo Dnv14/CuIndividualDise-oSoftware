@@ -6,6 +6,7 @@ package Interfaces;
 
 import Entidades.Rutina;
 import Excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *
@@ -20,4 +21,6 @@ public interface IRutinasDAO {
     public abstract Rutina editarRutina(Rutina rutina) throws PersistenciaException;
 
     public abstract Rutina consultarRutina(String idCliente, String diaSemana) throws PersistenciaException;
+    
+    public abstract List<Rutina> consultarTodasRutinaCliente(String idCliente)throws PersistenciaException;
 }

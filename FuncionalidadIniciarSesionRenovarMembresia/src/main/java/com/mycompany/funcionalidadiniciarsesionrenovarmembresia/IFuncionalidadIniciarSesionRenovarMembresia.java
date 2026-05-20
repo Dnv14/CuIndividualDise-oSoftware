@@ -18,8 +18,8 @@ import java.util.List;
 public interface IFuncionalidadIniciarSesionRenovarMembresia {
 
     public abstract NuevoClienteDTO iniciarSesionCliente(NuevoClienteDTO clienteDTO) throws NegocioExceptionRenovar;
-    
-    public abstract AdministradorDTO iniciarSesionAdministrador(AdministradorDTO administradorDTO)throws NegocioExceptionRenovar;
+
+    public abstract AdministradorDTO iniciarSesionAdministrador(AdministradorDTO administradorDTO) throws NegocioExceptionRenovar;
 
     public abstract List<NuevaMembresiaDTO> consultarMembresias() throws NegocioExceptionRenovar;
 

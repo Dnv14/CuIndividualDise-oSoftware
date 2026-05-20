@@ -65,7 +65,7 @@ public class ControlNavegacion {
     }
 
     public void navegarMenuRutinasCliente() {
-        mostrarPantalla(new MenuRutinasClienteFORM(this, controlRegistroInicioSesion));
+        mostrarPantalla(new MenuRutinasClienteFORM(this, controlRegistroInicioSesion,controlRegistroFisico));
     }
 
     public void navegarRutinaSemanalCliente() {

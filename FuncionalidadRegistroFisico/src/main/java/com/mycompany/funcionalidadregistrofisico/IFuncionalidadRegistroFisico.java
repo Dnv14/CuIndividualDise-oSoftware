@@ -9,6 +9,7 @@ import DTOS.EnfermedadesDTO;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
+import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
 import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import java.util.List;
@@ -31,6 +32,8 @@ public interface IFuncionalidadRegistroFisico {
 
     public abstract List<LesionesDTO> traerLesiones() throws RegistroFisicoException;
 
+    public abstract List<RutinaDTO> consultarTodasRutinaClientes(String idCliente) throws RegistroFisicoException;
+
     //admin
     public abstract List<NuevoClienteDTO> consultarClientesFiltros(filtrosBusquedaClientesDTO filtros) throws RegistroFisicoException;
 
@@ -43,5 +46,8 @@ public interface IFuncionalidadRegistroFisico {
     public abstract NuevoClienteDTO buscarClientePorId(String id) throws RegistroFisicoException;
 
     public abstract List<EjerciciosDTO> traerEjercicios() throws RegistroFisicoException;
+
+    //imprimir Reportesss
+    public byte[] ReporteRutinaPDF(ReporteRutinaClienteDTO datos) throws RegistroFisicoException;
 
 }

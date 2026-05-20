@@ -13,6 +13,7 @@
         <module>../FuncionalidadIniciarSesionRenovarMembresia</module>
         <module>../FitLifeGYM_Dtos</module>
         <module>../FuncionalidadRegistroFisico</module>
+        <module>../Infraestructura</module>
     </modules>
     <properties>
         <maven.compiler.release>25</maven.compiler.release>

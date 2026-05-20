@@ -12,6 +12,8 @@ import Excepciones.PersistenciaException;
 import Fachada.IPersistenciaFachada;
 import Fachada.PersistenciaFachada;
 import Interfaces.IRutinasBO;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -67,6 +69,20 @@ public class RutinasBO implements IRutinasBO {
 
         } catch (PersistenciaException ex) {
             throw new BOException("Error al consultar rutina", ex);
+        }
+    }
+
+    @Override
+    public List<RutinaDTO> consultarTodasRutinaCliente(String idCliente) throws BOException {
+        try {
+            List<RutinaDTO> rutinasConsultadasDTO = new LinkedList<>();
+            for (Rutina r : persistenciaFachada.consultarTodasRutinasCliente(idCliente)) {
+                RutinaDTO rutinaDTO = adaptarRutinaEntidad(r);
+                rutinasConsultadasDTO.add(rutinaDTO);
+            }
+            return rutinasConsultadasDTO;
+        } catch (PersistenciaException ex) {
+            throw new BOException("Error al consultar las rutinas del cliente", ex);
         }
     }
 

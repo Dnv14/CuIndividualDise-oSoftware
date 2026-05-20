@@ -6,6 +6,7 @@ package Interfaces;
 
 import BOs.BOException;
 import DTOS.RutinaDTO;
+import java.util.List;
 
 /**
  *
@@ -19,4 +20,6 @@ public interface IRutinasBO {
     public abstract RutinaDTO editarRutina(RutinaDTO rutina)throws BOException;
     
     public abstract RutinaDTO consultarRutina(String idCliente, String diaSemana)throws BOException;
+    
+    public abstract List<RutinaDTO> consultarTodasRutinaCliente(String idCliente)throws BOException;
 }

@@ -10,6 +10,7 @@ import DTOS.EnfermedadesDTO;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
+import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
 import DTOsPersistencia.filtrosBusquedaClientesDTO;
 import com.mycompany.funcionalidadregistrofisico.FuncionalidadRegistroFisico;
@@ -76,6 +77,14 @@ public class ControlRegistroFisico {
 
     public RutinaDTO editarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException {
         return funcionalidadRegistroFisico.editarRutina(rutinaDTO);
+    }
+
+    public List<RutinaDTO> consultarTodasRutinasCliente(String idCliente) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.consultarTodasRutinaClientes(idCliente);
+    }
+
+    public byte[] descargarRutinaPdf(ReporteRutinaClienteDTO datos) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.ReporteRutinaPDF(datos);
     }
 
     public NuevoClienteDTO getClienteSeleccionado() {

@@ -65,6 +65,8 @@ public interface IPersistenciaFachada {
 
     public abstract Rutina consultarRutina(String idCliente, String diaSemana) throws PersistenciaException;
 
+    public abstract List<Rutina> consultarTodasRutinasCliente(String idCliente) throws PersistenciaException;
+
     //registro fisico 
     public abstract RegistroFisico guardarRegistroFisico(RegistroFisico registroFisico) throws PersistenciaException;
 

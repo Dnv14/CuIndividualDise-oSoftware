@@ -4,8 +4,6 @@
  */
 package PersistenciaMongo;
 
-import Entidades.DetallesRutina;
-import Entidades.EstadoRutina;
 import Entidades.Rutina;
 import Excepciones.PersistenciaException;
 import Interfaces.IRutinasDAO;
@@ -15,9 +13,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.combine;
-import static com.mongodb.client.model.Updates.set;
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -69,8 +66,7 @@ public class RutinasDAOMongo implements IRutinasDAO {
             throw new PersistenciaException("Error al editar la rutina");
         }
     }
-    
-    
+
     //cliente
     @Override
     public Rutina consultarRutina(String idCliente, String diaSemana) throws PersistenciaException {
@@ -83,6 +79,27 @@ public class RutinasDAOMongo implements IRutinasDAO {
             return consultaRutina;
         } catch (MongoException ex) {
             throw new PersistenciaException("Error al consultar la rutina");
+        }
+    }
+
+    @Override
+    public List<Rutina> consultarTodasRutinaCliente(String idCliente) throws PersistenciaException {
+        try (MongoClient client = CreadorConexiones.crearConexion()) {
+            List<Rutina> rutinasCliente = new LinkedList<>();
+            MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
+            MongoCollection<Rutina> coleccion = db.getCollection(NOMBRE_COLECCION, Rutina.class);
+
+            List<String> diasSemanaOrdenar = List.of("Lunes", "Martes", "Miercoles", "Jueves", "Viernes");
+            for (String dia : diasSemanaOrdenar) {
+                Rutina rutinaDia = coleccion.find(and(eq("idCliente", new ObjectId(idCliente)), eq("diaSemana", dia))).first();
+                if (rutinaDia != null) {
+                    rutinasCliente.add(rutinaDia);
+                }
+            }
+            return rutinasCliente;
+
+        } catch (MongoException ex) {
+            throw new PersistenciaException("Error al consultar las rutinas del Cliente");
         }
     }
 

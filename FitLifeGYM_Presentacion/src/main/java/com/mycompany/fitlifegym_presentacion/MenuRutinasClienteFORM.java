@@ -4,6 +4,25 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
+import DTOS.DetalleRutinaReporteDTO;
+import DTOS.DetallesRutinaDTO;
+import DTOS.NuevoClienteDTO;
+import DTOS.ReporteRutinaClienteDTO;
+import DTOS.RutinaDTO;
+import DTOS.RutinaSemanalReporteDTO;
+import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import java.awt.HeadlessException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Diego
@@ -14,17 +33,18 @@ public class MenuRutinasClienteFORM extends javax.swing.JFrame {
 
     private ControlNavegacion controlNavegacion;
     private ControlRegistroInicioSesion controlRegistroInicioSesion;
+    private ControlRegistroFisico controlRegistroFisico;
 
-    public MenuRutinasClienteFORM(ControlNavegacion controlNavegacion,ControlRegistroInicioSesion controlRegistroInicioSesion) {
+    public MenuRutinasClienteFORM(ControlNavegacion controlNavegacion, ControlRegistroInicioSesion controlRegistroInicioSesion, ControlRegistroFisico controlRegistroFisico) {
         this.controlNavegacion = controlNavegacion;
         this.controlRegistroInicioSesion = controlRegistroInicioSesion;
+        this.controlRegistroFisico = controlRegistroFisico;
         this.setResizable(false);
         this.setTitle("Menú Rutinas");
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -156,7 +176,72 @@ public class MenuRutinasClienteFORM extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarConsultarRutinaActionPerformed
 
     private void btnSeleccionarDescargarRutinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarDescargarRutinaActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Plan de Entrenamiento Semanal");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Documento PDF", "pdf"));
+        Date fechaActual = new Date();
+        SimpleDateFormat formatoFechas = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaString = formatoFechas.format(fechaActual);
+
+        int seleccionUsuario = fileChooser.showSaveDialog(this);
+        if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
+            java.io.File archivoSeleccionado = fileChooser.getSelectedFile();
+            String ruta = archivoSeleccionado.getAbsolutePath();
+            if (!ruta.toLowerCase().endsWith(".pdf")) {
+                ruta += ".pdf";
+            }
+
+            try {
+                NuevoClienteDTO clienteActual = controlRegistroInicioSesion.getClienteActual();
+                List<RutinaDTO> rutinasConsultadas = controlRegistroFisico.consultarTodasRutinasCliente(clienteActual.getId());
+
+                if (rutinasConsultadas == null || rutinasConsultadas.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Usted no tiene rutinas registradas en la semana para exportar", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                ReporteRutinaClienteDTO reporteRutinaDatos = new ReporteRutinaClienteDTO();
+                reporteRutinaDatos.setNombreCliente(clienteActual.getNombre());
+                reporteRutinaDatos.setFechaGenerado(fechaString);
+
+                List<RutinaSemanalReporteDTO> listaDiasSemanaReporte = new LinkedList<>();
+
+                for (RutinaDTO rDto : rutinasConsultadas) {
+                    RutinaSemanalReporteDTO diaSemanaReporteDatos = new RutinaSemanalReporteDTO();
+                    diaSemanaReporteDatos.setDiaSemana(rDto.getDiaSemana());
+                    diaSemanaReporteDatos.setNotas(rDto.getNotas());
+
+                    List<DetalleRutinaReporteDTO> listaEjerciciosReporte = new LinkedList<>();
+
+                    for (DetallesRutinaDTO drDto : rDto.getDetallesRutina()) {
+                        DetalleRutinaReporteDTO ejercicioReporteDatos = new DetalleRutinaReporteDTO();
+
+                        ejercicioReporteDatos.setSeriesRecomendadas(drDto.getSeriesRecomendadas());
+                        ejercicioReporteDatos.setRepeticionesRecomendadas(drDto.getRepeticionesRecomendadas());
+                        ejercicioReporteDatos.setPesoRecomendadas(drDto.getPesoRecomendado());
+                        String nombreEjercicio = drDto.getEjerciciosSeleccionados().get(0).getNombre();
+
+                        ejercicioReporteDatos.setNombreEjercicio(nombreEjercicio);
+                        listaEjerciciosReporte.add(ejercicioReporteDatos);
+                    }
+                    diaSemanaReporteDatos.setDetalleRutina(listaEjerciciosReporte);
+                    listaDiasSemanaReporte.add(diaSemanaReporteDatos);
+                }
+
+                reporteRutinaDatos.setDiasRutina(listaDiasSemanaReporte);
+
+                byte[] pdfBytes = controlRegistroFisico.descargarRutinaPdf(reporteRutinaDatos);
+                FileOutputStream outpout = new FileOutputStream(ruta);
+                outpout.write(pdfBytes);
+                outpout.flush();
+                outpout.close();
+
+                JOptionPane.showMessageDialog(this, "¡PDF Creado con éxito en: " + ruta, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (RegistroFisicoException | IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al descargar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnSeleccionarDescargarRutinaActionPerformed
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
