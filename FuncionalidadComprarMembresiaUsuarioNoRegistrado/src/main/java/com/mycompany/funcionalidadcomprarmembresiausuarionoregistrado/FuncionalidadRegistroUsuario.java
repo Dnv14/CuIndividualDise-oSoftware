@@ -43,7 +43,6 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
             clienteDTO.setIdUsuario(usuarioRegistrado.getId());
 
             NuevoClienteDTO clienteRegistrado = clientesBO.registrarCliente(clienteDTO);
-            
 
             return clienteRegistrado;
         } catch (BOException ex) {
@@ -87,7 +86,7 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
 
     @Override
     public void validarDatosUsuarioCliente(NuevoClienteDTO clienteDTO) throws NegocioExceptionRegistrar {
-        if(clienteDTO.getFechaNacimiento() == null){
+        if (clienteDTO.getFechaNacimiento() == null) {
             throw new NegocioExceptionRegistrar("La fecha de nacimiento no debe estar vacia..");
         }
         if (clienteDTO.getTelefono().isEmpty() || !clienteDTO.getTelefono().matches("\\d{10}")) {
@@ -102,6 +101,14 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
             throw new NegocioExceptionRegistrar("El nombre del cliente no puede ser nulo.");
         }
 
+        if (usuarioDTO.getNombre().length() < 3) {
+            throw new NegocioExceptionRegistrar("El nombre es demasiado corto.");
+        }
+
+        if (usuarioDTO.getApellidos().length() < 5) {
+            throw new NegocioExceptionRegistrar("los apellidos son demasiados cortos.");
+        }
+
         if (usuarioDTO.getApellidos() == null || usuarioDTO.getApellidos().isEmpty()) {
             throw new NegocioExceptionRegistrar("El appelido del cliente no puede ser nulo.");
         }
@@ -109,11 +116,11 @@ public class FuncionalidadRegistroUsuario implements IFuncionalidadRegistrarUsua
         if (!usuarioDTO.getApellidos().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$") || !usuarioDTO.getNombre().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
             throw new NegocioExceptionRegistrar("El nombre o apellido solo puede tener caracteres alfanumericos.");
         }
-        
+
         if (usuarioDTO.getNombre().length() > 25) {
             throw new NegocioExceptionRegistrar("El nombre es demasiado largo.");
         }
-        
+
         if (usuarioDTO.getApellidos().length() > 25) {
             throw new NegocioExceptionRegistrar("Los apellidos son demasiados largos.");
         }

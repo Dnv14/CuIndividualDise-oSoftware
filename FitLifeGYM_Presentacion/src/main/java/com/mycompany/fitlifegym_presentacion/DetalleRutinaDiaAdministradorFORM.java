@@ -78,6 +78,8 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("Rutina: DIA");
 
+        jScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.setPreferredSize(new java.awt.Dimension(703, 573));
 
         tablaDetallesRutina.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,7 +87,7 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre Ejercicio", "Peso Recomendado", "Repeticiones Recomendadas", "Series Recomendadas"
+                "Nombre Ejercicio", "Peso Recomendado(Kg)", "Repeticiones Recomendadas", "Series Recomendadas"
             }
         ));
         tablaDetallesRutina.setAutoscrolls(false);

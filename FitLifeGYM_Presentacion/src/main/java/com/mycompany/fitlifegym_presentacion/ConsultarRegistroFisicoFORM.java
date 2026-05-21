@@ -304,7 +304,7 @@ public class ConsultarRegistroFisicoFORM extends javax.swing.JDialog {
                 });
             }
             diseñoTablas();
-            lblTitulo.setText(clienteActual.getNombre() + clienteActual.getApellidos());
+            lblTitulo.setText(clienteActual.getNombre() + " " + clienteActual.getApellidos());
 
             lblCondicionSeleccionada.setText(this.registroFisico.getNivelCondicion().toString());
 
