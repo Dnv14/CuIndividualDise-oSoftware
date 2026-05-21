@@ -11,17 +11,20 @@ import BOs.EnfermedadesBO;
 import BOs.LesionesBO;
 import BOs.RegistroFisicoBO;
 import BOs.RutinasBO;
+import DTOS.BusquedaClientesDTOBo;
 import DTOS.DetalleRutinaReporteDTO;
 import DTOS.DetallesRutinaDTO;
 import DTOS.EjerciciosDTO;
 import DTOS.EjerciciosSeleccionadosDTO;
 import DTOS.EnfermedadesDTO;
+import DTOS.FiltrosBusquedaClientesDTOBo;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
 import DTOS.RutinaSemanalReporteDTO;
+import DTOsPersistencia.BusquedaClientesDTO;
 import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Interfaces.IClientesBO;
 import Interfaces.IEjerciciosBO;
@@ -132,7 +135,7 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     //apartado como administrador 
     @Override
-    public List<NuevoClienteDTO> consultarClientesFiltros(FiltrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
+    public List<BusquedaClientesDTOBo> consultarClientesFiltros(FiltrosBusquedaClientesDTOBo filtros) throws RegistroFisicoException {
         try {
             return clientesBO.filtrosBarraBusquedaCliente(filtros);
         } catch (BOException ex) {
@@ -142,31 +145,8 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     @Override
     public RutinaDTO guardarRutina(RutinaDTO rutina) throws RegistroFisicoException {
-        if (rutina.getDiaSemana() == null) {
-            throw new RegistroFisicoException("El dia de la semana no puede estar vacío.");
-        }
-        if (rutina.getDetallesRutina() == null || rutina.getDetallesRutina().isEmpty()) {
-            throw new RegistroFisicoException("La rutina debe contener al menos un ejercicio en los detalles.");
-        }
-        for (DetallesRutinaDTO r : rutina.getDetallesRutina()) {
+        validacionesRutina(rutina);
 
-            if (r.getPesoRecomendado() > 300) {
-                throw new RegistroFisicoException("El peso no puede ser tan alto.");
-            }
-
-            if (r.getRepeticionesRecomendadas() > 16) {
-                throw new RegistroFisicoException("Las repeticiones no pueden ser tan altas.");
-            }
-
-            if (r.getSeriesRecomendadas() > 6) {
-                throw new RegistroFisicoException("Las repeticiones no pueden ser tan altas.");
-            }
-
-            if (r.getPesoRecomendado() < 0 || r.getRepeticionesRecomendadas() < 0 || r.getSeriesRecomendadas() < 0) {
-                throw new RegistroFisicoException("No se admiten numero negativos.");
-            }
-
-        }
         try {
             return rutinasBO.guardarRutina(rutina);
         } catch (BOException ex) {
@@ -191,6 +171,7 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     @Override
     public RutinaDTO editarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException {
+        validacionesRutina(rutinaDTO);
         try {
             return rutinasBO.editarRutina(rutinaDTO);
         } catch (BOException ex) {
@@ -254,4 +235,30 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
         }
     }
 
+    public void validacionesRutina(RutinaDTO rutina) throws RegistroFisicoException {
+        if (rutina.getDiaSemana() == null) {
+            throw new RegistroFisicoException("El dia de la semana no puede estar vacío.");
+        }
+        if (rutina.getDetallesRutina() == null || rutina.getDetallesRutina().isEmpty()) {
+            throw new RegistroFisicoException("La rutina debe contener al menos un ejercicio en los detalles.");
+        }
+        for (DetallesRutinaDTO r : rutina.getDetallesRutina()) {
+
+            if (r.getPesoRecomendado() > 300) {
+                throw new RegistroFisicoException("El peso no puede ser tan alto.");
+            }
+
+            if (r.getRepeticionesRecomendadas() > 16) {
+                throw new RegistroFisicoException("Las repeticiones no pueden ser tan altas.");
+            }
+
+            if (r.getSeriesRecomendadas() > 6) {
+                throw new RegistroFisicoException("Las series no pueden ser tan altas.");
+            }
+
+            if (r.getPesoRecomendado() < 0 || r.getRepeticionesRecomendadas() < 0 || r.getSeriesRecomendadas() < 0) {
+                throw new RegistroFisicoException("No se admiten numero negativos.");
+            }
+        }
+    }
 }

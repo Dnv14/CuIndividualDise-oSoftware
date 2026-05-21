@@ -2,21 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DTOsPersistencia;
+package DTOS;
 
 /**
  *
  * @author Diego
  */
-public class FiltrosBusquedaClientesDTO {
+public class FiltrosBusquedaClientesDTOBo {
 
     private String nombreCliente;
     private String estadoRutina;
 
-    public FiltrosBusquedaClientesDTO() {
+    public FiltrosBusquedaClientesDTOBo() {
     }
 
-    public FiltrosBusquedaClientesDTO(String nombreCliente, String estadoRutina) {
+    public FiltrosBusquedaClientesDTOBo(String nombreCliente, String estadoRutina) {
         this.nombreCliente = nombreCliente;
         this.estadoRutina = estadoRutina;
     }
@@ -36,5 +36,4 @@ public class FiltrosBusquedaClientesDTO {
     public void setEstadoRutina(String estadoRutina) {
         this.estadoRutina = estadoRutina;
     }
-
 }

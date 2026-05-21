@@ -21,7 +21,6 @@ Entidades\Rutina.class
 Entidades\Ejercicio.class
 Entidades\LesionesSeleccionadas.class
 Entidades\DetallesRutina.class
-DTOsPersistencia\filtrosBusquedaClientesDTO.class
 Interfaces\IClientesDAO.class
 Interfaces\IEjerciciosDAO.class
 PersistenciaMongo\ClientesDAOMongo.class
@@ -32,12 +31,14 @@ Entidades\RegistroFisico.class
 Interfaces\IRegistroFisicoDAO.class
 FabricaDAOS\FabricaDAOS.class
 PersistenciaConsola\ClientesListDAO.class
+DTOsPersistencia\BusquedaClientesDTO.class
 PersistenciaMongo\EjerciciosDAOSMongo.class
 PersistenciaMongo\LesionesDAOMongo.class
 Entidades\Tarjeta.class
 Fachada\PersistenciaFachada.class
 PersistenciaMongo\EnfermedadesDAOMongo.class
 Entidades\Membresia.class
+DTOsPersistencia\FiltrosBusquedaClientesDTO.class
 Entidades\MembresiaComprada.class
 Entidades\EstadoRutina.class
 PersistenciaConsola\MembresiaCompradaListDAO.class

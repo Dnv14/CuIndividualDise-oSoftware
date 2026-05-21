@@ -4,15 +4,15 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import DTOS.DetallesRutinaDTO;
+import DTOS.BusquedaClientesDTOBo;
 import DTOS.EjerciciosDTO;
 import DTOS.EnfermedadesDTO;
+import DTOS.FiltrosBusquedaClientesDTOBo;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
-import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import com.mycompany.funcionalidadregistrofisico.FuncionalidadRegistroFisico;
 import com.mycompany.funcionalidadregistrofisico.IFuncionalidadRegistroFisico;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
@@ -26,16 +26,14 @@ public class ControlRegistroFisico {
 
 //    private NuevoClienteDTO clienteLogueado;
     private NuevoClienteDTO clienteSeleccionado;
-    private ControlRegistroInicioSesion controlInicio;
+    private ControlRegistroInicioSesion controlRegistroInicioSesion;
     private IFuncionalidadRegistroFisico funcionalidadRegistroFisico;
 
-    public ControlRegistroFisico(ControlRegistroInicioSesion controlRegistroFisico) {
-        this.controlInicio = controlRegistroFisico;
-//        this.clienteLogueado = controlRegistroFisico.getClienteActual();
+    public ControlRegistroFisico() {
         this.funcionalidadRegistroFisico = new FuncionalidadRegistroFisico();
     }
 
-    public List<NuevoClienteDTO> buscarClientesPorFiltro(FiltrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
+    public List<BusquedaClientesDTOBo> buscarClientesPorFiltro(FiltrosBusquedaClientesDTOBo filtros) throws RegistroFisicoException {
         return funcionalidadRegistroFisico.consultarClientesFiltros(filtros);
     }
 

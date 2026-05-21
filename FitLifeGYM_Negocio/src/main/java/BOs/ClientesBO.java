@@ -7,9 +7,14 @@ package BOs;
 import Interfaces.IClientesBO;
 import static Adapter.DtosAEntidadesAdapter.adaptarClienteDTO;
 import static Adapter.DtosAEntidadesAdapter.adaptarMembresiaCompradaDTO;
+
+import static Adapter.DtosPersistenciaADtosBOs.adaptarBusquedaClientePersistenciaABo;
 import static Adapter.EntidadesADTOsAdapter.adaptarClienteEntidad;
 import static Adapter.EntidadesADTOsAdapter.adaptarClienteInicioSesionEntidad;
+import static Adapter.DtosBoADtosPersistencia.adaptarFiltrosBoAPersistencia;
 import static Adapter.EntidadesADTOsAdapter.adaptarMembresiaCompradaEntidad;
+import DTOS.BusquedaClientesDTOBo;
+import DTOS.FiltrosBusquedaClientesDTOBo;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevoClienteDTO;
 import DTOsPersistencia.FiltrosBusquedaClientesDTO;
@@ -22,7 +27,6 @@ import Fachada.PersistenciaFachada;
 import java.util.LinkedList;
 
 import java.util.List;
-import org.bson.Document;
 
 /**
  *
@@ -61,24 +65,10 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<NuevoClienteDTO> filtrosBarraBusquedaCliente(FiltrosBusquedaClientesDTO filtrosDTO) throws BOException {
+    public List<BusquedaClientesDTOBo> filtrosBarraBusquedaCliente(FiltrosBusquedaClientesDTOBo filtrosDTO) throws BOException {
         try {
-            List<Document> documentos = persistenciaFachada.barraBusquedaConsultarClientes(filtrosDTO);
-
-            List<NuevoClienteDTO> listaClientesDTO = new LinkedList<>();
-
-            for (Document d : documentos) {
-                NuevoClienteDTO clienteDTO = new NuevoClienteDTO();
-
-                if (d.getObjectId("idCliente") != null) {
-                    clienteDTO.setId(d.getObjectId("idCliente").toHexString());
-                }
-                clienteDTO.setNombre(d.getString("nombreCompleto"));
-                clienteDTO.setDiasRutina(d.getInteger("diasRutina", 0));
-                listaClientesDTO.add(clienteDTO);
-            }
-
-            return listaClientesDTO;
+            FiltrosBusquedaClientesDTO filtrosPersistencia = adaptarFiltrosBoAPersistencia(filtrosDTO);
+            return adaptarBusquedaClientePersistenciaABo(persistenciaFachada.barraBusquedaConsultarClientes(filtrosPersistencia));
         } catch (PersistenciaException ex) {
             throw new BOException("Error al consultar los clientes", ex);
         }

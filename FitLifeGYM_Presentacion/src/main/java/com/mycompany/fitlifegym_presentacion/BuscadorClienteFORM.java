@@ -4,8 +4,8 @@
  */
 package com.mycompany.fitlifegym_presentacion;
 
-import DTOS.NuevoClienteDTO;
-import DTOsPersistencia.FiltrosBusquedaClientesDTO;
+import DTOS.BusquedaClientesDTOBo;
+import DTOS.FiltrosBusquedaClientesDTOBo;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
 import java.util.List;
 import javax.swing.JLabel;
@@ -199,14 +199,14 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
         controlNavegacion.navegarMenuAdministrador();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
 
-    public void mostrarResultados(List<NuevoClienteDTO> clientes) {
+    public void mostrarResultados(List<BusquedaClientesDTOBo> clientes) {
 
         DefaultTableModel modelo = (DefaultTableModel) buscadorClientesTable.getModel();
         modelo.setRowCount(0);
-        for (NuevoClienteDTO c : clientes) {
+        for (BusquedaClientesDTOBo c : clientes) {
             modelo.addRow(new Object[]{
-                c.getId(),
-                c.getNombre(),
+                c.getIdCliente(),
+                c.getNombreCompleto(),
                 c.getDiasRutina()
             });
         }
@@ -217,11 +217,11 @@ public class BuscadorClienteFORM extends javax.swing.JFrame {
             String textoBusqueda = busquedaTextField.getText().trim();
             String filtroSeleccionado = filtrosComboBox.getSelectedItem().toString();
 
-            FiltrosBusquedaClientesDTO filtros = new FiltrosBusquedaClientesDTO();
+            FiltrosBusquedaClientesDTOBo filtros = new FiltrosBusquedaClientesDTOBo();
             filtros.setNombreCliente(textoBusqueda);
             filtros.setEstadoRutina(filtroSeleccionado);
 
-            List<NuevoClienteDTO> listaResultados = controlRegistroFisico.buscarClientesPorFiltro(filtros);
+            List<BusquedaClientesDTOBo> listaResultados = controlRegistroFisico.buscarClientesPorFiltro(filtros);
 
             this.mostrarResultados(listaResultados);
 

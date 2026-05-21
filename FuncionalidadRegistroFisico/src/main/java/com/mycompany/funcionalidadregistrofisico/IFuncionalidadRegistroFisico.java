@@ -4,13 +4,16 @@
  */
 package com.mycompany.funcionalidadregistrofisico;
 
+import DTOS.BusquedaClientesDTOBo;
 import DTOS.EjerciciosDTO;
 import DTOS.EnfermedadesDTO;
+import DTOS.FiltrosBusquedaClientesDTOBo;
 import DTOS.LesionesDTO;
 import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
+import DTOsPersistencia.BusquedaClientesDTO;
 import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import java.util.List;
 
@@ -35,7 +38,7 @@ public interface IFuncionalidadRegistroFisico {
     public abstract List<RutinaDTO> consultarTodasRutinaClientes(String idCliente) throws RegistroFisicoException;
 
     //admin
-    public abstract List<NuevoClienteDTO> consultarClientesFiltros(FiltrosBusquedaClientesDTO filtros) throws RegistroFisicoException;
+    public abstract List<BusquedaClientesDTOBo> consultarClientesFiltros(FiltrosBusquedaClientesDTOBo filtros) throws RegistroFisicoException;
 
     public abstract RutinaDTO guardarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException;
 

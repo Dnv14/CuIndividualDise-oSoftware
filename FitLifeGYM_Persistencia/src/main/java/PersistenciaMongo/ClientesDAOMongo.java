@@ -4,6 +4,7 @@
  */
 package PersistenciaMongo;
 
+import DTOsPersistencia.BusquedaClientesDTO;
 import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Entidades.Cliente;
 import Entidades.Estado;
@@ -25,8 +26,6 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.exists;
 import static com.mongodb.client.model.Filters.gt;
-import static com.mongodb.client.model.Filters.in;
-import static com.mongodb.client.model.Filters.ne;
 import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Projections.computed;
 import static com.mongodb.client.model.Projections.fields;
@@ -212,7 +211,7 @@ public class ClientesDAOMongo implements IClientesDAO {
     }
 
     @Override
-    public List<Document> barraBusquedaConsultarClientes(FiltrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
+    public List<BusquedaClientesDTO> barraBusquedaConsultarClientes(FiltrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
         try (MongoClient client = CreadorConexiones.crearConexion()) {
 
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
@@ -250,9 +249,21 @@ public class ClientesDAOMongo implements IClientesDAO {
                 pipeline.add(match(and(filtros)));
             }
 
-            List<Document> resultadoDocs = new LinkedList<>();
+            List<BusquedaClientesDTO> resultadoDocs = new LinkedList<>();
+
             for (Document document : coleccionClientes.aggregate(pipeline)) {
-                resultadoDocs.add(document);
+                BusquedaClientesDTO busquedaCliente = new BusquedaClientesDTO();
+                if (document.get("idCliente") != null) {
+                    busquedaCliente.setIdCliente(document.get("idCliente").toString());
+                }
+                busquedaCliente.setNombreCompleto(document.getString("nombreCompleto"));
+                if (document.get("diasRutina") != null) {
+                    busquedaCliente.setDiasRutina(document.getInteger("diasRutina"));
+                } else {
+                    busquedaCliente.setDiasRutina(0);
+                }
+
+                resultadoDocs.add(busquedaCliente);
             }
 
             return resultadoDocs;

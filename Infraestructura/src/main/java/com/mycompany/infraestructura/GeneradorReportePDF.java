@@ -109,7 +109,8 @@ public class GeneradorReportePDF implements IGeneradorReportePDF {
                 }
                 documento.add(tablaDetalles);
 
-                Paragraph separador = new Paragraph("---------------------------------------------------------------------------------------------------------------------------------", new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL, BaseColor.LIGHT_GRAY));
+                Paragraph separador = new Paragraph("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------",
+                        new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL, BaseColor.BLACK));
                 separador.setSpacingAfter(10);
                 documento.add(separador);
             }

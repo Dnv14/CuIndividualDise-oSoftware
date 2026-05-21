@@ -23,7 +23,7 @@ public class ControlNavegacion {
 
     public ControlNavegacion() {
         this.controlRegistroInicioSesion = new ControlRegistroInicioSesion();
-        this.controlRegistroFisico = new ControlRegistroFisico(this.controlRegistroInicioSesion);
+        this.controlRegistroFisico = new ControlRegistroFisico();
     }
 
     private void mostrarPantalla(JFrame nuevoFrame) {

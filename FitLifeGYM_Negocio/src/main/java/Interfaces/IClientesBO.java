@@ -5,12 +5,12 @@
 package Interfaces;
 
 import BOs.BOException;
+import DTOS.BusquedaClientesDTOBo;
+import DTOS.FiltrosBusquedaClientesDTOBo;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevoClienteDTO;
-import DTOsPersistencia.FiltrosBusquedaClientesDTO;
-import Entidades.Cliente;
+
 import java.util.List;
-import org.bson.Document;
 
 /**
  *
@@ -22,7 +22,7 @@ public interface IClientesBO {
     
     public abstract NuevoClienteDTO iniciarSesion(NuevoClienteDTO cliente)throws BOException;
     
-    public abstract List<NuevoClienteDTO> filtrosBarraBusquedaCliente(FiltrosBusquedaClientesDTO filtrosDTO)throws BOException;
+    public abstract List<BusquedaClientesDTOBo> filtrosBarraBusquedaCliente(FiltrosBusquedaClientesDTOBo filtrosDTO)throws BOException;
 
     public abstract NuevoClienteDTO buscarClientePorId(String id) throws BOException;
 

@@ -24,9 +24,6 @@ public class NuevoClienteDTO {
     private String correo;
     private String contrasenia;
 
-    //tabla de busqueda de clientes
-    private Integer diasRutina;
-
     public NuevoClienteDTO() {
     }
 
@@ -126,13 +123,7 @@ public class NuevoClienteDTO {
         this.membresíaComprada = membresíaComprada;
     }
 
-    public Integer getDiasRutina() {
-        return diasRutina;
-    }
-
-    public void setDiasRutina(Integer diasRutina) {
-        this.diasRutina = diasRutina;
-    }
+   
 
     @Override
     public String toString() {

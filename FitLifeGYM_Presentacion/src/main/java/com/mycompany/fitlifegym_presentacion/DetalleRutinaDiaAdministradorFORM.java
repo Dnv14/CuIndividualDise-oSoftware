@@ -210,6 +210,7 @@ public class DetalleRutinaDiaAdministradorFORM extends javax.swing.JFrame {
                     if (ejercicio.getNombre().contains("Selecciona un Ejercicio")) {
                         continue;
                     }
+
                     Integer pesoRecomendado = Integer.valueOf(modeloTabla.getValueAt(i, 1).toString().trim());
                     Integer repeticionesRecomendadas = Integer.valueOf(modeloTabla.getValueAt(i, 2).toString().trim());
                     Integer seriesRecomendadas = Integer.valueOf(modeloTabla.getValueAt(i, 3).toString().trim());
