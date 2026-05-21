@@ -8,17 +8,17 @@ package DTOsPersistencia;
  *
  * @author Diego
  */
-public class filtrosBusquedaClientesDTO {
+public class FiltrosBusquedaClientesDTO {
 
     private String nombreCliente;
     private String estadoRutina;
 
-    public filtrosBusquedaClientesDTO() {
+    public FiltrosBusquedaClientesDTO() {
     }
 
     
     
-    public filtrosBusquedaClientesDTO(String nombreCliente, String estadoRutina) {
+    public FiltrosBusquedaClientesDTO(String nombreCliente, String estadoRutina) {
         this.nombreCliente = nombreCliente;
         this.estadoRutina = estadoRutina;
     }

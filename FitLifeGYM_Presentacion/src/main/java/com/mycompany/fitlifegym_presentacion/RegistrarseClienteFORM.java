@@ -65,7 +65,7 @@ public class RegistrarseClienteFORM extends javax.swing.JDialog {
         btnVolverAtras = new javax.swing.JButton();
         lblApellidos = new javax.swing.JLabel();
         txtCorreoElectronico = new javax.swing.JTextField();
-        selectorFechaNacimiento = new org.jdatepicker.JDatePicker();
+        fechaNacimientoPicker = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -150,8 +150,6 @@ public class RegistrarseClienteFORM extends javax.swing.JDialog {
         txtCorreoElectronico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCorreoElectronico.addActionListener(this::txtCorreoElectronicoActionPerformed);
 
-        selectorFechaNacimiento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -189,10 +187,10 @@ public class RegistrarseClienteFORM extends javax.swing.JDialog {
                         .addGap(371, 371, 371))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(selectorFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNombreCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                             .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                            .addComponent(txtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                            .addComponent(txtApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                            .addComponent(fechaNacimientoPicker, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelLayout.createSequentialGroup()
                                 .addGap(178, 178, 178)
@@ -248,15 +246,11 @@ public class RegistrarseClienteFORM extends javax.swing.JDialog {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(lblFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selectorFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)))
+                .addGap(29, 29, 29)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaNacimientoPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -289,29 +283,11 @@ public class RegistrarseClienteFORM extends javax.swing.JDialog {
         String apellidos = txtApellidos.getText();
         String correo = txtCorreoElectronico.getText();
         String telefono = txtTelefono.getText();
-        GregorianCalendar calendario = (GregorianCalendar) selectorFechaNacimiento.getModel().getValue();
-        LocalDate fecha;
-        String fechaString;
-        if(calendario == null){
-            fecha = null;
-        }else{
-            fecha = calendario.toZonedDateTime().toLocalDate();
-        }
-        if(fecha == null){
-            fechaString = null;
-        }else{
-            fechaString = fecha.toString();
-        }
-         
+        LocalDate fechaNacimiento = fechaNacimientoPicker.getDate();
+
         String contrasenia = txtContrasenia.getText();
 
         try {
-            LocalDate fechaNacimiento;
-            if(fechaString == null){
-                fechaNacimiento = null;
-            }else{
-                fechaNacimiento = LocalDate.parse(fechaString);
-            }
 
             UsuarioDTO nuevoUsuario = new UsuarioDTO(nombre, apellidos, correo, contrasenia);
             NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(telefono, fechaNacimiento, null);
@@ -362,6 +338,7 @@ public class RegistrarseClienteFORM extends javax.swing.JDialog {
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnVolverAtras;
+    private com.github.lgooddatepicker.components.DatePicker fechaNacimientoPicker;
     private javax.swing.JPanel jPanel;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblApellidos;
@@ -372,7 +349,6 @@ public class RegistrarseClienteFORM extends javax.swing.JDialog {
     private javax.swing.JLabel lblTelefono1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTitulo1;
-    private org.jdatepicker.JDatePicker selectorFechaNacimiento;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtCorreoElectronico;

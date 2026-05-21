@@ -284,14 +284,14 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
                     "¿Deseas seleccionar la enfermedad: " + nombreEnfermedad + "?", "Confirmar Selección", JOptionPane.YES_NO_OPTION);
 
             if (respuesta == JOptionPane.YES_OPTION) {
-                enfermedadesConfirmadas.add(nombreEnfermedad);
+                this.enfermedadesConfirmadas.add(nombreEnfermedad);
                 JOptionPane.showMessageDialog(this, nombreEnfermedad + " agregada");
             }
         } else {
             int respuesta = JOptionPane.showConfirmDialog(this,
                     "¿Deseas QUITAR: " + nombreEnfermedad + " de la lista?", "Quitar Selección", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.YES_OPTION) {
-                enfermedadesConfirmadas.remove(nombreEnfermedad);
+                this.enfermedadesConfirmadas.remove(nombreEnfermedad);
                 JOptionPane.showMessageDialog(this, nombreEnfermedad + " eliminada");
             }
         }
@@ -304,18 +304,18 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
         }
         String nombreLesion = (String) limitacionesFisicasTable.getValueAt(fila, 0);
 
-        if (!lesionesConfirmadas.contains(nombreLesion)) {
+        if (!this.lesionesConfirmadas.contains(nombreLesion)) {
             int respuesta = JOptionPane.showConfirmDialog(this,
                     "¿Deseas seleccionar la limitación: " + nombreLesion + "?", "Confirmar Selección", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.YES_OPTION) {
-                lesionesConfirmadas.add(nombreLesion);
+                this.lesionesConfirmadas.add(nombreLesion);
                 JOptionPane.showMessageDialog(this, nombreLesion + " agregada");
             }
         } else {
             int respuesta = JOptionPane.showConfirmDialog(this,
                     "¿Deseas QUITAR: " + nombreLesion + " de la lista?", "Quitar Selección", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.YES_OPTION) {
-                lesionesConfirmadas.remove(nombreLesion);
+                this.lesionesConfirmadas.remove(nombreLesion);
                 JOptionPane.showMessageDialog(this, nombreLesion + " eliminada");
             }
         }
@@ -326,12 +326,12 @@ public class RegistroFisicoFORM extends javax.swing.JFrame {
         List<EnfermedadesSeleccionadasDTO> enfermedadesSeleccionadas = new LinkedList<>();
         List<LesionesSeleccionadasDTO> lesionesSeleccionadas = new LinkedList<>();
 
-        for (String nombre : enfermedadesConfirmadas) {
+        for (String nombre : this.enfermedadesConfirmadas) {
             EnfermedadesSeleccionadasDTO enfermedadesSeleccionadasSinConfirmar = new EnfermedadesSeleccionadasDTO();
             enfermedadesSeleccionadasSinConfirmar.setNombre(nombre);
             enfermedadesSeleccionadas.add(enfermedadesSeleccionadasSinConfirmar);
         }
-        for (String nombre : lesionesConfirmadas) {
+        for (String nombre : this.lesionesConfirmadas) {
             LesionesSeleccionadasDTO lesionesSeleccionadasSinConfirmar = new LesionesSeleccionadasDTO();
             lesionesSeleccionadasSinConfirmar.setNombre(nombre);
             lesionesSeleccionadas.add(lesionesSeleccionadasSinConfirmar);

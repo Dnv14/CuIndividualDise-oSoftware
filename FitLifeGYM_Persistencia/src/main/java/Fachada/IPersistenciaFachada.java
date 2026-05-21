@@ -4,7 +4,7 @@
  */
 package Fachada;
 
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Entidades.Administrador;
 import Entidades.Cliente;
 import Entidades.Ejercicio;
@@ -33,7 +33,7 @@ public interface IPersistenciaFachada {
 
     public abstract Cliente consultarClientePorId(String id) throws PersistenciaException;
 
-    public abstract List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException;
+    public abstract List<Document> barraBusquedaConsultarClientes(FiltrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException;
 
     public abstract List<Cliente> consultarClientes() throws PersistenciaException;
 

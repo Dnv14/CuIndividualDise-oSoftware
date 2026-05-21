@@ -65,7 +65,7 @@ public class ControlNavegacion {
     }
 
     public void navegarMenuRutinasCliente() {
-        mostrarPantalla(new MenuRutinasClienteFORM(this, controlRegistroInicioSesion,controlRegistroFisico));
+        mostrarPantalla(new MenuRutinasClienteFORM(this, controlRegistroInicioSesion, controlRegistroFisico));
     }
 
     public void navegarRutinaSemanalCliente() {
@@ -85,7 +85,7 @@ public class ControlNavegacion {
     }
 
     public void navegarRutinaSemanalAdmin() {
-        mostrarPantalla(new RutinaSemanalAdministradorFORM(this,controlRegistroFisico));
+        mostrarPantalla(new RutinaSemanalAdministradorFORM(this, controlRegistroFisico));
     }
 
     public void navegarBienvenidaAdministrador() {
@@ -102,6 +102,10 @@ public class ControlNavegacion {
 
     public void navegarEditarOEliminarRutina(String diaSemana) {
         mostrarPantalla(new DetallesRutinaEliminarOEditarFORM(this, controlRegistroFisico, diaSemana));
+    }
+
+    public void navegarReporteAdministrador() {
+        mostrarPantalla(new ReporteAdministradorFORM(this, controlRegistroFisico));
     }
 
     //Dialogs
@@ -138,7 +142,7 @@ public class ControlNavegacion {
     }
 
     public void navegarConsultarRegistroFisico() {
-        mostrarDialogo(new ConsultarRegistroFisicoFORM(frameActual, true, this,controlRegistroFisico));
+        mostrarDialogo(new ConsultarRegistroFisicoFORM(frameActual, true, this, controlRegistroFisico));
     }
 
     public void navegarAgregarNotasAdmin() {

@@ -12,7 +12,7 @@ import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import com.mycompany.funcionalidadregistrofisico.FuncionalidadRegistroFisico;
 import com.mycompany.funcionalidadregistrofisico.IFuncionalidadRegistroFisico;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
@@ -35,7 +35,7 @@ public class ControlRegistroFisico {
         this.funcionalidadRegistroFisico = new FuncionalidadRegistroFisico();
     }
 
-    public List<NuevoClienteDTO> buscarClientesPorFiltro(filtrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
+    public List<NuevoClienteDTO> buscarClientesPorFiltro(FiltrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
         return funcionalidadRegistroFisico.consultarClientesFiltros(filtros);
     }
 

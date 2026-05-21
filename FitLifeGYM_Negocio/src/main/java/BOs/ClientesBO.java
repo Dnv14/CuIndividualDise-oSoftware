@@ -12,7 +12,7 @@ import static Adapter.EntidadesADTOsAdapter.adaptarClienteInicioSesionEntidad;
 import static Adapter.EntidadesADTOsAdapter.adaptarMembresiaCompradaEntidad;
 import DTOS.NuevaMembresiaCompradaDTO;
 import DTOS.NuevoClienteDTO;
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 
 import Excepciones.PersistenciaException;
 import Entidades.Cliente;
@@ -61,7 +61,7 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<NuevoClienteDTO> filtrosBarraBusquedaCliente(filtrosBusquedaClientesDTO filtrosDTO) throws BOException {
+    public List<NuevoClienteDTO> filtrosBarraBusquedaCliente(FiltrosBusquedaClientesDTO filtrosDTO) throws BOException {
         try {
             List<Document> documentos = persistenciaFachada.barraBusquedaConsultarClientes(filtrosDTO);
 

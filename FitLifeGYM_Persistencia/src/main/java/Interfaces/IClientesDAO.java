@@ -1,6 +1,6 @@
 package Interfaces;
 
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Entidades.Cliente;
 import Entidades.MembresiaComprada;
 import Entidades.TipoMembresia;
@@ -22,7 +22,7 @@ public interface IClientesDAO {
 
     public abstract List<Cliente> consultarClientes() throws PersistenciaException;
     
-    public abstract List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO)throws PersistenciaException;
+    public abstract List<Document> barraBusquedaConsultarClientes(FiltrosBusquedaClientesDTO filtrosDTO)throws PersistenciaException;
 
    
     public abstract Cliente buscarPorPin(String pin) throws PersistenciaException;

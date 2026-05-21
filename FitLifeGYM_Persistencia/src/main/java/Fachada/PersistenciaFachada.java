@@ -4,7 +4,7 @@
  */
 package Fachada;
 
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Entidades.Administrador;
 import Entidades.Cliente;
 import Entidades.Ejercicio;
@@ -74,7 +74,7 @@ public class PersistenciaFachada implements IPersistenciaFachada {
     }
 
     @Override
-    public List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
+    public List<Document> barraBusquedaConsultarClientes(FiltrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
         return clientesDAO.barraBusquedaConsultarClientes(filtrosDTO);
     }
 

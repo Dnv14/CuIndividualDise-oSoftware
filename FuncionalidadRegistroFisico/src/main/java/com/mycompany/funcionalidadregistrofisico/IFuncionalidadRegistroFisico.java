@@ -11,7 +11,7 @@ import DTOS.NuevoClienteDTO;
 import DTOS.RegistroFisicoDTO;
 import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import java.util.List;
 
 /**
@@ -35,7 +35,7 @@ public interface IFuncionalidadRegistroFisico {
     public abstract List<RutinaDTO> consultarTodasRutinaClientes(String idCliente) throws RegistroFisicoException;
 
     //admin
-    public abstract List<NuevoClienteDTO> consultarClientesFiltros(filtrosBusquedaClientesDTO filtros) throws RegistroFisicoException;
+    public abstract List<NuevoClienteDTO> consultarClientesFiltros(FiltrosBusquedaClientesDTO filtros) throws RegistroFisicoException;
 
     public abstract RutinaDTO guardarRutina(RutinaDTO rutinaDTO) throws RegistroFisicoException;
 

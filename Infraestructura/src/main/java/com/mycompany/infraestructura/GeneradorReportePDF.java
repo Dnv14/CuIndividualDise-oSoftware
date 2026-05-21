@@ -38,7 +38,7 @@ public class GeneradorReportePDF implements IGeneradorReportePDF {
             Font fuenteTitulo = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD, new BaseColor(225, 6, 0));
             Font fuenteSubtitulo = new Font(Font.FontFamily.HELVETICA, 11, Font.NORMAL, BaseColor.DARK_GRAY);
             Font fuenteDia = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD, BaseColor.BLACK);
-            Font fuenteHeaderTabla = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
+            Font fuenteEncabezadoTabla = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD, BaseColor.WHITE);
             Font fuenteCuerpoTabla = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
             Font fuenteNotas = new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD, BaseColor.DARK_GRAY);
 
@@ -72,7 +72,7 @@ public class GeneradorReportePDF implements IGeneradorReportePDF {
 
                 String[] encabezadoTabla = {"Ejercicio", "Series Recomendadas", "Repeticiones Recomendadas", "Peso Recomendado"};
                 for (String e : encabezadoTabla) {
-                    PdfPCell celda = new PdfPCell(new Phrase(e, fuenteHeaderTabla));
+                    PdfPCell celda = new PdfPCell(new Phrase(e, fuenteEncabezadoTabla));
                     celda.setBackgroundColor(new BaseColor(40, 40, 40));
                     celda.setBorder(Rectangle.NO_BORDER);
                     celda.setPadding(5);

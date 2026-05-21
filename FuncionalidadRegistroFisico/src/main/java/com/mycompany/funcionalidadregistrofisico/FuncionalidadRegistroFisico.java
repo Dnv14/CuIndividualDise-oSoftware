@@ -22,7 +22,7 @@ import DTOS.RegistroFisicoDTO;
 import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
 import DTOS.RutinaSemanalReporteDTO;
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Interfaces.IClientesBO;
 import Interfaces.IEjerciciosBO;
 import Interfaces.IEnfermedadesBO;
@@ -132,7 +132,7 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
 
     //apartado como administrador 
     @Override
-    public List<NuevoClienteDTO> consultarClientesFiltros(filtrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
+    public List<NuevoClienteDTO> consultarClientesFiltros(FiltrosBusquedaClientesDTO filtros) throws RegistroFisicoException {
         try {
             return clientesBO.filtrosBarraBusquedaCliente(filtros);
         } catch (BOException ex) {

@@ -4,7 +4,7 @@
  */
 package PersistenciaMongo;
 
-import DTOsPersistencia.filtrosBusquedaClientesDTO;
+import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Entidades.Cliente;
 import Entidades.Estado;
 import Entidades.Membresia;
@@ -212,7 +212,7 @@ public class ClientesDAOMongo implements IClientesDAO {
     }
 
     @Override
-    public List<Document> barraBusquedaConsultarClientes(filtrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
+    public List<Document> barraBusquedaConsultarClientes(FiltrosBusquedaClientesDTO filtrosDTO) throws PersistenciaException {
         try (MongoClient client = CreadorConexiones.crearConexion()) {
 
             MongoDatabase db = CreadorConexiones.obtenerCodecs(client);
