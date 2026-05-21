@@ -7,7 +7,10 @@ package com.mycompany.fitlifegym_presentacion;
 import DTOS.BusquedaClientesDTOBo;
 import DTOS.FiltrosBusquedaClientesDTOBo;
 import com.mycompany.funcionalidadregistrofisico.RegistroFisicoException;
+import com.mycompany.infraestructura.ClienteReporteAdminPdfDTO;
+import com.mycompany.infraestructura.ReporteAdministradorPdfDTO;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -44,10 +47,11 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         filtrosComboBox = new javax.swing.JComboBox<>();
         busquedaTextField = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        btnDescargar = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         reporteClientesTable = new javax.swing.JTable();
         btnVolverAtras3 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,12 +74,12 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
         busquedaTextField.setForeground(new java.awt.Color(255, 255, 255));
         busquedaTextField.addActionListener(this::busquedaTextFieldActionPerformed);
 
-        btnBuscar.setBackground(new java.awt.Color(255, 0, 51));
-        btnBuscar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setText("Buscar");
-        btnBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+        btnDescargar.setBackground(new java.awt.Color(255, 0, 51));
+        btnDescargar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnDescargar.setForeground(new java.awt.Color(255, 255, 255));
+        btnDescargar.setText("Descargar");
+        btnDescargar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnDescargar.addActionListener(this::btnDescargarActionPerformed);
 
         jScrollPane.setPreferredSize(new java.awt.Dimension(703, 573));
 
@@ -112,6 +116,13 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
         btnVolverAtras3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnVolverAtras3.addActionListener(this::btnVolverAtras3ActionPerformed);
 
+        btnBuscar.setBackground(new java.awt.Color(255, 0, 51));
+        btnBuscar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
+        btnBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -124,18 +135,26 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
                 .addComponent(filtrosComboBox, 0, 182, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
                 .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                .addComponent(btnVolverAtras3)
-                .addGap(138, 138, 138)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(186, 186, 186))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addComponent(btnVolverAtras3)
+                        .addGap(138, 138, 138)
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(354, 354, 354)
+                        .addComponent(btnDescargar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                    .addContainerGap(692, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(61, 61, 61)))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,11 +169,17 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(busquedaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filtrosComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDescargar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelLayout.createSequentialGroup()
+                    .addGap(93, 93, 93)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(511, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,9 +208,9 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_busquedaTextFieldActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        ejecutarBusqueda();
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void btnDescargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescargarActionPerformed
+        descargarReportePDF();
+    }//GEN-LAST:event_btnDescargarActionPerformed
 
     private void reporteClientesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reporteClientesTableMouseClicked
 
@@ -194,6 +219,10 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
     private void btnVolverAtras3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtras3ActionPerformed
         controlNavegacion.navegarMenuAdministrador();
     }//GEN-LAST:event_btnVolverAtras3ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        ejecutarBusqueda();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     public void mostrarResultados(List<BusquedaClientesDTOBo> listaResultados) {
         DefaultTableModel modelo = (DefaultTableModel) reporteClientesTable.getModel();
@@ -237,10 +266,65 @@ public class ReporteAdministradorFORM extends javax.swing.JFrame {
         DefaultTableCellRenderer renderCentrado = new DefaultTableCellRenderer();
         renderCentrado.setHorizontalAlignment(JLabel.CENTER);
         jScrollPane.getViewport().setBackground(new java.awt.Color(30, 30, 30));
+    }
 
+    private void descargarReportePDF() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Reporte de Clientes");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Documento PDF", "pdf"));
+
+        int seleccionUsuario = fileChooser.showSaveDialog(this);
+        if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
+            String ruta = fileChooser.getSelectedFile().getAbsolutePath();
+            if (!ruta.toLowerCase().endsWith(".pdf")) {
+                ruta += ".pdf";
+            }
+
+            try {
+                String textoBusqueda = busquedaTextField.getText().trim();
+                String filtroSeleccionado = filtrosComboBox.getSelectedItem().toString();
+
+                FiltrosBusquedaClientesDTOBo filtros = new FiltrosBusquedaClientesDTOBo();
+                filtros.setNombreCliente(textoBusqueda);
+                filtros.setEstadoRutina(filtroSeleccionado);
+
+                List<BusquedaClientesDTOBo> clientesFiltrados = controlRegistroFisico.buscarClientesPorFiltro(filtros);
+
+                if (clientesFiltrados == null || clientesFiltrados.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "No hay datos en la tabla para exportar", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                ReporteAdministradorPdfDTO reportePdf = new ReporteAdministradorPdfDTO();
+                reportePdf.setFechaGenerado(new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date()));
+
+                List<ClienteReporteAdminPdfDTO> listaClientesPdf = new java.util.LinkedList<>();
+                for (BusquedaClientesDTOBo cliente : clientesFiltrados) {
+                    ClienteReporteAdminPdfDTO clientePdf = new ClienteReporteAdminPdfDTO();
+                    clientePdf.setIdCliente(cliente.getIdCliente());
+                    clientePdf.setNombreCompleto(cliente.getNombreCompleto());
+                    clientePdf.setDiasRutina(cliente.getDiasRutina());
+                    listaClientesPdf.add(clientePdf);
+                }
+                reportePdf.setClientes(listaClientesPdf);
+
+                byte[] pdfBytes = controlRegistroFisico.descargarReporteAdminPdf(filtros);
+
+                try (java.io.FileOutputStream output = new java.io.FileOutputStream(ruta)) {
+                    output.write(pdfBytes);
+                    output.flush();
+                }
+
+                JOptionPane.showMessageDialog(this, "PDF Creado con éxito en: " + ruta, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (RegistroFisicoException | java.io.IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al descargar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDescargar;
     private javax.swing.JButton btnVolverAtras3;
     private javax.swing.JTextField busquedaTextField;
     private javax.swing.JComboBox<String> filtrosComboBox;

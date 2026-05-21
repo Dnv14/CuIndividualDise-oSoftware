@@ -125,8 +125,72 @@ public class GeneradorReportePDF implements IGeneradorReportePDF {
     }
 
     @Override
-    public void generarReporteAdministrador() throws GeneradorPDFException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public byte[] generarReporteAdministrador(ReporteAdministradorPdfDTO datos) throws GeneradorPDFException {
+        Document documento = new Document(PageSize.A4, 36, 36, 54, 54);
+        ByteArrayOutputStream salida = new ByteArrayOutputStream();
 
+        try {
+            PdfWriter.getInstance(documento, salida);
+            documento.open();
+
+            Font fuenteTitulo = new Font(Font.FontFamily.HELVETICA, 22, Font.BOLD, new BaseColor(225, 6, 0));
+            Font fuenteSubtitulo = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.DARK_GRAY);
+            Font fuenteEncabezadoTabla = new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, BaseColor.WHITE);
+            Font fuenteCuerpoTabla = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
+
+            Paragraph titulo = new Paragraph("FITLIFE GYM - REPORTE DE CLIENTES", fuenteTitulo);
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            titulo.setSpacingAfter(15);
+            documento.add(titulo);
+
+            documento.add(new Paragraph("Fecha de Descarga: " + datos.getFechaGenerado(), fuenteSubtitulo));
+            documento.add(new Paragraph("-------------------------------------------------------------------------------------------------------", fuenteSubtitulo));
+            documento.add(Chunk.NEWLINE);
+
+            PdfPTable tablaClientes = new PdfPTable(3);
+            tablaClientes.setWidthPercentage(100);
+            tablaClientes.setWidths(new float[]{3f, 5f, 2f});
+            tablaClientes.setSpacingBefore(10f);
+            tablaClientes.setSpacingAfter(10f);
+            tablaClientes.setHeaderRows(1);
+
+            String[] encabezados = {"ID Cliente", "Nombre Completo", "Días de Rutina"};
+            for (String e : encabezados) {
+                PdfPCell celdaHeader = new PdfPCell(new Phrase(e, fuenteEncabezadoTabla));
+                celdaHeader.setBackgroundColor(new BaseColor(40, 40, 40));
+                celdaHeader.setBorder(Rectangle.NO_BORDER);
+                celdaHeader.setPadding(6);
+                celdaHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaHeader.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                tablaClientes.addCell(celdaHeader);
+            }
+
+            for (ClienteReporteAdminPdfDTO cliente : datos.getClientes()) {
+                PdfPCell celdaId = new PdfPCell(new Phrase(cliente.getIdCliente(), fuenteCuerpoTabla));
+                celdaId.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaId.setBorder(Rectangle.NO_BORDER);
+                celdaId.setPadding(5);
+                tablaClientes.addCell(celdaId);
+
+                PdfPCell celdaNombre = new PdfPCell(new Phrase(cliente.getNombreCompleto(), fuenteCuerpoTabla));
+                celdaNombre.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaNombre.setBorder(Rectangle.NO_BORDER);
+                celdaNombre.setPadding(5);
+                tablaClientes.addCell(celdaNombre);
+
+                PdfPCell celdaDias = new PdfPCell(new Phrase(String.valueOf(cliente.getDiasRutina()), fuenteCuerpoTabla));
+                celdaDias.setHorizontalAlignment(Element.ALIGN_CENTER);
+                celdaDias.setBorder(Rectangle.NO_BORDER);
+                celdaDias.setPadding(5);
+                tablaClientes.addCell(celdaDias);
+            }
+
+            documento.add(tablaClientes);
+            documento.close();
+            return salida.toByteArray();
+
+        } catch (DocumentException e) {
+            throw new GeneradorPDFException("Error al generar el PDF");
+        }
+    }
 }

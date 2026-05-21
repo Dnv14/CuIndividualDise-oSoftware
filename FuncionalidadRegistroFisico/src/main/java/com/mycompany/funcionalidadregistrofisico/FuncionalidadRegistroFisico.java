@@ -15,7 +15,6 @@ import DTOS.BusquedaClientesDTOBo;
 import DTOS.DetalleRutinaReporteDTO;
 import DTOS.DetallesRutinaDTO;
 import DTOS.EjerciciosDTO;
-import DTOS.EjerciciosSeleccionadosDTO;
 import DTOS.EnfermedadesDTO;
 import DTOS.FiltrosBusquedaClientesDTOBo;
 import DTOS.LesionesDTO;
@@ -24,20 +23,22 @@ import DTOS.RegistroFisicoDTO;
 import DTOS.ReporteRutinaClienteDTO;
 import DTOS.RutinaDTO;
 import DTOS.RutinaSemanalReporteDTO;
-import DTOsPersistencia.BusquedaClientesDTO;
-import DTOsPersistencia.FiltrosBusquedaClientesDTO;
 import Interfaces.IClientesBO;
 import Interfaces.IEjerciciosBO;
 import Interfaces.IEnfermedadesBO;
 import Interfaces.ILesionesBO;
 import Interfaces.IRegistroFisicoBO;
 import Interfaces.IRutinasBO;
+import com.mycompany.infraestructura.ClienteReporteAdminPdfDTO;
 import com.mycompany.infraestructura.DetalleRutinaPdfDTO;
 import com.mycompany.infraestructura.GeneradorPDFException;
 import com.mycompany.infraestructura.GeneradorReportePDF;
 import com.mycompany.infraestructura.IGeneradorReportePDF;
+import com.mycompany.infraestructura.ReporteAdministradorPdfDTO;
 import com.mycompany.infraestructura.ReporteRutinaClientePdfDTO;
 import com.mycompany.infraestructura.RutinaSemanaPdfDTO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -197,6 +198,33 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
         }
     }
 
+    public void validacionesRutina(RutinaDTO rutina) throws RegistroFisicoException {
+        if (rutina.getDiaSemana() == null) {
+            throw new RegistroFisicoException("El dia de la semana no puede estar vacío.");
+        }
+        if (rutina.getDetallesRutina() == null || rutina.getDetallesRutina().isEmpty()) {
+            throw new RegistroFisicoException("La rutina debe contener al menos un ejercicio en los detalles.");
+        }
+        for (DetallesRutinaDTO r : rutina.getDetallesRutina()) {
+
+            if (r.getPesoRecomendado() > 300) {
+                throw new RegistroFisicoException("El peso no puede ser tan alto.");
+            }
+
+            if (r.getRepeticionesRecomendadas() > 16) {
+                throw new RegistroFisicoException("Las repeticiones no pueden ser tan altas.");
+            }
+
+            if (r.getSeriesRecomendadas() > 6) {
+                throw new RegistroFisicoException("Las series no pueden ser tan altas.");
+            }
+
+            if (r.getPesoRecomendado() < 0 || r.getRepeticionesRecomendadas() < 0 || r.getSeriesRecomendadas() < 0) {
+                throw new RegistroFisicoException("No se admiten numero negativos.");
+            }
+        }
+    }
+
     //reportesss
     @Override
     public byte[] ReporteRutinaPDF(ReporteRutinaClienteDTO datosReporte) throws RegistroFisicoException {
@@ -235,30 +263,29 @@ public class FuncionalidadRegistroFisico implements IFuncionalidadRegistroFisico
         }
     }
 
-    public void validacionesRutina(RutinaDTO rutina) throws RegistroFisicoException {
-        if (rutina.getDiaSemana() == null) {
-            throw new RegistroFisicoException("El dia de la semana no puede estar vacío.");
+    @Override
+    public byte[] generarReporteAdministradorPDF(FiltrosBusquedaClientesDTOBo filtrosBo) throws RegistroFisicoException {
+        if (filtrosBo == null) {
+            throw new RegistroFisicoException("Filtros de búsqueda inválidos");
         }
-        if (rutina.getDetallesRutina() == null || rutina.getDetallesRutina().isEmpty()) {
-            throw new RegistroFisicoException("La rutina debe contener al menos un ejercicio en los detalles.");
-        }
-        for (DetallesRutinaDTO r : rutina.getDetallesRutina()) {
+        try {
+            List<BusquedaClientesDTOBo> clientesFiltrados = clientesBO.filtrosBarraBusquedaCliente(filtrosBo);
+            ReporteAdministradorPdfDTO reportePdf = new ReporteAdministradorPdfDTO();
+            reportePdf.setFechaGenerado(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+            List<ClienteReporteAdminPdfDTO> listaClientesPdf = new java.util.LinkedList<>();
 
-            if (r.getPesoRecomendado() > 300) {
-                throw new RegistroFisicoException("El peso no puede ser tan alto.");
+            for (BusquedaClientesDTOBo cliente : clientesFiltrados) {
+                ClienteReporteAdminPdfDTO clientePdf = new ClienteReporteAdminPdfDTO();
+                clientePdf.setIdCliente(cliente.getIdCliente());
+                clientePdf.setNombreCompleto(cliente.getNombreCompleto());
+                clientePdf.setDiasRutina(cliente.getDiasRutina());
+                listaClientesPdf.add(clientePdf);
             }
+            reportePdf.setClientes(listaClientesPdf);
+            return generadorPdf.generarReporteAdministrador(reportePdf);
 
-            if (r.getRepeticionesRecomendadas() > 16) {
-                throw new RegistroFisicoException("Las repeticiones no pueden ser tan altas.");
-            }
-
-            if (r.getSeriesRecomendadas() > 6) {
-                throw new RegistroFisicoException("Las series no pueden ser tan altas.");
-            }
-
-            if (r.getPesoRecomendado() < 0 || r.getRepeticionesRecomendadas() < 0 || r.getSeriesRecomendadas() < 0) {
-                throw new RegistroFisicoException("No se admiten numero negativos.");
-            }
+        } catch (BOException | GeneradorPDFException ex) {
+            throw new RegistroFisicoException("Error al generar el reporte del administrador", ex);
         }
     }
 }

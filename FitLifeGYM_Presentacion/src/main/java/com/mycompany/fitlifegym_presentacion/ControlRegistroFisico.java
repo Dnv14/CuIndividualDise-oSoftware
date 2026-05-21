@@ -84,6 +84,10 @@ public class ControlRegistroFisico {
     public byte[] descargarRutinaPdf(ReporteRutinaClienteDTO datos) throws RegistroFisicoException {
         return funcionalidadRegistroFisico.ReporteRutinaPDF(datos);
     }
+    
+     public byte[] descargarReporteAdminPdf(FiltrosBusquedaClientesDTOBo filtros) throws RegistroFisicoException {
+        return funcionalidadRegistroFisico.generarReporteAdministradorPDF(filtros);
+    }
 
     public NuevoClienteDTO getClienteSeleccionado() {
         return clienteSeleccionado;

@@ -53,4 +53,6 @@ public interface IFuncionalidadRegistroFisico {
     //imprimir Reportesss
     public byte[] ReporteRutinaPDF(ReporteRutinaClienteDTO datos) throws RegistroFisicoException;
 
+    public byte[] generarReporteAdministradorPDF(FiltrosBusquedaClientesDTOBo filtrosBo) throws RegistroFisicoException;
+
 }

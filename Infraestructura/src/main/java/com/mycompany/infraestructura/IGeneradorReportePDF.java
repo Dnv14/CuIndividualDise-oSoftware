@@ -12,6 +12,6 @@ public interface IGeneradorReportePDF {
 
     public byte[] generarReporteRutinaCliente(ReporteRutinaClientePdfDTO datos) throws GeneradorPDFException;
 
-    public void generarReporteAdministrador() throws GeneradorPDFException;
+    public byte[] generarReporteAdministrador(ReporteAdministradorPdfDTO datos) throws GeneradorPDFException;
 
 }
